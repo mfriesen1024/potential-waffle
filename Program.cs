@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.IO;
 
 
@@ -18,25 +19,13 @@ namespace First_Playable
         {
             Program program = new Program();
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            program.TxtFileToMapArray();
-            Console.ReadKey(true);
+
+            program.mapData.TxtFileToMapArray();
+            program.mapData.DrawMap();
+            program.mapData.PrintMap();
+            Console.ReadKey(false);
         }
 
-
-        public void TxtFileToMapArray()
-        {
-        buffer = new Buffer();
-        string[] lines = File.ReadAllLines("Map.txt");
-        buffer.firstBuffer = new char[lines.GetLength(0), lines[0].Length];
-        buffer.secondBuffer = new char[lines.GetLength(0), lines[0].Length];
-        mapData.map = new char[lines.GetLength(0), lines[0].Length];
-            for (int i = 0; i < lines.GetLength(0); i++)
-            {
-                for (int j = 0; j < lines[i].Length; j++)
-                {
-                    mapData.map[i, j] = lines[i][j]; 
-                }
-            }
-        }
+   
     }
 }

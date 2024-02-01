@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 namespace First_Playable
 {
     // Use this example to determine if there is more than one instance of a class when there should not be.
-    internal class Map
+    internal class MapExample
     {
         private static int count;
 
-        public Map() 
+        public MapExample() 
         { 
-        Debug.Assert(count == 0);
+            Debug.Assert(count == 0);
         
         }
     }
