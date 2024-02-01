@@ -6,22 +6,14 @@ using System.Threading.Tasks;
 
 namespace First_Playable
 {
-
     internal class Program
     {
-        private readonly MapData mapData;
-        private readonly Player player;
-        private readonly Buffer buffer;
-
-        public Program(MapData mapData, Player player, Buffer buffer)
-        {
-            this.mapData = mapData;
-            this.player = player;
-            this.buffer = buffer;
-        }
+        private static Buffer buffer;
+        private static MapData mapData;
+        private static Player player;
 
         // Method Injection
-        void ProcessData()
+        static void ProcessData()
         {
             mapData.TxtFileToMapArray();
             buffer.DisplayBuffer();
@@ -30,42 +22,36 @@ namespace First_Playable
 
         static void Main(string[] args)
         {
-            MapData mapData = new MapData();
-            Player player = new Player();
-            Buffer buffer = new Buffer();
-
-            Program program = new Program(mapData, player, buffer);
+            buffer = new Buffer();
+            mapData = new MapData(buffer);
+            player = new Player(mapData, buffer);
 
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            program.ProcessData();
+            ProcessData();
 
-            Console.ReadKey(false);
+            GameLoop();
         }
 
-
-
-
-        //private MapData mapData; // Instance variable of type MapData
-        //private Player player;
-        //private Buffer buffer; // Instance variable of type Buffer
-        //public Program()
-        //{
-        //    mapData = new MapData();
-        //    player= new Player();
-        //    buffer = new Buffer();
-        //}
-        //static void Main(string[] args)
-        //{
-        //    Program program = new Program();
-        //    Console.OutputEncoding = System.Text.Encoding.UTF8;
-
-        //    program.mapData.TxtFileToMapArray();
-        //    program.buffer.DisplayBuffer();
-        //    program.mapData.PrintMap();
-        //    Console.ReadKey(false);
-        //}
-
-
+        static void GameLoop()
+        {
+            do
+            {
+                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                Console.SetCursorPosition(0, 0);
+                if (keyInfo.Key == ConsoleKey.Enter)
+                {
+                    Console.Clear();
+                    player.Initialize();
+                    keyInfo = Console.ReadKey(true);
+                }
+                player.HandleKeyPress(keyInfo.Key);
+                mapData.PrintMap();
+                player.DrawPlayer();
+                buffer.DisplayBuffer();
+                //DrawBorder();
+            } 
+            while (player.dead == false);
+        }
     }
 }

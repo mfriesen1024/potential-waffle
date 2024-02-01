@@ -8,23 +8,30 @@ namespace First_Playable
 {
     internal class Player
     {
-        private PlayerStats playerStats;
+        private MapData mapData;
+        private Buffer buffer;
+
+        private int playerCol;
+        private int playerRow;
+
+        public bool dead;
+
+        public void Initialize()
+        {
+            dead = false;
+            playerCol = 4;
+            playerRow = 4;
+        }
+
+        public Player(MapData mapData, Buffer buffer)
+        {
+            this.mapData = mapData;
+            this.buffer = buffer;
+        }
 
         public char playerCharacter { get; } = '☻'; // the use of get here causes the player icon to be read-only which disallows it from changing later on
 
-
-        public void StructAccessor()
-        {
-            playerStats = new PlayerStats
-            {
-                playerRow = 0, // Initialize the starting row
-                playerCol = 0 // Initialize the starting column
-            };
-        }
-
-
-
-        private void HandleKeyPress(ConsoleKey key)
+        public void HandleKeyPress(ConsoleKey key)
         {
             switch (key)
             {
@@ -66,18 +73,20 @@ namespace First_Playable
         {
             Console.CursorVisible = false;
 
-            int newRow = playerStats.playerRow + rowChange;
-            int newCol = playerStats.playerCol + columnChange;
+            int newRow = playerRow + rowChange;
+            int newCol = playerCol + columnChange;
 
             //// Add conditional checking before updating the position
-            //if (program.mapData.IsValidMove(newRow, newCol))
-            //{
-            //    playerStats.playerRow = newRow;
-            //    playerStats.playerCol = newCol;
-            //}
+            if (mapData.IsValidMove(newRow, newCol))
+            {
+                playerRow = newRow;
+                playerCol = newCol;
+            }
         }
-
-
         
+        public void DrawPlayer()
+        {
+            buffer.secondBuffer[playerCol, playerRow] = playerCharacter;
+        }
     }
 }

@@ -11,6 +11,12 @@ namespace First_Playable
         public char[,] ?firstBuffer;
         public char[,] ?secondBuffer;
 
+        private MapData mapData;
+
+        public void SetMapData(MapData mapData)
+        {
+            this.mapData = mapData;
+        }
 
         public void DisplayBuffer()
         {
@@ -30,44 +36,18 @@ namespace First_Playable
                     switch (MapElements)
                     {
                         case '╭':
-                            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                            break;
                         case '─':
-                            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                            break;
                         case '╮':
-                            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                            break;
                         case '╯':
-                            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                            break;
                         case '╰':
-                            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                            break;
                         case '│':
-                            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                            break;
                         case '┘':
-                            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                            break;
                         case '┌':
-                            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                            break;
                         case '┐':
-                            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                            break;
                         case '└':
-                            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                            break;
                         case '├':
-                            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                            break;
                         case '┤':
-                            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                            break;
                         case '┬':
-                            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                            break;
                         case '┴':
                             Console.ForegroundColor = ConsoleColor.DarkMagenta;
                             break;
@@ -81,23 +61,17 @@ namespace First_Playable
                             Console.ForegroundColor = ConsoleColor.Green;
                             break;
                         case '⅛':
-                            Console.ForegroundColor = ConsoleColor.White;
-                            break;
                         case '⅜':
-                            Console.ForegroundColor = ConsoleColor.White;
-                            break;
                         case '⅝':
-                            Console.ForegroundColor = ConsoleColor.White;
-                            break;
                         case '⅞':
                             Console.ForegroundColor = ConsoleColor.White;
                             break;
-
                     }
                     Console.SetCursorPosition(Left, Top);
                     Console.Write(MapElements); 
                 }
             }
+            Array.Copy(firstBuffer, secondBuffer, mapData.map.Length);
         }
     }
 }
