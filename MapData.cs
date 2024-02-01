@@ -1,32 +1,19 @@
-using System.Diagnostics;
-using System.IO;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace First_Playable
 {
 
 
-    public class MapData
+    internal class MapData
     {
         private Buffer buffer;
         private Program program;
         public char[,] ?map;
 
-        public MapData(Program program) // Constructor
-        {
-            this.program = program;
-            buffer = new Buffer();
-        }
-
-        public void DrawMap()
-        {
-            if (map != null)
-            {
-            buffer.secondBuffer = new char[map.GetLength(0), map.GetLength(1)];
-
-            Array.Copy(map, buffer.secondBuffer, map.Length);
-
-            }
-        }
          public void PrintMap()
         {
             // Iterate through the map array and print each element
@@ -82,7 +69,7 @@ namespace First_Playable
         }
 
 
-        public void TxtFileToMapArray()
+        public void TxtFileToMapArray() // works now
         {
             buffer = new Buffer();
             string[] lines = File.ReadAllLines("Map.txt");

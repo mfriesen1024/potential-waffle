@@ -1,20 +1,27 @@
-﻿namespace First_Playable
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace First_Playable
 {
     internal class Player
     {
-        private Stats.PlayerStats playerStats;
-        private Program program;
+        private PlayerStats playerStats;
 
-        public Player(Program program)
+        public char playerCharacter { get; } = '☻'; // the use of get here causes the player icon to be read-only which disallows it from changing later on
+
+
+        public void StructAccessor()
         {
-            playerStats = new Stats.PlayerStats
+            playerStats = new PlayerStats
             {
                 playerRow = 0, // Initialize the starting row
                 playerCol = 0 // Initialize the starting column
             };
         }
 
-        public char PlayerCharacter { get; } = '☻'; // the use of get here causes the player icon to be read-only which disallows it from changing later on
 
 
         private void HandleKeyPress(ConsoleKey key)
@@ -62,12 +69,12 @@
             int newRow = playerStats.playerRow + rowChange;
             int newCol = playerStats.playerCol + columnChange;
 
-            // Add conditional checking before updating the position
-            if (program.mapData.IsValidMove(newRow, newCol))
-            {
-                playerStats.playerRow = newRow;
-                playerStats.playerCol = newCol;
-            }
+            //// Add conditional checking before updating the position
+            //if (program.mapData.IsValidMove(newRow, newCol))
+            //{
+            //    playerStats.playerRow = newRow;
+            //    playerStats.playerCol = newCol;
+            //}
         }
 
 
