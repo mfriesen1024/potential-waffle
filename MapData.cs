@@ -8,10 +8,12 @@ namespace First_Playable
     public class MapData
     {
         private Buffer buffer;
+        private Program program;
         public char[,] ?map;
 
-        public MapData()
+        public MapData(Program program) // Constructor
         {
+            this.program = program;
             buffer = new Buffer();
         }
 
@@ -38,7 +40,48 @@ namespace First_Playable
             }   
         }
 
-        
+        public bool IsValidMove(int newRow, int newCol)
+        {
+            if (newRow >= 0 && newRow < map.GetLength(1) && newCol >= 0 && newCol < map.GetLength(0))
+            {
+                switch (map[newCol, newRow])
+                {
+                    case ' ':
+                    case '⅛':
+                    case '⅜':
+                    case '⅝':
+                    case '⅞':
+                    return true;
+                    case '╭':
+                    case '─':
+                    case '╮':
+                    case '╯':
+                    case '╰':
+                    case '│':
+                    case '┘':
+                    case '┌':
+                    case '┐':
+                    case '└':
+                    case '├':
+                    case '┤':
+                    case '┬':
+                    case '┴':
+                    return false;
+                }
+                // if (map[newCol, newRow] == EnemyManager.enemyCharacter)
+                // {
+                //     map[newCol, newRow] = ' ';
+                // }
+                // if (map[newCol, newRow] == Player.Fruit && Player.health < Player.maxHealth)
+                // {
+                //     map[newCol, newRow] = ' ';
+                //     Player.GainHealth();
+                // }
+            }
+            return false;
+        }
+
+
         public void TxtFileToMapArray()
         {
             buffer = new Buffer();
@@ -55,10 +98,4 @@ namespace First_Playable
             }
         }
     }
-
-
-
-
-
-
 }

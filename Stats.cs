@@ -1,17 +1,17 @@
 namespace First_Playable
 {
 
-internal class Stats
-{
-    struct PlayerStats
+    internal class Stats
     {
-    public int PlayerRow;
-    public int PlayerCol;
+        public struct PlayerStats
+        {
+        public int playerRow;
+        public int playerCol;
+        }
+
+
+
     }
-
-
-
-}
 
 
 }

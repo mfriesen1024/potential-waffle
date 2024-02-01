@@ -8,9 +8,6 @@ internal class Buffer
         public char[,] ?secondBuffer;
 
 
-
-
-
         public void DisplayBuffer()
         {
             for (int Y = 0; Y < firstBuffer?.GetLength(0); Y++)
