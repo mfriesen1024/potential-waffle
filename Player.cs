@@ -14,6 +14,8 @@ namespace First_Playable
         internal int playerCol;
         internal int playerRow;
 
+        bool hasAttacked;
+
         Buffer buffer;
 
         public bool dead;
@@ -43,20 +45,32 @@ namespace First_Playable
                 }
             }
         }
-        internal void CheckCollision(List<List<EnemyEntity>> allEnemyLists)
+        internal void CheckCollision(List<Enemy1> EnemyList, int rowChange, int columnChange)
         {
-            foreach (var enemyList in allEnemyLists)
+            //foreach (var enemyList in allEnemyLists)
+            //{
+            //    if (enemyList.Count > 0)
+            //    {
+            //        foreach (var enemy in enemyList)
+            //        {
+            //            if (playerCol == enemy.EnemyCol && playerRow == enemy.EnemyRow)
+            //            {
+            //                // Collision detected, initiate an attack on the enemy
+            //                Attack(enemy);
+            //            }
+            //        }
+            //    }
+            //}
+            int newRow = playerRow + rowChange;
+            int newCol = playerCol + columnChange;
+
+            foreach (var enemy in EnemyList)
             {
-                if (enemyList.Count > 0)
+                if (newCol == enemy.EnemyCol && newRow == enemy.EnemyRow)
                 {
-                    foreach (var enemy in enemyList)
-                    {
-                        if (playerCol == enemy.EnemyCol && playerRow == enemy.EnemyRow)
-                        {
-                            // Collision detected, initiate an attack on the enemy
-                            Attack(enemy);
-                        }
-                    }
+                    hasAttacked = true;
+                    // collision detected, initiate an attack on the enemy
+                    Attack(enemy);
                 }
             }
         }
@@ -72,38 +86,45 @@ namespace First_Playable
             switch (key)
             {
                 case ConsoleKey.UpArrow:
+                    CheckCollision(enemyManager.listOfEnemies, 0, -1);
                     MovePlayer(0, -1);
                     break;
 
                 case ConsoleKey.DownArrow:
+                    CheckCollision(enemyManager.listOfEnemies, 0, 1);
                     MovePlayer(0, 1);
                     break;
 
                 case ConsoleKey.LeftArrow:
+                    CheckCollision(enemyManager.listOfEnemies, -1, 0);
                     MovePlayer(-1, 0);
                     break;
 
                 case ConsoleKey.RightArrow:
+                    CheckCollision(enemyManager.listOfEnemies, 1, 0);
                     MovePlayer(1, 0);
                     break;
 
                 case ConsoleKey.W:
+                    CheckCollision(enemyManager.listOfEnemies, 0, -1);
                     MovePlayer(0, -1);
                     break;
 
                 case ConsoleKey.S:
+                    CheckCollision(enemyManager.listOfEnemies, 0, 1);
                     MovePlayer(0, 1);
                     break;
 
                 case ConsoleKey.A:
+                    CheckCollision(enemyManager.listOfEnemies,-1,0 );
                     MovePlayer(-1, 0);
                     break;
 
                 case ConsoleKey.D:
+                    CheckCollision(enemyManager.listOfEnemies, 1, 0);
                     MovePlayer(1, 0);
                     break;
             }
-            CheckCollision(enemyManager.allEnemyLists);
             //Enemy1.MoveEnemy1();
         } // Both WASD and Arrows keys (I tried to type Arrow key input here, I'm a stupid.)
 
@@ -111,6 +132,12 @@ namespace First_Playable
         {
             Console.CursorVisible = false;
             
+            if (hasAttacked)
+            {
+                hasAttacked = false;
+                return;
+            }
+
             int newRow = playerRow + rowChange;
             int newCol = playerCol + columnChange;
 

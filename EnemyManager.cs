@@ -31,6 +31,7 @@ namespace First_Playable
 
             foreach (var enemy in listOfEnemies)
             {
+                if (enemy.dead) continue;
                 enemy.MoveEnemy();
             }
         }
@@ -39,6 +40,7 @@ namespace First_Playable
         {
             foreach (var enemy in listOfEnemies)
             {
+                if (enemy.dead) continue;
                 enemy.DrawEnemy();
             }
         }

@@ -70,7 +70,7 @@ namespace First_Playable
                     break;
             }
 
-            if (EnemyRow == newY && EnemyCol == newX)
+            if (enemyManager.player.playerRow == newY && enemyManager.player.playerCol == newX)
             {
                 Attack(player);
             }

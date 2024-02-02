@@ -18,7 +18,7 @@ namespace First_Playable
             buffer = new Buffer();
             mapData = new MapData(buffer);
             enemyManager = new EnemyManager(mapData);
-            player = new Player(mapData, enemyManager,"Sam Robichaud", 100, 5, buffer); // This is for Matt's class, Sam will never know he is the default character.
+            player = new Player(mapData, enemyManager,"Sam Robichaud", 100, 10, buffer); // This is for Matt's class, Sam will never know he is the default character.
             
             Console.OutputEncoding = System.Text.Encoding.UTF8; // Needed at the top of Main so that ASCII display properly
 
@@ -60,7 +60,6 @@ namespace First_Playable
 
                 enemyManager.MoveEnemies();
 
-                player.CheckCollision(enemyManager.allEnemyLists);
                 mapData.PrintMap(); // Prevents the player from leaving a trail of player icons
                 player.DrawPlayer(); // Put player on da map
                 enemyManager.DrawEnemies();

@@ -15,6 +15,8 @@ namespace First_Playable
         public int Level { get; set; }
         public int CurrentHealth { get => healthSystem.CurrentHealth; set => healthSystem.CurrentHealth = value; }
 
+        public bool dead;
+
         public Entity(string name, int initialHealth, string creatureType) 
         {
             Name = name;
@@ -26,6 +28,7 @@ namespace First_Playable
         public void Die()
         {
             Console.WriteLine($"{Name} has been defeated!");
+            dead = true;
         }
         //public virtual void DisplayInfo()
         //{
