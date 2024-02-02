@@ -11,7 +11,7 @@ namespace First_Playable
         internal Buffer buffer;
         public char[,] ?map;
 
-        public MapData(Buffer buffer)
+        public MapData(Buffer buffer) // This is a constructor that does the funny spiderman pointing meme with Buffer.
         {
             this.buffer = buffer;
             buffer.SetMapData(this);
@@ -22,10 +22,16 @@ namespace First_Playable
             Array.Copy(map, buffer.secondBuffer, map.Length);
         }
 
-        static string[] border = new string[]
-       {
-          "╔","╗","╝","╚", "║","═"
-       };
+        static string[] border = new string[] // Stores Border ASCII characters
+        {
+            "╔","╗","╝","╚", "║","═"
+        };
+        public string[] EnviromentalHazard = new string[] // Stores fractional ASCII characters used for Hazards
+        {
+            "⅛","⅜","⅝","⅞"
+        };
+
+
         public void DrawBorder()
         {
             int mapWidth = map.GetLength(1);
@@ -144,7 +150,7 @@ namespace First_Playable
             buffer.firstBuffer = new char[lines.GetLength(0), lines[0].Length];
             buffer.secondBuffer = new char[lines.GetLength(0), lines[0].Length];
             map = new char[lines.GetLength(0), lines[0].Length];
-            for (int i = 0; i < lines.GetLength(0); i++)
+            for (int i = 0; i < lines.GetLength(0); i++) // For loops are fun.
             {
                 for (int j = 0; j < lines[i].Length; j++)
                 {

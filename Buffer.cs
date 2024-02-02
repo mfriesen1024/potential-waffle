@@ -13,12 +13,12 @@ namespace First_Playable
 
         private MapData mapData;
 
-        public void SetMapData(MapData mapData)
+        public void SetMapData(MapData mapData) // This tells MapData what Buffer is, could fix later but its funny to think about.
         {
             this.mapData = mapData;
         }
 
-        public void DisplayBuffer()
+        public void DisplayBuffer() // Manages the buffer/screen refresh so I don't have a seizure playing my game.
         {
             for (int Y = 0; Y < firstBuffer?.GetLength(0); Y++)
             {
