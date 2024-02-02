@@ -11,27 +11,44 @@ namespace First_Playable
         private static Buffer buffer;
         private static MapData mapData;
         private static Player player;
+        private static EnemyEntity enemyEntity;
         
 
         static void Main(string[] args)
         {
             buffer = new Buffer();
             mapData = new MapData(buffer);
-            player = new Player(mapData, buffer,"Sam Robichaud", 100); // This is for Matt's class, Sam will never know he is the default character.
+            player = new Player(mapData, buffer,enemyEntity,"Sam Robichaud", 100, 5); // This is for Matt's class, Sam will never know he is the default character.
             
             Console.OutputEncoding = System.Text.Encoding.UTF8; // Needed at the top of Main so that ASCII display properly
 
             ProcessData();
 
+
+
+
+            List<Enemy1> listOfEnemies = Populate(enemyEntity);
+
+            // Print the contents of the list
+            foreach (Enemy1 enemy in listOfEnemies)
+            {
+                Console.WriteLine(enemy.ToString()); // Assuming you have overridden ToString() in Enemy1
+            }
+
             GameLoop();
         }
 
 
-        void Populate(EnemyEntity enemyEntity)
+        static List<Enemy1> Populate(EnemyEntity enemyEntity)
         {
-            Enemy1 newEnemy1 = new Enemy1(mapData, player);
-            newEnemy1.SpawnEnemy1("Donald", 10, "Duck");
+            Enemy1 newEnemy1 = new Enemy1(mapData, player, enemyEntity.AttackValue);
+            newEnemy1.SpawnEnemy1("Donald", 10, "Duck", 5);
+
+            // Access the listOfEnemies property correctly
             enemyEntity.listOfEnemies.Add(newEnemy1);
+
+            // Return the updated list of enemies
+            return enemyEntity.listOfEnemies;
         }
 
         static void GameLoop()
@@ -47,6 +64,14 @@ namespace First_Playable
                     keyInfo = Console.ReadKey(true);
                 }
                 player.HandleKeyPress(keyInfo.Key);
+                enemyEntity.PlayerDetection(); // Update player position in EnemyEntity
+
+                foreach (Enemy1 enemy in Enemy1.listOfEnemy1s)
+                {
+                    enemy.MoveEnemy1();
+                }
+
+                player.CheckCollision(enemyEntity.allEnemyLists);
                 mapData.PrintMap(); // Prevents the player from leaving a trail of player icons
                 player.DrawPlayer(); // Put player on da map
                 buffer.DisplayBuffer(); // Anti-Seizure protocol

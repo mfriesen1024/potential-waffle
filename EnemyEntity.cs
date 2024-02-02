@@ -16,14 +16,19 @@ namespace First_Playable
         internal int playerCol;
         public int EnemyCol;
         public int EnemyRow;
+        internal List<List<EnemyEntity>> allEnemyLists = new List<List<EnemyEntity>>();
         internal List<Enemy1> listOfEnemies = new List<Enemy1>();
 
-        public EnemyEntity(MapData mapData, Player player) // What is passed into EnemyEntity
+        public EnemyEntity(MapData mapData, Player player, int attackValue) // What is passed into EnemyEntity
          : base("DefaultEnemyName", 100, "Enemy") // base = what it is given/needs by default from its parent/base class
         {
             this.mapData = mapData;
             this.player = player;
+            allEnemyLists.Add(new List<EnemyEntity>());
+            allEnemyLists[allEnemyLists.Count - 1].Add(this);
+            attackValue = AttackValue;
         }
+        public int CurrentHealth => healthSystem.CurrentHealth;
 
         internal void MeasureMapSize()
         {
@@ -36,7 +41,17 @@ namespace First_Playable
             Console.WriteLine("Display Info to be used until attacks are added");
         }
 
-
+        public void DisplayAllEnemyListsInfo() // Spits out all each list of enemies that contains any number of enemies.
+        {
+            foreach (var enemyList in allEnemyLists)
+            {
+                foreach (var enemy in enemyList)
+                {
+                    enemy.DisplayInfo();
+                    Console.WriteLine();
+                }
+            }
+        }
         internal void PlayerDetection()
         {
             playerRow = player.playerRow;

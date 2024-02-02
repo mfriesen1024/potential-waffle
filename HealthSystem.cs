@@ -13,8 +13,9 @@ namespace First_Playable
         {
             CurrentHealth = initialHealth;
         }
-        public virtual void TakeDamage(int damage)
+        public virtual void TakeDamage(int attackValue, int modifier)
         {
+            int damage = attackValue + modifier;
             CurrentHealth -= damage;
             Console.WriteLine($"Entity took {damage} damage. Current health: {CurrentHealth}");
         }
@@ -23,9 +24,5 @@ namespace First_Playable
             CurrentHealth += amount;
             Console.WriteLine($"Entity healed for {amount}. Current health: {CurrentHealth}");
         }
-
-
-
-
     }
 }

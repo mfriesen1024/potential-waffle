@@ -9,12 +9,14 @@ namespace First_Playable
     internal class Enemy1 : EnemyEntity
     {
         // Constructor for Enemy1, it needs to pass mapData and player to the base class constructor
-        public Enemy1(MapData mapData, Player player) : base(mapData, player)
+
+        internal static List<Enemy1> listOfEnemy1s = new List<Enemy1>();
+        public Enemy1(MapData mapData, Player player, int attackValue) : base(mapData, player, attackValue)
         {
-            Index = listOfEnemies.Count + 1;
+            listOfEnemy1s.Add(this);
+            AttackValue = attackValue;
             // Enemy 1 specific initializations go here so that methods within Enemy1 can see them.  
         }
-        internal List<Enemy1> listOfEnemies = new List<Enemy1>();
         public int Index { get; private set; }
         static Random random = new Random();
         char enemyCharacter = '♣';
@@ -22,7 +24,25 @@ namespace First_Playable
         public int Enemy1Health { get; set; }
         public string Enemy1CreatureType { get; set; }
 
-        internal void SpawnEnemy1(string name, int health, string creatureType)
+        public static void DisplayAllEnemy1sInfo()
+        {
+            foreach (var enemy in listOfEnemy1s)
+            {
+                enemy.DisplayInfo();
+                Console.WriteLine();
+            }
+        }
+
+        public override void DisplayInfo()
+        {
+            base.DisplayInfo(); // Call the base class's DisplayInfo method
+
+            // Add additional information specific to Enemy1
+            Console.WriteLine($"Index: {Index}, Enemy Character: {enemyCharacter}");
+        }
+
+
+        internal void SpawnEnemy1(string name, int health, string creatureType, int attackValue)
         {
             int randomX, randomY;
             do
@@ -35,34 +55,80 @@ namespace First_Playable
         }
 
 
+
         public void MoveEnemy1()
         {
-            for (int x = 0; x < 76; x++)
+            int randomDirection = random.Next(4);
+            int newX = playerCol, newY = playerRow; // Set initial values
+
+            switch (randomDirection) // 0: Up, 1: Right, 2: Down, 3: Left
             {
-                for (int y = 0; y < 27; y++)
-                {
-                    if (mapData.map[y, x] == enemyCharacter)
-                    {
-                        int randomDirection = random.Next(4);
-                        int newX = x, newY = y;
-                        switch (randomDirection) // 0: Up, 1: Right, 2: Down, 3: Left
-                        {
-                            case 0: // Up
-                                newX = Math.Max(0, x - 1);
-                                break;
-                            case 1: // Right
-                                newY = Math.Min(MapHeight - 1, y + 1);
-                                break;
-                            case 2: // Down
-                                newX = Math.Min(MapWidth - 1, x + 1);
-                                break;
-                            case 3: // Left
-                                newY = Math.Max(0, y - 1);
-                                break;
-                        }
-                    }
-                }
+                case 0: // Up
+                    newY = Math.Max(0, playerRow - 1);
+                    break;
+                case 1: // Right
+                    newX = Math.Min(MapWidth - 1, playerCol + 1);
+                    break;
+                case 2: // Down
+                    newY = Math.Min(MapHeight - 1, playerRow + 1);
+                    break;
+                case 3: // Left
+                    newX = Math.Max(0, playerCol - 1);
+                    break;
+            }
+
+            if (playerRow == newY && playerCol == newX)
+            {
+                player.Attack(this);
+            }
+            else
+            {
+                EnemyRow = newY;
+                EnemyCol = newX;
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //public void MoveEnemy1()
+        //{
+        //    for (int x = 0; x < 76; x++)
+        //    {
+        //        for (int y = 0; y < 27; y++)
+        //        {
+        //            if (mapData.map[y, x] == enemyCharacter)
+        //            {
+        //                int randomDirection = random.Next(4);
+        //                int newX = x, newY = y;
+        //                switch (randomDirection) // 0: Up, 1: Right, 2: Down, 3: Left
+        //                {
+        //                    case 0: // Up
+        //                        newX = Math.Max(0, x - 1);
+        //                        break;
+        //                    case 1: // Right
+        //                        newY = Math.Min(MapHeight - 1, y + 1);
+        //                        break;
+        //                    case 2: // Down
+        //                        newX = Math.Min(MapWidth - 1, x + 1);
+        //                        break;
+        //                    case 3: // Left
+        //                        newY = Math.Max(0, y - 1);
+        //                        break;
+        //                }
+
+        //            }
+        //        }
+        //    }
+        //}
     }
 }

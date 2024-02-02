@@ -10,33 +10,55 @@ namespace First_Playable
     {
         private MapData mapData;
         private Buffer buffer;
-
+        private EnemyEntity enemyEntity;
+        
         internal int playerCol;
         internal int playerRow;
+        
 
         public bool dead;
-        public Player(MapData mapData, Buffer buffer, string name, int initialHealth) : base(name, initialHealth, "Player")
+        public Player(MapData mapData, Buffer buffer, EnemyEntity enemyEntity, string name, int initialHealth, int attackValue) : base(name, initialHealth, "Player")
         {
             this.mapData = mapData;
             this.buffer = buffer;
+            this.enemyEntity = enemyEntity;
+            AttackValue = attackValue;
+            Level = 1;
+            attackValue = Level * 5;
         }
         public char playerCharacter { get; } = '☻'; // the use of get here causes the player icon to be read-only which disallows it from changing later on
-
+        public int CurrentHealth => healthSystem.CurrentHealth;
 
         public override void Attack(Entity target)
         {
             DisplayInfo();
-            target.TakeDamage(5);
-            // Implement player-specific attack logic
-        }
-        private void CheckCollision(List<EnemyEntity> enemies)
-        {
-            foreach (EnemyEntity enemy in enemies)
+            // Assuming Modifier is some value, you need to replace it with the actual value
+            int modifier = 0; // replace 0 with the actual modifier value
+            target.TakeDamage(AttackValue, 0);
+            Console.WriteLine($"Player attacked {target.Name}!");
+
+            if (target is EnemyEntity enemy)
             {
-                if (playerCol == enemy.EnemyCol && playerRow == enemy.EnemyRow)
+                if (enemy.CurrentHealth <= 0)
                 {
-                    // Collision detected, initiate an attack on the enemy
-                    Attack(enemy);
+                    enemy.Die();
+                }
+            }
+        }
+        internal void CheckCollision(List<List<EnemyEntity>> allEnemyLists)
+        {
+            foreach (var enemyList in allEnemyLists)
+            {
+                if (enemyList.Count > 0)
+                {
+                    foreach (var enemy in enemyList)
+                    {
+                        if (playerCol == enemy.EnemyCol && playerRow == enemy.EnemyRow)
+                        {
+                            // Collision detected, initiate an attack on the enemy
+                            Attack(enemy);
+                        }
+                    }
                 }
             }
         }
@@ -83,7 +105,7 @@ namespace First_Playable
                     MovePlayer(1, 0);
                     break;
             }
-            CheckCollision(enemyEntity.listOfEnemies);
+            CheckCollision(enemyEntity.allEnemyLists);
         } // Both WASD and Arrows keys (I tried to type Arrow key input here, I'm a stupid.)
 
         private void MovePlayer(int rowChange, int columnChange)
@@ -108,25 +130,25 @@ namespace First_Playable
                         case "⅛":
                             if (damageChance == 0) // 1/8 probability
                             {
-                                TakeDamage(5); // This is amazing how this works, the way I've set this up I don't need any prefix
+                                TakeDamage(5, 0); // This is amazing how this works, the way I've set this up I don't need any prefix
                             }
                             break;
                         case "⅜":
                             if (damageChance < 3) // 3/8 probability
                             {
-                                TakeDamage(5); // I can use the standard name method without needing to tell it where to get it.
+                                TakeDamage(5, 0); // I can use the standard name method without needing to tell it where to get it.
                             }
                             break;
                         case "⅝":
                             if (damageChance < 5) // 5/8 probability
                             {
-                                TakeDamage(5); // The TakeDamage method is stored in HealthSystem which is delegated to by Entity 
+                                TakeDamage(5, 0); // The TakeDamage method is stored in HealthSystem which is delegated to by Entity 
                             }
                             break;
                         case "⅞":
                             if (damageChance < 7) // 7/8 probability
                             {
-                                TakeDamage(5); // Player Inherits from Entity and any Health related methods go up to Entity and delegated over to Healthsystem smoothly.
+                                TakeDamage(5, 0); // Player Inherits from Entity and any Health related methods go up to Entity and delegated over to Healthsystem smoothly.
                             }
                             break; // Here's what the method actually looks like TakeDamage(int damage) => healthSystem.TakeDamage(damage);
                     }
