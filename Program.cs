@@ -12,20 +12,11 @@ namespace First_Playable
         private static MapData mapData;
         private static Player player;
 
-        // Method Injection
-        static void ProcessData()
-        {
-            mapData.TxtFileToMapArray();
-            buffer.DisplayBuffer();
-            mapData.PrintMap();
-        }
-
         static void Main(string[] args)
         {
             buffer = new Buffer();
             mapData = new MapData(buffer);
             player = new Player(mapData, buffer);
-
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
             ProcessData();
@@ -49,9 +40,15 @@ namespace First_Playable
                 mapData.PrintMap();
                 player.DrawPlayer();
                 buffer.DisplayBuffer();
-                //DrawBorder();
+                mapData.DrawBorder();
             } 
             while (player.dead == false);
+        }
+        static void ProcessData()
+        {
+            mapData.TxtFileToMapArray();
+            buffer.DisplayBuffer();
+            mapData.PrintMap();
         }
     }
 }

@@ -15,6 +15,14 @@ namespace First_Playable
         private int playerRow;
 
         public bool dead;
+        public Player(MapData mapData, Buffer buffer)
+        {
+            this.mapData = mapData;
+            this.buffer = buffer;
+        }
+
+
+
 
         public void Initialize()
         {
@@ -22,13 +30,6 @@ namespace First_Playable
             playerCol = 4;
             playerRow = 4;
         }
-
-        public Player(MapData mapData, Buffer buffer)
-        {
-            this.mapData = mapData;
-            this.buffer = buffer;
-        }
-
         public char playerCharacter { get; } = '☻'; // the use of get here causes the player icon to be read-only which disallows it from changing later on
 
         public void HandleKeyPress(ConsoleKey key)

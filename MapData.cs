@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace First_Playable
 {
-
-
     internal class MapData
     {
-        private Buffer buffer;
+        internal Buffer buffer;
         public char[,] ?map;
 
         public MapData(Buffer buffer)
@@ -23,6 +21,80 @@ namespace First_Playable
         {  
             Array.Copy(map, buffer.secondBuffer, map.Length);
         }
+
+        static string[] border = new string[]
+       {
+          "╔","╗","╝","╚", "║","═"
+       };
+        public void DrawBorder()
+        {
+            int mapWidth = map.GetLength(1);
+            int mapHeight = map.GetLength(0);
+            int HorizontalWall = 1;
+            int VerticalWall = 1;
+            int totalWidth = (mapWidth + 1);
+            int totalHeight = (mapHeight + 1);
+
+            foreach (string ASCll in border)
+            {
+                switch (ASCll)
+                {
+                    case "╔":
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        break;
+                    case "╗":
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        break;
+                    case "╝":
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        break;
+                    case "╚":
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        break;
+                    case "║":
+                        Console.ForegroundColor = ConsoleColor.DarkCyan;
+                        break;
+                    case "═":
+                        Console.ForegroundColor = ConsoleColor.DarkCyan;
+                        break;
+                }
+            }
+            Console.SetCursorPosition(0, 0);
+            Console.Write(border[0]);
+            Console.SetCursorPosition(totalWidth, 0);
+            Console.Write(border[1]);
+            if (HorizontalWall >= totalWidth)
+            {
+                HorizontalWall = totalWidth;
+            }
+            if (VerticalWall >= totalHeight)
+            {
+                VerticalWall = totalHeight;
+            }
+            for (int i = 0; i < totalWidth; i++)
+            {
+                Console.SetCursorPosition(HorizontalWall, 0); // ceiling
+                Console.Write(border[5]);
+                Console.SetCursorPosition(HorizontalWall, totalHeight); // floor
+                Console.Write(border[5]);
+                HorizontalWall++;
+            }
+            for (int j = 0; j < totalHeight; j++)
+            {
+                Console.SetCursorPosition(0, VerticalWall); // lefthand wall 
+                Console.Write(border[4]);
+                Console.SetCursorPosition(totalWidth, VerticalWall); // righthand wall 
+                Console.Write(border[4]);
+                VerticalWall++;
+            }
+            Console.SetCursorPosition(totalWidth, 0);
+            Console.Write(border[1]);
+            Console.SetCursorPosition(0, totalHeight);
+            Console.Write(border[3]);
+            Console.SetCursorPosition(totalWidth, totalHeight);
+            Console.Write(border[2]);
+        }
+
 
         public bool IsValidMove(int newRow, int newCol)
         {
