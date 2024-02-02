@@ -13,7 +13,7 @@ namespace First_Playable
         public string CreatureType { get; set; } // For now creature types do jack all
         public int AttackValue { get; set; }
         public int Level { get; set; }
-
+        public int CurrentHealth { get => healthSystem.CurrentHealth; set => healthSystem.CurrentHealth = value; }
 
         public Entity(string name, int initialHealth, string creatureType) 
         {
@@ -27,10 +27,10 @@ namespace First_Playable
         {
             Console.WriteLine($"{Name} has been defeated!");
         }
-        public virtual void DisplayInfo()
-        {
-            Console.WriteLine($"Name: {Name}, Health: {healthSystem.CurrentHealth}, Creature Type: {CreatureType}");
-        }
+        //public virtual void DisplayInfo()
+        //{
+        //    Console.WriteLine($"Name: {Name}, Health: {healthSystem.CurrentHealth}, Creature Type: {CreatureType}");
+        //}
         public void TakeDamage(int attackValue, int modifier) => healthSystem.TakeDamage(AttackValue, modifier);
         public void Heal(int amount) => healthSystem.Heal(amount);
         public abstract void Attack(Entity target);

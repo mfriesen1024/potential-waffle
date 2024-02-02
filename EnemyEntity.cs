@@ -10,24 +10,27 @@ namespace First_Playable
     {
         internal MapData mapData;
         internal Player player;
-        internal int MapWidth;
-        internal int MapHeight;
-        internal int playerRow;
-        internal int playerCol;
+
+        protected Buffer buffer;
+        
         public int EnemyCol;
         public int EnemyRow;
-        internal List<List<EnemyEntity>> allEnemyLists = new List<List<EnemyEntity>>();
-        internal List<Enemy1> listOfEnemies = new List<Enemy1>();
 
-        public EnemyEntity(MapData mapData, Player player, int attackValue) // What is passed into EnemyEntity
+        protected EnemyManager enemyManager;
+
+        protected char EnemyCharacter;
+
+        public EnemyEntity(MapData mapData, int attackValue, EnemyManager enemyManager, Buffer buffer) // What is passed into EnemyEntity
          : base("DefaultEnemyName", 100, "Enemy") // base = what it is given/needs by default from its parent/base class
         {
+            this.enemyManager = enemyManager;
             this.mapData = mapData;
-            this.player = player;
-            allEnemyLists.Add(new List<EnemyEntity>());
-            allEnemyLists[allEnemyLists.Count - 1].Add(this);
+            enemyManager.allEnemyLists.Add(new List<EnemyEntity>());
+            enemyManager.allEnemyLists[enemyManager.allEnemyLists.Count - 1].Add(this);
             attackValue = AttackValue;
+            this.buffer = buffer;
         }
+
         public int CurrentHealth => healthSystem.CurrentHealth;
 
         internal void MeasureMapSize()
@@ -43,19 +46,19 @@ namespace First_Playable
 
         public void DisplayAllEnemyListsInfo() // Spits out all each list of enemies that contains any number of enemies.
         {
-            foreach (var enemyList in allEnemyLists)
+            foreach (var enemyList in enemyManager.allEnemyLists)
             {
                 foreach (var enemy in enemyList)
                 {
-                    enemy.DisplayInfo();
                     Console.WriteLine();
                 }
             }
         }
-        internal void PlayerDetection()
+
+        public virtual void MoveEnemy(){}
+        public void DrawEnemy()
         {
-            playerRow = player.playerRow;
-            playerCol = player.playerCol;
+            buffer.secondBuffer[EnemyCol, EnemyRow] = EnemyCharacter;
         }
     }
 }

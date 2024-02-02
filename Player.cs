@@ -9,33 +9,31 @@ namespace First_Playable
     internal class Player : Entity
     {
         private MapData mapData;
-        private Buffer buffer;
-        private EnemyEntity enemyEntity;
+        private EnemyManager enemyManager;
         
         internal int playerCol;
         internal int playerRow;
-        
+
+        Buffer buffer;
 
         public bool dead;
-        public Player(MapData mapData, Buffer buffer, EnemyEntity enemyEntity, string name, int initialHealth, int attackValue) : base(name, initialHealth, "Player")
+        public Player(MapData mapData, EnemyManager enemyManager, string name, int initialHealth, int attackValue, Buffer buffer) : base(name, initialHealth, "Player")
         {
             this.mapData = mapData;
-            this.buffer = buffer;
-            this.enemyEntity = enemyEntity;
+            this.enemyManager = enemyManager;
             AttackValue = attackValue;
             Level = 1;
             attackValue = Level * 5;
+            enemyManager.SetPlayer(this);
+            this.buffer = buffer;
         }
         public char playerCharacter { get; } = '☻'; // the use of get here causes the player icon to be read-only which disallows it from changing later on
         public int CurrentHealth => healthSystem.CurrentHealth;
 
         public override void Attack(Entity target)
         {
-            DisplayInfo();
-            // Assuming Modifier is some value, you need to replace it with the actual value
-            int modifier = 0; // replace 0 with the actual modifier value
             target.TakeDamage(AttackValue, 0);
-            Console.WriteLine($"Player attacked {target.Name}!");
+            //Console.WriteLine($"Player attacked {target.Name}!");
 
             if (target is EnemyEntity enemy)
             {
@@ -105,7 +103,8 @@ namespace First_Playable
                     MovePlayer(1, 0);
                     break;
             }
-            CheckCollision(enemyEntity.allEnemyLists);
+            CheckCollision(enemyManager.allEnemyLists);
+            //Enemy1.MoveEnemy1();
         } // Both WASD and Arrows keys (I tried to type Arrow key input here, I'm a stupid.)
 
         private void MovePlayer(int rowChange, int columnChange)

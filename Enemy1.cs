@@ -10,81 +10,88 @@ namespace First_Playable
     {
         // Constructor for Enemy1, it needs to pass mapData and player to the base class constructor
 
-        internal static List<Enemy1> listOfEnemy1s = new List<Enemy1>();
-        public Enemy1(MapData mapData, Player player, int attackValue) : base(mapData, player, attackValue)
+        public Enemy1(MapData mapData, Player player, int attackValue, EnemyManager enemyManager, Buffer buffer) : base(mapData, attackValue, enemyManager, buffer)
         {
-            listOfEnemy1s.Add(this);
             AttackValue = attackValue;
+            this.player = player;
+            Level = 1;
+            AttackValue = Level * 5;
             // Enemy 1 specific initializations go here so that methods within Enemy1 can see them.  
         }
         public int Index { get; private set; }
         static Random random = new Random();
-        char enemyCharacter = '♣';
         public string Enemy1Name { get; set; }
         public int Enemy1Health { get; set; }
         public string Enemy1CreatureType { get; set; }
 
-        public static void DisplayAllEnemy1sInfo()
+        /*public static void DisplayAllEnemy1sInfo()
         {
             foreach (var enemy in listOfEnemy1s)
             {
                 enemy.DisplayInfo();
                 Console.WriteLine();
             }
-        }
-
-        public override void DisplayInfo()
-        {
-            base.DisplayInfo(); // Call the base class's DisplayInfo method
-
-            // Add additional information specific to Enemy1
-            Console.WriteLine($"Index: {Index}, Enemy Character: {enemyCharacter}");
-        }
-
+        }*/
 
         internal void SpawnEnemy1(string name, int health, string creatureType, int attackValue)
         {
+            EnemyCharacter = '♣';
+
             int randomX, randomY;
             do
             {
                 randomX = random.Next(1, 77);
                 randomY = random.Next(1, 27);
-            } while (mapData.map[randomY, randomX] != ' ' || mapData.map[randomY, randomX] == '☻' || (randomX < 8 && randomY < 8));
-            mapData.map[randomY, randomX] = enemyCharacter;
+            } while (mapData.map[randomY, randomX] != ' ');//|| (randomX < 8 && randomY < 8));
+            DrawEnemy();
+            EnemyCol = randomY;
+            EnemyRow = randomX;
             Name = name;
         }
-
-
-
-        public void MoveEnemy1()
+        public override void MoveEnemy()
         {
+
             int randomDirection = random.Next(4);
-            int newX = playerCol, newY = playerRow; // Set initial values
+            int newX = EnemyCol, newY = EnemyRow; 
 
             switch (randomDirection) // 0: Up, 1: Right, 2: Down, 3: Left
             {
                 case 0: // Up
-                    newY = Math.Max(0, playerRow - 1);
+                    newY = /*Math.Max(0, EnemyRow - 1);*/ EnemyRow - 1;
                     break;
                 case 1: // Right
-                    newX = Math.Min(MapWidth - 1, playerCol + 1);
+                    newX = /*Math.Min(MapData.MapWidth - 1, EnemyCol + 1);*/ EnemyCol + 1;
                     break;
                 case 2: // Down
-                    newY = Math.Min(MapHeight - 1, playerRow + 1);
+                    newY = /*Math.Min(MapData.MapHeight - 1, EnemyRow + 1);*/ EnemyRow + 1;
                     break;
                 case 3: // Left
-                    newX = Math.Max(0, playerCol - 1);
+                    newX = /*Math.Max(0, EnemyCol - 1);*/ EnemyCol - 1;
                     break;
             }
 
-            if (playerRow == newY && playerCol == newX)
+            if (EnemyRow == newY && EnemyCol == newX)
             {
-                player.Attack(this);
+                Attack(player);
             }
             else
             {
-                EnemyRow = newY;
-                EnemyCol = newX;
+                if (mapData.IsValidMove(newY, newX))
+                {
+                    EnemyRow = newY;
+                    EnemyCol = newX;
+                }
+            }
+        }
+        public override void Attack(Entity target)
+        {
+            target.TakeDamage(AttackValue, 0);
+            if (target is Entity player)
+            {
+                if (player.CurrentHealth <= 0)
+                {
+                    player.Die();
+                }
             }
         }
     }

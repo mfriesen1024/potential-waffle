@@ -10,6 +10,8 @@ namespace First_Playable
     {
         internal Buffer buffer;
         public char[,] ?map;
+        internal static int MapWidth;
+        internal static int MapHeight;
 
         public MapData(Buffer buffer) // This is a constructor that does the funny spiderman pointing meme with Buffer.
         {
