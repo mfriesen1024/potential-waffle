@@ -115,7 +115,6 @@ namespace First_Playable
             int newRow = playerRow + rowChange;
             int newCol = playerCol + columnChange;
 
-            //// Add conditional checking before updating the position
             if (mapData.IsValidMove(newRow, newCol))
             { 
                 playerRow = newRow;

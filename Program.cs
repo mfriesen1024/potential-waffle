@@ -19,21 +19,18 @@ namespace First_Playable
             buffer = new Buffer();
             mapData = new MapData(buffer);
             player = new Player(mapData, buffer,enemyEntity,"Sam Robichaud", 100, 5); // This is for Matt's class, Sam will never know he is the default character.
-            
+            enemyEntity = new EnemyEntity(mapData, player, 5);
             Console.OutputEncoding = System.Text.Encoding.UTF8; // Needed at the top of Main so that ASCII display properly
 
             ProcessData();
 
-
-
-
             List<Enemy1> listOfEnemies = Populate(enemyEntity);
 
             // Print the contents of the list
-            foreach (Enemy1 enemy in listOfEnemies)
-            {
-                Console.WriteLine(enemy.ToString()); // Assuming you have overridden ToString() in Enemy1
-            }
+            //foreach (Enemy1 enemy in listOfEnemies) // Used for Debug purposes of reading list contents
+            //{
+            //    Console.WriteLine(enemy.ToString()); 
+            //}
 
             GameLoop();
         }
@@ -43,11 +40,7 @@ namespace First_Playable
         {
             Enemy1 newEnemy1 = new Enemy1(mapData, player, enemyEntity.AttackValue);
             newEnemy1.SpawnEnemy1("Donald", 10, "Duck", 5);
-
-            // Access the listOfEnemies property correctly
             enemyEntity.listOfEnemies.Add(newEnemy1);
-
-            // Return the updated list of enemies
             return enemyEntity.listOfEnemies;
         }
 
@@ -66,7 +59,7 @@ namespace First_Playable
                 player.HandleKeyPress(keyInfo.Key);
                 enemyEntity.PlayerDetection(); // Update player position in EnemyEntity
 
-                foreach (Enemy1 enemy in Enemy1.listOfEnemy1s)
+                foreach (Enemy1 enemy in Enemy1.listOfEnemy1s) 
                 {
                     enemy.MoveEnemy1();
                 }
