@@ -26,10 +26,10 @@ namespace First_Playable
             buffer.DisplayBuffer();
         }
 
-        public static void InitializeEnemies()
-        { 
-            List<Duck> listOfEnemies = Populate(5); 
-        }
+        // public static void InitializeEnemies()
+        // { 
+        //     List<Duck> listOfEnemies = Populate(5); 
+        // }
 
         static void CreatePlayerInstance() 
         { 
@@ -37,16 +37,17 @@ namespace First_Playable
         }
 
 
-        static List<Duck> Populate(int amount)
-        {
-            for (int i = 0; i < amount; i++)
-            {
-                Duck newEnemy1 = new Duck(mapData, player, Settings.EnemyAtk, enemyManager, buffer);
-                newEnemy1.SpawnEnemy("Donald", 10, "Duck", 5);
-                enemyManager.listOfEnemies.Add(newEnemy1);
-            }
-            return enemyManager.listOfEnemies;
-        }
+        // static List<Duck> Populate(int amount)
+        // {
+        //     for (int i = 0; i < amount; i++)
+        //     {
+        //         Duck newEnemy = new Duck(mapData, player, Settings.EnemyAtk, enemyManager, buffer);
+        //         newEnemy.SpawnEnemy("Donald", 10, Enemy.SmallCreatureTypes, 0, 5);
+        //         enemyManager.listOfEnemies.Add(newEnemy);
+                
+        //     }
+        //     return enemyManager.listOfEnemies;
+        // }
 
         
 
@@ -73,7 +74,50 @@ namespace First_Playable
                 buffer.DisplayBuffer(); // Double buffer prevents flickering
                 mapData.DrawBorder(); 
             } 
-            while (player.dead == false);
+            while (!player.dead);
         }
+
+
+        static void Populate1(MapData mapData, Player player, int attackValue, EnemyManager enemyManager, Buffer buffer, params (Type, int)[] enemyCounts)
+{
+    foreach (var (enemyType, count) in enemyCounts)
+    {
+        switch (enemyType.Name)
+        {
+            case nameof(Duck):
+                List<Duck> ducks = Spawner<Duck>(mapData, player, attackValue, enemyManager, buffer, count, "Donald", 10, Enemy.SmallCreatureTypes, 0, 5);
+                break;
+            case nameof(Lion):
+                List<Lion> lions = Spawner<Lion>(mapData, player, attackValue, enemyManager, buffer, count, "Simba", 15, Enemy.LargeCreatureTypes, 0, 8);
+                break;
+            case nameof(Goose):
+                List<Goose> geese = Spawner<Goose>(mapData, player, attackValue, enemyManager, buffer, count, "Gary", 12, Enemy.MediumCreatureTypes, 0, 6);
+                break;
+            // Add cases for other enemy types...
+        }
+    }
+}
+
+static List<Type> Spawner<Type>(MapData mapData, Player player, int attackValue, EnemyManager enemyManager, Buffer buffer, int count, string name, 
+int health, string[] creatureTypes, int creatureTypeIndex, int enemyAttackValue)
+    where Type : Enemy
+{
+    List<Type> enemies = new List<Type>();
+    for (int i = 0; i < count; i++)
+    {
+        Type newEnemy = (Type)Activator.CreateInstance(typeof(Type), mapData, player, attackValue, enemyManager, buffer);
+        newEnemy.SpawnEnemy(name, health, creatureTypes, creatureTypeIndex, enemyAttackValue); // Use enemyAttackValue here
+        enemies.Add(newEnemy);
+    }
+    return enemies;
+}
+
+
+public static void InitializeEnemies1()
+{
+    Populate1(mapData, player, Settings.EnemyAtk, enemyManager, buffer, (typeof(Duck), 5), (typeof(Lion), 2), (typeof(Goose), 3));
+}
+
+        
     }
 }

@@ -20,46 +20,59 @@ namespace First_Playable
             AttackValue = Level * 2;
             Modifer = Level;
             EnemyCharacter = Settings.DuckChar;
+            MaxHealth = 10;
             // Duck specific initializations go here so that methods within Duck can see them.  
         }
         public int Index { get; private set; }
-        public string Enemy1Name { get; set; }
-        public int Enemy1Health { get; set; }
-        public string Enemy1CreatureType { get; set; }
+        public string DuckName { get; set; }
+        public int DuckHealth { get; set; }
+        public string DuckCreatureType { get; set; }
 
+        public override void DetermineMaxHealth()
+        {
+            MaxHealth = 10; 
+        }
         public override void MoveEnemy()
         {
-            int randomDirection = Settings.random.Next(4);
-            int newX = EnemyCol, newY = EnemyRow; 
+            if(!dead)
+            {
+                int randomDirection = Settings.random.Next(4);
+                int newX = EnemyCol, newY = EnemyRow; 
 
-            switch (randomDirection) // 0: Up, 1: Right, 2: Down, 3: Left
-            {
-                case 0: // Up
-                    newY = EnemyRow - 1;
-                    break;
-                case 1: // Right
-                    newX = EnemyCol + 1;
-                    break;
-                case 2: // Down
-                    newY = EnemyRow + 1;
-                    break;
-                case 3: // Left
-                    newX = EnemyCol - 1;
-                    break;
-            }
-
-            if (enemyManager.player.playerRow == newY && enemyManager.player.playerCol == newX)
-            {
-                Attack(player);
-            }
-            else
-            {
-                if (mapData.IsValidMove(newY, newX))
+                switch (randomDirection) // 0: Up, 1: Right, 2: Down, 3: Left
                 {
-                    EnemyRow = newY;
-                    EnemyCol = newX;
+                    case 0: // Up
+                        newY = EnemyRow - 1;
+                        break;
+                    case 1: // Right
+                        newX = EnemyCol + 1;
+                        break;
+                    case 2: // Down
+                        newY = EnemyRow + 1;
+                        break;
+                    case 3: // Left
+                        newX = EnemyCol - 1;
+                        break;
+                }
+
+                if (Player.playerRow == newY && Player.playerCol == newX)
+                {
+                    Attack(player);
+                }
+                else
+                {
+                    if (mapData.IsValidMove(newY, newX))
+                    {
+                        EnemyRow = newY;
+                        EnemyCol = newX;
+                    }
                 }
             }
+        }
+        public override void Die()
+        {
+           dead = true;
+
         }
         public override void Attack(Entity target)
         {

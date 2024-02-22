@@ -11,11 +11,10 @@ namespace First_Playable
         private MapData mapData;
         private EnemyManager enemyManager;
         
-        public static int playerCol = Settings.playerCol;
+        public static int playerCol = Settings.playerCol; // there should only ever be one player on screen, many player statisics will be static to reflect this.
         public static int playerRow = Settings.playerRow;
 
         bool hasAttacked;
-        public bool dead = false;
 
         Buffer buffer;
 
@@ -49,6 +48,14 @@ namespace First_Playable
                 }
             }
         }
+        public override void Die()
+        {
+            Console.Clear();
+            // Display Score
+            System.Console.WriteLine("You Died");
+            Console.ReadKey(true);
+            dead = true;
+        }
         internal void CheckCollision(List<Duck> EnemyList, int rowChange, int columnChange)
         {
             int newRow = playerRow + rowChange;
@@ -63,10 +70,10 @@ namespace First_Playable
                     Attack(enemy);
                 }
             }
+
         }
         public void HandleKeyPress(ConsoleKey key)
         {
-            
             switch (key)
             {
                 case ConsoleKey.UpArrow:
@@ -132,7 +139,15 @@ namespace First_Playable
 
                 if (mapData.PickUpItems.Contains(mapData.map[playerCol, playerRow].ToString()))
                 {
-                    Heal(20); // duplicate switch statement below when theres more than one item
+                    switch (buffer.secondBuffer[playerCol, playerRow].ToString()) // Reads Char array from MapData and converts back to string for switch statement check.
+                    {
+                        case "☙":
+                            if (CurrentHealth < Settings.MaxPlayerHealth ) 
+                            {
+                                Heal(20);
+                            }
+                            break;
+                    }
                 }
                 if (mapData.EnviromentalHazard.Contains(mapData.map[playerCol, playerRow].ToString())) // In short if the player occupies a hazard the following code runs.
                 {

@@ -27,11 +27,7 @@ namespace First_Playable
             Modifer = 1;
             Level = 1;
         }
-        public void Die()
-        {
-            Console.WriteLine($"{Name} has been defeated!");
-            dead = true;
-        }
+        public abstract void Die();
         public void TakeDamage(int attackValue, int Modifier) => healthSystem.TakeDamage(AttackValue, Modifier);
         public void Heal(int amount) => healthSystem.Heal(amount);
         public abstract void Attack(Entity target);
