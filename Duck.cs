@@ -18,28 +18,14 @@ namespace First_Playable
             this.player = player;
             Level = 1;
             AttackValue = Level * 5;
-            // Enemy 1 specific initializations go here so that methods within Enemy1 can see them.  
+            EnemyCharacter = Settings.DuckChar;
+            // Duck specific initializations go here so that methods within Enemy1 can see them.  
         }
         public int Index { get; private set; }
         public string Enemy1Name { get; set; }
         public int Enemy1Health { get; set; }
         public string Enemy1CreatureType { get; set; }
 
-        internal void SpawnEnemy1(string name, int health, string creatureType, int attackValue)
-        {
-            EnemyCharacter = '♣';
-
-            int randomX, randomY;
-            do
-            {
-                randomX = Settings.random.Next(1, 77);
-                randomY = Settings.random.Next(1, 27);
-            } while (mapData.map[randomY, randomX] != ' ');//|| (randomX < 8 && randomY < 8));
-            DrawEnemy();
-            EnemyCol = randomY;
-            EnemyRow = randomX;
-            Name = name;
-        }
         public override void MoveEnemy()
         {
             int randomDirection = Settings.random.Next(4);

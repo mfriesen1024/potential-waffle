@@ -18,7 +18,7 @@ namespace First_Playable
         public int EnemyRow;
 
         public Enemy(MapData mapData, int attackValue,
-            EnemyManager enemyManager, Buffer buffer) // What is passed into EnemyEntity
+            EnemyManager enemyManager, Buffer buffer) // What is passed into Enemy
             : base("DefaultEnemyName", 100, new string[] {"Enemy"}) // base = what it is given/needs by default from its parent/base class
         {
             this.enemyManager = enemyManager;
@@ -41,6 +41,20 @@ namespace First_Playable
         public void DrawEnemy()
         {
             buffer.secondBuffer[EnemyCol, EnemyRow] = EnemyCharacter; // USE AS FUTURE REFERENCE FOR DRAWING INTO BUFFER
+        }
+
+        protected internal void SpawnEnemy(string name, int health, string creatureType, int attackValue)
+        {
+            int randomX, randomY;
+            do
+            {
+                randomX = Settings.random.Next(1, 77);
+                randomY = Settings.random.Next(1, 27);
+            } while (mapData.map[randomY, randomX] != ' ');//|| (randomX < 8 && randomY < 8));
+            DrawEnemy();
+            EnemyCol = randomY;
+            EnemyRow = randomX;
+            Name = name;
         }
     }
 }

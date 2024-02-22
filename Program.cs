@@ -44,7 +44,7 @@ namespace First_Playable
             for (int i = 0; i < amount; i++)
             {
                 Duck newEnemy1 = new Duck(mapData, player, Settings.EnemyAtk, enemyManager, buffer);
-                newEnemy1.SpawnEnemy1("Donald", 10, "Duck", 5);
+                newEnemy1.SpawnEnemy("Donald", 10, "Duck", 5);
                 enemyManager.listOfEnemies.Add(newEnemy1);
             }
             return enemyManager.listOfEnemies;

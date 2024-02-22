@@ -15,10 +15,10 @@ namespace First_Playable
         internal int playerRow;
 
         bool hasAttacked;
+        public bool dead;
 
         Buffer buffer;
 
-        public bool dead;
 
         public Player(MapData mapData, EnemyManager enemyManager,
             string name, int initialHealth, int attackValue, Buffer buffer)
@@ -51,20 +51,6 @@ namespace First_Playable
         }
         internal void CheckCollision(List<Duck> EnemyList, int rowChange, int columnChange)
         {
-            //foreach (var enemyList in allEnemyLists)
-            //{
-            //    if (enemyList.Count > 0)
-            //    {
-            //        foreach (var enemy in enemyList)
-            //        {
-            //            if (playerCol == enemy.EnemyCol && playerRow == enemy.EnemyRow)
-            //            {
-            //                // Collision detected, initiate an attack on the enemy
-            //                Attack(enemy);
-            //            }
-            //        }
-            //    }
-            //}
             int newRow = playerRow + rowChange;
             int newCol = playerCol + columnChange;
 
@@ -87,6 +73,10 @@ namespace First_Playable
 
         public void HandleKeyPress(ConsoleKey key)
         {
+            if (DateTime.Now - Settings.lastInputTime < Settings.inputDelay)
+                return;
+            Settings.lastInputTime = DateTime.Now;
+
             switch (key)
             {
                 case ConsoleKey.UpArrow:
@@ -129,8 +119,7 @@ namespace First_Playable
                     MovePlayer(1, 0);
                     break;
             }
-            //Enemy1.MoveEnemy1();
-        } // Both WASD and Arrows keys (I tried to type Arrow key input here, I'm a stupid.)
+        }
 
         private void MovePlayer(int rowChange, int columnChange)
         {
