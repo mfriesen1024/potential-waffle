@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace First_Playable
 {
-    internal class Duck : Enemy
+    internal class Goose : Enemy
     {
-
-        public Duck(MapData mapData, Player player, int attackValue,
+        public Goose(MapData mapData, Player player, int attackValue,
             EnemyManager enemyManager, Buffer buffer)
             : base(mapData, attackValue, enemyManager, buffer)
         {
@@ -22,20 +21,20 @@ namespace First_Playable
             MaxHealth = 10;  
         }
         public int Index { get; private set; }
-        public string DuckName { get; set; }
-        public int DuckHealth { get; set; }
-        public string DuckCreatureType { get; set; }
+        public string GooseName { get; set; }
+        public int GooseHealth { get; set; }
+        public string GooseCreatureType { get; set; }
 
         public override void DetermineMaxHealth()
         {
-            MaxHealth = 10; 
+            MaxHealth = 10;
         }
         public override void MoveEnemy()
         {
-            if(!dead)
+            if (!dead)
             {
                 int randomDirection = Settings.random.Next(4);
-                int newX = EnemyCol, newY = EnemyRow; 
+                int newX = EnemyCol, newY = EnemyRow;
 
                 switch (randomDirection) // 0: Up, 1: Right, 2: Down, 3: Left
                 {
@@ -69,7 +68,7 @@ namespace First_Playable
         }
         public override void Die()
         {
-           dead = true;
+            dead = true;
 
         }
         public override void Attack(Entity target)

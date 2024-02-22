@@ -12,7 +12,7 @@ namespace First_Playable
         {
             Console.OutputEncoding = Encoding.UTF8;
             Program.Initialize();
-            Program.InitializeEnemies();
+            Program.InitializeEnemies1();
             Program.GameLoop();
         }
     }

@@ -17,7 +17,7 @@ namespace First_Playable
         bool hasAttacked;
 
         Buffer buffer;
-
+        
 
         public Player(MapData mapData, EnemyManager enemyManager,
             string name, int initialHealth, int attackValue, Buffer buffer)
@@ -66,11 +66,9 @@ namespace First_Playable
                 if (newCol == enemy.EnemyCol && newRow == enemy.EnemyRow)
                 {
                     hasAttacked = true;
-                    // collision detected, initiate an attack on the enemy
                     Attack(enemy);
                 }
             }
-
         }
         public void HandleKeyPress(ConsoleKey key)
         {

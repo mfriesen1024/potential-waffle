@@ -36,8 +36,6 @@ namespace First_Playable
         {
         "☙"
         };
-
-
         public void DrawBorder()
         {
             int mapWidth = map.GetLength(1);
@@ -137,20 +135,9 @@ namespace First_Playable
                     case '┴':
                     return false;
                 }
-                // if (map[newCol, newRow] == EnemyManager.enemyCharacter)
-                // {
-                //     map[newCol, newRow] = ' ';
-                // }
-                // if (map[newCol, newRow] == Player.Fruit && Player.health < Player.maxHealth)
-                // {
-                //     map[newCol, newRow] = ' ';
-                //     Player.GainHealth();
-                // }
             }
             return false;
         }
-
-
         public void TxtFileToMapArray() 
         {
             string[] lines = File.ReadAllLines("Map.txt");
