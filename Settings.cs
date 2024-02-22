@@ -13,5 +13,7 @@ namespace First_Playable
         public const int MaxPlayerHealth = 5;
         public const int StartingLevel = 1;
         public const int EnemyAtk = 5;
+
+        public static Random random = new Random();
     }
 }

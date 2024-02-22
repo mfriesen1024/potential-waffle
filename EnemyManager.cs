@@ -21,14 +21,6 @@ namespace First_Playable
 
         public void MoveEnemies()
         {
-            /*foreach (List<EnemyEntity> enemyList in allEnemyLists)
-            {
-                foreach(EnemyEntity enemy in enemyList)
-                {
-                    enemy.MoveEnemy();
-                }
-            }*/
-
             foreach (var enemy in listOfEnemies)
             {
                 if (enemy.dead) continue;

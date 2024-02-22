@@ -10,7 +10,9 @@ namespace First_Playable
     {
         // Constructor for Enemy1, it needs to pass mapData and player to the base class constructor
 
-        public Duck(MapData mapData, Player player, int attackValue, EnemyManager enemyManager, Buffer buffer) : base(mapData, attackValue, enemyManager, buffer)
+        public Duck(MapData mapData, Player player, int attackValue,
+            EnemyManager enemyManager, Buffer buffer)
+            : base(mapData, attackValue, enemyManager, buffer)
         {
             AttackValue = attackValue;
             this.player = player;
@@ -19,7 +21,6 @@ namespace First_Playable
             // Enemy 1 specific initializations go here so that methods within Enemy1 can see them.  
         }
         public int Index { get; private set; }
-        static Random random = new Random();
         public string Enemy1Name { get; set; }
         public int Enemy1Health { get; set; }
         public string Enemy1CreatureType { get; set; }
@@ -31,8 +32,8 @@ namespace First_Playable
             int randomX, randomY;
             do
             {
-                randomX = random.Next(1, 77);
-                randomY = random.Next(1, 27);
+                randomX = Settings.random.Next(1, 77);
+                randomY = Settings.random.Next(1, 27);
             } while (mapData.map[randomY, randomX] != ' ');//|| (randomX < 8 && randomY < 8));
             DrawEnemy();
             EnemyCol = randomY;
@@ -41,7 +42,7 @@ namespace First_Playable
         }
         public override void MoveEnemy()
         {
-            int randomDirection = random.Next(4);
+            int randomDirection = Settings.random.Next(4);
             int newX = EnemyCol, newY = EnemyRow; 
 
             switch (randomDirection) // 0: Up, 1: Right, 2: Down, 3: Left

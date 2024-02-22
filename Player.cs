@@ -19,7 +19,9 @@ namespace First_Playable
         Buffer buffer;
 
         public bool dead;
-        public Player(MapData mapData, EnemyManager enemyManager, string name, int initialHealth, int attackValue, Buffer buffer)
+
+        public Player(MapData mapData, EnemyManager enemyManager,
+            string name, int initialHealth, int attackValue, Buffer buffer)
             : base(name, initialHealth, new string[]{"Player"})
 
         {
