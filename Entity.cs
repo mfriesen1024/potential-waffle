@@ -12,6 +12,7 @@ namespace First_Playable
         public string Name { get; set; }
         public string[] CreatureType { get; set; } // For now creature types do jack all
         public int AttackValue { get; set; }
+        public int Modifer { get; set; }
         public int Level { get; set; }
         public int CurrentHealth { get => healthSystem.CurrentHealth; set => healthSystem.CurrentHealth = value; }
 
@@ -23,6 +24,7 @@ namespace First_Playable
             CreatureType = creatureType;
             healthSystem = new HealthSystem(initialHealth);
             AttackValue = 1;
+            Modifer = 1;
             Level = 1;
         }
         public void Die()
@@ -34,7 +36,7 @@ namespace First_Playable
         //{
         //    Console.WriteLine($"Name: {Name}, Health: {healthSystem.CurrentHealth}, Creature Type: {CreatureType}");
         //}
-        public void TakeDamage(int attackValue, int modifier) => healthSystem.TakeDamage(AttackValue, modifier);
+        public void TakeDamage(int attackValue, int Modifier) => healthSystem.TakeDamage(AttackValue, Modifier);
         public void Heal(int amount) => healthSystem.Heal(amount);
         public abstract void Attack(Entity target);
     }

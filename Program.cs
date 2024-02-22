@@ -28,13 +28,6 @@ namespace First_Playable
 
             List<Duck> listOfEnemies = Populate(5);
 
-            // Print the contents of the list
-            //foreach (Enemy1 enemy in listOfEnemies) // Used for Debug purposes of reading list contents
-            //{
-            //    Console.WriteLine(enemy.ToString()); 
-            //}
-
-
             GameLoop();
         }
 
@@ -61,7 +54,6 @@ namespace First_Playable
                 if (keyInfo.Key == ConsoleKey.Enter)
                 {
                     Console.Clear();
-                    player.Initialize(); 
                     keyInfo = Console.ReadKey(true);
                 }
                 player.HandleKeyPress(keyInfo.Key);

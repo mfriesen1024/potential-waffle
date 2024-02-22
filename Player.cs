@@ -15,7 +15,7 @@ namespace First_Playable
         internal int playerRow;
 
         bool hasAttacked;
-        public bool dead;
+        public bool dead = false;
 
         Buffer buffer;
 
@@ -28,13 +28,17 @@ namespace First_Playable
             this.mapData = mapData;
             this.enemyManager = enemyManager;
             AttackValue = attackValue;
+            //hgh = Mod
             Level = 1;
             attackValue = Level * 5;
+            playerCol = Settings.playerCol;
+            playerRow = Settings.playerRow;
             enemyManager.SetPlayer(this);
             this.buffer = buffer;
         }
         public char playerCharacter { get; } = '☻'; // the use of get here causes the player icon to be read-only which disallows it from changing later on
         public int CurrentHealth => healthSystem.CurrentHealth;
+
 
         public override void Attack(Entity target)
         {
@@ -64,13 +68,6 @@ namespace First_Playable
                 }
             }
         }
-        public void Initialize()
-        {
-            dead = false;
-            playerCol = 4;
-            playerRow = 4;
-        }
-
         public void HandleKeyPress(ConsoleKey key)
         {
             if (DateTime.Now - Settings.lastInputTime < Settings.inputDelay)
