@@ -11,8 +11,8 @@ namespace First_Playable
         private MapData mapData;
         private EnemyManager enemyManager;
         
-        internal int playerCol;
-        internal int playerRow;
+        public static int playerCol = Settings.playerCol;
+        public static int playerRow = Settings.playerRow;
 
         bool hasAttacked;
         public bool dead = false;

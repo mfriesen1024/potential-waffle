@@ -8,7 +8,7 @@ namespace First_Playable
 {
     internal class Duck : Enemy
     {
-        // Constructor for Enemy1, it needs to pass mapData and player to the base class constructor
+        // Constructor for Duck, it needs to pass mapData and player to the base class constructor
 
         public Duck(MapData mapData, Player player, int attackValue,
             EnemyManager enemyManager, Buffer buffer)
@@ -20,7 +20,7 @@ namespace First_Playable
             AttackValue = Level * 2;
             Modifer = Level;
             EnemyCharacter = Settings.DuckChar;
-            // Duck specific initializations go here so that methods within Enemy1 can see them.  
+            // Duck specific initializations go here so that methods within Duck can see them.  
         }
         public int Index { get; private set; }
         public string Enemy1Name { get; set; }
