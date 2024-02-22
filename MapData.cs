@@ -32,6 +32,10 @@ namespace First_Playable
         {
             "⅛","⅜","⅝","⅞"
         };
+        public string[] PickUpItems = new string[]
+        {
+        "☙"
+        };
 
 
         public void DrawBorder()
@@ -111,6 +115,7 @@ namespace First_Playable
                 switch (map[newCol, newRow])
                 {
                     case ' ':
+                    case '☙':
                     case '⅛':
                     case '⅜':
                     case '⅝':

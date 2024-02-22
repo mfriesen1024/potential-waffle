@@ -8,7 +8,10 @@ namespace First_Playable
 {
     internal class Item
     {
-
-
+        public char HealthPickupChar;
+        Item()
+        { 
+        HealthPickupChar = Settings.HealthChar;
+        }
     }
 }

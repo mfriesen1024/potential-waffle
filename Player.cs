@@ -66,10 +66,7 @@ namespace First_Playable
         }
         public void HandleKeyPress(ConsoleKey key)
         {
-            if (DateTime.Now - Settings.lastInputTime < Settings.inputDelay)
-                return;
-            Settings.lastInputTime = DateTime.Now;
-
+            
             switch (key)
             {
                 case ConsoleKey.UpArrow:
@@ -131,6 +128,12 @@ namespace First_Playable
             { 
                 playerRow = newRow;
                 playerCol = newCol;
+
+
+                if (mapData.PickUpItems.Contains(mapData.map[playerCol, playerRow].ToString()))
+                {
+                    Heal(20); // duplicate switch statement below when theres more than one item
+                }
                 if (mapData.EnviromentalHazard.Contains(mapData.map[playerCol, playerRow].ToString())) // In short if the player occupies a hazard the following code runs.
                 {
                     Random random = new Random();

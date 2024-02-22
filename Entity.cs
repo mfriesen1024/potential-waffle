@@ -32,10 +32,6 @@ namespace First_Playable
             Console.WriteLine($"{Name} has been defeated!");
             dead = true;
         }
-        //public virtual void DisplayInfo()
-        //{
-        //    Console.WriteLine($"Name: {Name}, Health: {healthSystem.CurrentHealth}, Creature Type: {CreatureType}");
-        //}
         public void TakeDamage(int attackValue, int Modifier) => healthSystem.TakeDamage(AttackValue, Modifier);
         public void Heal(int amount) => healthSystem.Heal(amount);
         public abstract void Attack(Entity target);

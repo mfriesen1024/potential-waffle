@@ -27,6 +27,7 @@ namespace First_Playable
             enemyManager.allEnemyLists[enemyManager.allEnemyLists.Count - 1].Add(this);
             attackValue = AttackValue;
             this.buffer = buffer;
+            dead = false;
         }
 
         public int CurrentHealth => healthSystem.CurrentHealth;

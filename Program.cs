@@ -13,6 +13,7 @@ namespace First_Playable
         private static MapData mapData;
         private static Player player;
         private static EnemyManager enemyManager;
+        private static HudDisplay hudDisplay;
 
         public static void Initialize()
         {
@@ -20,6 +21,7 @@ namespace First_Playable
             mapData = new MapData(buffer);
             enemyManager = new EnemyManager(mapData);
             CreatePlayerInstance();
+            hudDisplay = new HudDisplay(player);
             mapData.TxtFileToMapArray();
             buffer.DisplayBuffer();
         }
@@ -64,9 +66,7 @@ namespace First_Playable
                 Environment.Exit(0);
                 }
                 player.HandleKeyPress(keyInfo.Key);
-
-                enemyManager.MoveEnemies();
-
+                enemyManager.MoveEnemies(); 
                 mapData.PrintMap(); // Prevents the player from leaving a trail of player icons
                 player.DrawPlayer(); // Put player on the map
                 enemyManager.DrawEnemies();
