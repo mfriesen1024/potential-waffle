@@ -17,8 +17,7 @@ namespace First_Playable
             Level = 1;
             AttackValue = Level * 2;
             Modifer = Level;
-            EnemyCharacter = Settings.DuckChar;
-            MaxHealth = 10;  
+            EnemyCharacter = Settings.GooseChar;
         }
         public int Index { get; private set; }
         public string GooseName { get; set; }

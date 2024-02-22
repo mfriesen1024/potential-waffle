@@ -32,10 +32,6 @@ namespace First_Playable
         {
             "⅛","⅜","⅝","⅞"
         };
-        public string[] PickUpItems = new string[]
-        {
-        "☙"
-        };
         public void DrawBorder()
         {
             int mapWidth = map.GetLength(1);

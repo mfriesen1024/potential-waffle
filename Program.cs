@@ -14,6 +14,7 @@ namespace First_Playable
         private static Player player;
         private static EnemyManager enemyManager;
         private static HudDisplay hudDisplay;
+        private static Item item;
 
         public static void Initialize()
         {
@@ -22,8 +23,10 @@ namespace First_Playable
             enemyManager = new EnemyManager(mapData);
             CreatePlayerInstance();
             hudDisplay = new HudDisplay(player);
+            item = new Item();
             mapData.TxtFileToMapArray();
             buffer.DisplayBuffer();
+            item.SpreadItems(mapData, buffer);
         }
 
         // public static void InitializeEnemies()
@@ -33,7 +36,7 @@ namespace First_Playable
 
         static void CreatePlayerInstance() 
         { 
-            player = new Player(mapData, enemyManager, "Sam Robichaud", 10, 5, buffer); 
+            player = new Player(mapData, enemyManager, "Sam Robichaud", 10, 5, buffer, item); 
         }
 
 
@@ -56,12 +59,8 @@ namespace First_Playable
             do
             {
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                Console.SetCursorPosition(0, 0); // Needed for some Border reason that could likely be solved another way
-                if (keyInfo.Key == ConsoleKey.Enter)
-                {
-                    Console.Clear();
-                    keyInfo = Console.ReadKey(true);
-                }
+                //Console.Clear();
+                //Console.SetCursorPosition(0, 0); // Needed for some Border reason that could likely be solved another way
                 if (keyInfo.Key == ConsoleKey.Escape)
                 {
                 Environment.Exit(0);
@@ -93,7 +92,7 @@ namespace First_Playable
                     case nameof(Goose):
                         List<Goose> geese = Spawner<Goose>(mapData, player, attackValue, enemyManager, buffer, count, "Gary", 12, Enemy.MediumCreatureTypes, 0, 6);
                         break;
-                    // Add cases for other enemy types...
+                    // Add cases for other enemy types
                 }
             }
         }
@@ -106,7 +105,7 @@ namespace First_Playable
             for (int i = 0; i < count; i++)
             {
                 Type newEnemy = (Type)Activator.CreateInstance(typeof(Type), mapData, player, attackValue, enemyManager, buffer);
-                newEnemy.SpawnEnemy(name, health, creatureTypes, creatureTypeIndex, enemyAttackValue); // Use enemyAttackValue here
+                newEnemy.SpawnEnemy(name, health, creatureTypes, creatureTypeIndex, enemyAttackValue); 
                 enemies.Add(newEnemy);
             }
             return enemies;
@@ -115,7 +114,7 @@ namespace First_Playable
 
         public static void InitializeEnemies1()
         {
-            Populate1(mapData, player, Settings.EnemyAtk, enemyManager, buffer, (typeof(Duck), 5), (typeof(Lion), 2), (typeof(Goose), 3));
+            Populate1(mapData, player, Settings.EnemyAtk, enemyManager, buffer, (typeof(Duck), 20), (typeof(Lion), 4), (typeof(Goose), 8));
         }
 
         

@@ -32,6 +32,7 @@ namespace First_Playable
             attackValue = AttackValue;
             this.buffer = buffer;
             dead = false;
+
             DetermineMaxHealth();
         }
     public abstract void DetermineMaxHealth();

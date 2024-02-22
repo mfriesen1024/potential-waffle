@@ -10,6 +10,7 @@ namespace First_Playable
     {
         private MapData mapData;
         private EnemyManager enemyManager;
+        private Item item;
         
         public static int playerCol = Settings.playerCol; // there should only ever be one player on screen, many player statisics will be static to reflect this.
         public static int playerRow = Settings.playerRow;
@@ -20,13 +21,14 @@ namespace First_Playable
         
 
         public Player(MapData mapData, EnemyManager enemyManager,
-            string name, int initialHealth, int attackValue, Buffer buffer)
+            string name, int initialHealth, int attackValue, Buffer buffer, Item item)
             : base(name, initialHealth, new string[]{"Player"})
 
         {
             this.mapData = mapData;
             this.enemyManager = enemyManager;
             AttackValue = attackValue;
+            this.item = item;
             Level = 1;
             attackValue = Level * 5;
             Modifer = Level * 2;
@@ -135,7 +137,7 @@ namespace First_Playable
                 playerCol = newCol;
 
 
-                if (mapData.PickUpItems.Contains(mapData.map[playerCol, playerRow].ToString()))
+                if (item.HealthPickupChar == mapData.map[playerCol, playerRow])
                 {
                     switch (buffer.secondBuffer[playerCol, playerRow].ToString()) // Reads Char array from MapData and converts back to string for switch statement check.
                     {

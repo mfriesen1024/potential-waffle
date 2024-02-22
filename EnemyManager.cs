@@ -20,23 +20,27 @@ namespace First_Playable
         }
 
         public void MoveEnemies()
-        {
-            foreach (var enemy in listOfEnemies)
+        { foreach (var list in allEnemyLists)
             {
-                if (enemy.dead) continue;
-                enemy.MoveEnemy();
+                foreach (var enemy in listOfEnemies)
+                {
+                    if (enemy.dead) continue;
+                    enemy.MoveEnemy();
+                }
             }
         }
 
         public void DrawEnemies()
         {
-            foreach (var enemy in listOfEnemies)
+            foreach (var list in allEnemyLists)
             {
-                if (enemy.dead) continue;
-                enemy.DrawEnemy();
+                foreach (var enemy in listOfEnemies)
+                {
+                    if (enemy.dead) continue;
+                    enemy.DrawEnemy();
+                }
             }
         }
-
         public void SetPlayer(Player player)
         {
             this.player = player;
