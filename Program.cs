@@ -14,21 +14,24 @@ namespace First_Playable
         private static Player player;
         private static EnemyManager enemyManager;
 
-        static void Main(string[] args)
+        public static void Initialize()
         {
             buffer = new Buffer();
             mapData = new MapData(buffer);
             enemyManager = new EnemyManager(mapData);
-            player = new Player(mapData, enemyManager,"Sam Robichaud", 100, 10, buffer); 
-            
-            Console.OutputEncoding = System.Text.Encoding.UTF8; // Needed at the top of Main so that ASCII display properly
-
+            CreatePlayerInstance();
             mapData.TxtFileToMapArray();
             buffer.DisplayBuffer();
+        }
 
-            List<Duck> listOfEnemies = Populate(5);
+        public static void InitializeEnemies()
+        { 
+            List<Duck> listOfEnemies = Populate(5); 
+        }
 
-            GameLoop();
+        static void CreatePlayerInstance() 
+        { 
+            player = new Player(mapData, enemyManager, "Sam Robichaud", 10, 5, buffer); 
         }
 
 
@@ -45,7 +48,7 @@ namespace First_Playable
 
         
 
-        static void GameLoop()
+        public static void GameLoop()
         {
             do
             {
@@ -55,6 +58,10 @@ namespace First_Playable
                 {
                     Console.Clear();
                     keyInfo = Console.ReadKey(true);
+                }
+                if (keyInfo.Key == ConsoleKey.Escape)
+                {
+                Environment.Exit(0);
                 }
                 player.HandleKeyPress(keyInfo.Key);
 

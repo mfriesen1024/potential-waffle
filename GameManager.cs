@@ -8,9 +8,12 @@ namespace First_Playable
 {
     internal class GameManager
     {
-
-
-
-
+        static void Main(string[] args)
+        {
+            Console.OutputEncoding = Encoding.UTF8;
+            Program.Initialize();
+            Program.InitializeEnemies();
+            Program.GameLoop();
+        }
     }
 }

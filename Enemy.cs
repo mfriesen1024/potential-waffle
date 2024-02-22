@@ -19,7 +19,7 @@ namespace First_Playable
 
         public Enemy(MapData mapData, int attackValue,
             EnemyManager enemyManager, Buffer buffer) // What is passed into Enemy
-            : base("DefaultEnemyName", 100, new string[] {"Enemy"}) // base = what it is given/needs by default from its parent/base class
+            : base("DefaultEnemyName", 10, new string[] {"Enemy"}) // base = what it is given/needs by default from its parent/base class
         {
             this.enemyManager = enemyManager;
             this.mapData = mapData;
@@ -31,26 +31,22 @@ namespace First_Playable
 
         public int CurrentHealth => healthSystem.CurrentHealth;
 
-        public override void Attack(Entity target) // target is of type Entity, fill this arguement with who is being attacked.
-        {
-
-            Console.WriteLine("Display Info to be used until attacks are added");
-        }
-
+        public override void Attack(Entity target) {} // target is of type Entity, fill this arguement with who is being attacked.
+        
         public virtual void MoveEnemy(){}
         public void DrawEnemy()
         {
             buffer.secondBuffer[EnemyCol, EnemyRow] = EnemyCharacter; // USE AS FUTURE REFERENCE FOR DRAWING INTO BUFFER
         }
-
+        
         protected internal void SpawnEnemy(string name, int health, string creatureType, int attackValue)
         {
             int randomX, randomY;
             do
             {
-                randomX = Settings.random.Next(1, 77);
-                randomY = Settings.random.Next(1, 27);
-            } while (mapData.map[randomY, randomX] != ' ');//|| (randomX < 8 && randomY < 8));
+                randomX = Settings.random.Next(8, 77);
+                randomY = Settings.random.Next(8, 27);
+            } while (mapData.map[randomY, randomX] != ' ');
             DrawEnemy();
             EnemyCol = randomY;
             EnemyRow = randomX;

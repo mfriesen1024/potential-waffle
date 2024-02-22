@@ -28,9 +28,9 @@ namespace First_Playable
             this.mapData = mapData;
             this.enemyManager = enemyManager;
             AttackValue = attackValue;
-            //hgh = Mod
             Level = 1;
             attackValue = Level * 5;
+            Modifer = Level * 2;
             playerCol = Settings.playerCol;
             playerRow = Settings.playerRow;
             enemyManager.SetPlayer(this);
@@ -38,13 +38,9 @@ namespace First_Playable
         }
         public char playerCharacter { get; } = '☻'; // the use of get here causes the player icon to be read-only which disallows it from changing later on
         public int CurrentHealth => healthSystem.CurrentHealth;
-
-
         public override void Attack(Entity target)
         {
-            target.TakeDamage(AttackValue, 0);
-            //Console.WriteLine($"Player attacked {target.Name}!");
-
+            target.TakeDamage(AttackValue, Modifer);
             if (target is Enemy enemy)
             {
                 if (enemy.CurrentHealth <= 0)

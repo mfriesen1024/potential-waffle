@@ -17,7 +17,8 @@ namespace First_Playable
             AttackValue = attackValue;
             this.player = player;
             Level = 1;
-            AttackValue = Level * 5;
+            AttackValue = Level * 2;
+            Modifer = Level;
             EnemyCharacter = Settings.DuckChar;
             // Duck specific initializations go here so that methods within Enemy1 can see them.  
         }
@@ -62,7 +63,7 @@ namespace First_Playable
         }
         public override void Attack(Entity target)
         {
-            target.TakeDamage(AttackValue, 0);
+            target.TakeDamage(AttackValue, Modifer);
             if (target is Entity player)
             {
                 if (player.CurrentHealth <= 0)
