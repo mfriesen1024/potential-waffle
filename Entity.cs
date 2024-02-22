@@ -10,14 +10,14 @@ namespace First_Playable
     {
         protected HealthSystem healthSystem;
         public string Name { get; set; }
-        public string CreatureType { get; set; } // For now creature types do jack all
+        public string[] CreatureType { get; set; } // For now creature types do jack all
         public int AttackValue { get; set; }
         public int Level { get; set; }
         public int CurrentHealth { get => healthSystem.CurrentHealth; set => healthSystem.CurrentHealth = value; }
 
         public bool dead;
 
-        public Entity(string name, int initialHealth, string creatureType) 
+        public Entity(string name, int initialHealth, string[] creatureType) 
         {
             Name = name;
             CreatureType = creatureType;

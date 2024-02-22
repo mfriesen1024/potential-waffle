@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,13 +19,14 @@ namespace First_Playable
             buffer = new Buffer();
             mapData = new MapData(buffer);
             enemyManager = new EnemyManager(mapData);
-            player = new Player(mapData, enemyManager,"Sam Robichaud", 100, 10, buffer); // This is for Matt's class, Sam will never know he is the default character.
+            player = new Player(mapData, enemyManager,"Sam Robichaud", 100, 10, buffer); 
             
             Console.OutputEncoding = System.Text.Encoding.UTF8; // Needed at the top of Main so that ASCII display properly
 
-            ProcessData();
+            mapData.TxtFileToMapArray();
+            buffer.DisplayBuffer();
 
-            List<Enemy1> listOfEnemies = Populate();
+            List<Duck> listOfEnemies = Populate(5);
 
             // Print the contents of the list
             //foreach (Enemy1 enemy in listOfEnemies) // Used for Debug purposes of reading list contents
@@ -32,17 +34,23 @@ namespace First_Playable
             //    Console.WriteLine(enemy.ToString()); 
             //}
 
+
             GameLoop();
         }
 
 
-        static List<Enemy1> Populate()
+        static List<Duck> Populate(int amount)
         {
-            Enemy1 newEnemy1 = new Enemy1(mapData, player, Settings.EnemyAtk, enemyManager, buffer);
-            newEnemy1.SpawnEnemy1("Donald", 10, "Duck", 5);
-            enemyManager.listOfEnemies.Add(newEnemy1);
+            for (int i = 0; i < amount; i++)
+            {
+                Duck newEnemy1 = new Duck(mapData, player, Settings.EnemyAtk, enemyManager, buffer);
+                newEnemy1.SpawnEnemy1("Donald", 10, "Duck", 5);
+                enemyManager.listOfEnemies.Add(newEnemy1);
+            }
             return enemyManager.listOfEnemies;
         }
+
+        
 
         static void GameLoop()
         {
@@ -61,17 +69,12 @@ namespace First_Playable
                 enemyManager.MoveEnemies();
 
                 mapData.PrintMap(); // Prevents the player from leaving a trail of player icons
-                player.DrawPlayer(); // Put player on da map
+                player.DrawPlayer(); // Put player on the map
                 enemyManager.DrawEnemies();
-                buffer.DisplayBuffer(); // Anti-Seizure protocol
-                mapData.DrawBorder(); // What do you think this does?
+                buffer.DisplayBuffer(); // Double buffer prevents flickering
+                mapData.DrawBorder(); 
             } 
             while (player.dead == false);
-        }
-        static void ProcessData()
-        {
-            mapData.TxtFileToMapArray();
-            buffer.DisplayBuffer();
         }
     }
 }

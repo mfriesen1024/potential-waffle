@@ -19,7 +19,9 @@ namespace First_Playable
         Buffer buffer;
 
         public bool dead;
-        public Player(MapData mapData, EnemyManager enemyManager, string name, int initialHealth, int attackValue, Buffer buffer) : base(name, initialHealth, "Player")
+        public Player(MapData mapData, EnemyManager enemyManager, string name, int initialHealth, int attackValue, Buffer buffer)
+            : base(name, initialHealth, new string[]{"Player"})
+
         {
             this.mapData = mapData;
             this.enemyManager = enemyManager;
@@ -37,7 +39,7 @@ namespace First_Playable
             target.TakeDamage(AttackValue, 0);
             //Console.WriteLine($"Player attacked {target.Name}!");
 
-            if (target is EnemyEntity enemy)
+            if (target is Enemy enemy)
             {
                 if (enemy.CurrentHealth <= 0)
                 {
@@ -45,7 +47,7 @@ namespace First_Playable
                 }
             }
         }
-        internal void CheckCollision(List<Enemy1> EnemyList, int rowChange, int columnChange)
+        internal void CheckCollision(List<Duck> EnemyList, int rowChange, int columnChange)
         {
             //foreach (var enemyList in allEnemyLists)
             //{

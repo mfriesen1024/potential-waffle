@@ -146,13 +146,13 @@ namespace First_Playable
         }
 
 
-        public void TxtFileToMapArray() // works now
+        public void TxtFileToMapArray() 
         {
             string[] lines = File.ReadAllLines("Map.txt");
             buffer.firstBuffer = new char[lines.GetLength(0), lines[0].Length];
             buffer.secondBuffer = new char[lines.GetLength(0), lines[0].Length];
             map = new char[lines.GetLength(0), lines[0].Length];
-            for (int i = 0; i < lines.GetLength(0); i++) // For loops are fun.
+            for (int i = 0; i < lines.GetLength(0); i++) 
             {
                 for (int j = 0; j < lines[i].Length; j++)
                 {

@@ -11,8 +11,8 @@ namespace First_Playable
         internal MapData mapData;
         internal Player player;
 
-        internal List<List<EnemyEntity>> allEnemyLists = new List<List<EnemyEntity>>();
-        internal List<Enemy1> listOfEnemies = new List<Enemy1>();
+        internal List<List<Enemy>> allEnemyLists = new List<List<Enemy>>();
+        internal List<Duck> listOfEnemies = new List<Duck>();
 
         public EnemyManager(MapData mapData)
         {
