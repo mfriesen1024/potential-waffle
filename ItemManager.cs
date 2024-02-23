@@ -28,7 +28,7 @@ namespace First_Playable
         {
             foreach (var item in AllItemsList)
             {
-                item.DrawItem(buffer);
+                item.DrawItem();
             }
         }
         public void SetHud(HudDisplay hudDisplay)

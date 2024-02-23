@@ -51,11 +51,11 @@ namespace First_Playable
                 mapData.PrintMap(); 
                 player.DrawPlayer(); 
                 enemyManager.DrawEnemies();
-                buffer.DisplayBuffer(); 
                 mapData.DrawBorder();
                 mapData.HudBorder();
                 itemManager.DrawItems();
                 Console.WriteLine(ItemManager.AllItemsList.Count);
+                buffer.DisplayBuffer();
                 hudDisplay.DrawHudMessages();
             } 
             while (!player.dead);

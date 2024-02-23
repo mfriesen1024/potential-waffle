@@ -18,7 +18,7 @@ namespace First_Playable
         public Item(Player player, Buffer buffer)
         {
             this.player = player;
-            this.buffer = buffer;
+            this.buffer = player.buffer;
         }
 
         public int[] GetItemXY()
@@ -33,13 +33,12 @@ namespace First_Playable
             xPos = x;
             yPos = y;
         }
-        public void DrawItem(Buffer buffer)
+        public void DrawItem()
         {
             //Console.WriteLine("DrawItem is being called");
             if (!Collected)
             {
                 buffer.secondBuffer[yPos, xPos] = Settings.HealthChar;
-                //Console.WriteLine("Health Pick up has been put on buffer");
             }
             else
             { 

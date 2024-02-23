@@ -10,14 +10,14 @@ namespace First_Playable
     {
         private MapData mapData;
         private EnemyManager enemyManager;
-        private Buffer buffer;
+        public Buffer buffer;
         private HudDisplay hudDisplay;
         private ItemManager itemManager; 
         private Item item;  
         
         public static int playerCol = Settings.playerCol; // there should only ever be one player on screen, many player statisics will be static to reflect this.
         public static int playerRow = Settings.playerRow;
-        public char playerCharacter { get; } = '☻';
+        public static char playerCharacter { get; } = '☻';
         bool hasAttacked;
         public int CurrentHealth => healthSystem.CurrentHealth;
 
@@ -116,6 +116,7 @@ namespace First_Playable
                 if (newCol == itemY && newRow == itemX)
                 {
                     item.Collected = true;
+                    DisplayMessage("Player picked up an item");
                     item.UseItem();
                 }
             }
