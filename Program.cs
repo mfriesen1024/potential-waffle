@@ -114,7 +114,7 @@ namespace First_Playable
 
         public static void InitializeEnemies1()
         {
-            Populate1(mapData, player, Settings.EnemyAtk, enemyManager, buffer, (typeof(Duck), 20), (typeof(Lion), 4), (typeof(Goose), 8));
+            Populate1(mapData, player, Settings.EnemyAtk, enemyManager, buffer, (typeof(Duck), 2), (typeof(Lion), 4), (typeof(Goose), 10));
         }
 
         

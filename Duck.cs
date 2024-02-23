@@ -19,15 +19,17 @@ namespace First_Playable
             AttackValue = Level * 2;
             Modifer = Level;
             EnemyCharacter = Settings.DuckChar;  
+            MaxHealth = 10;
         }
         public int Index { get; private set; }
         public string DuckName { get; set; }
         public int DuckHealth { get; set; }
         public string DuckCreatureType { get; set; }
 
-        public override void DetermineMaxHealth()
+        public override int DetermineMaxHealth()
         {
-            MaxHealth = 10; 
+            MaxHealth = 10;
+            return MaxHealth;
         }
         public override void MoveEnemy()
         {

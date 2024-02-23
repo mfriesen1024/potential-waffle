@@ -18,12 +18,12 @@ namespace First_Playable
         public int EnemyRow;
         public int CurrentHealth => healthSystem.CurrentHealth;
         public int MaxHealth;
-        public static string[] SmallCreatureTypes = {"Duck"};
-        public static string[] MediumCreatureTypes = {"Not Duck"};
-        public static string[] LargeCreatureTypes = {"Also Not Duck"};
+        public static string[] SmallCreatureTypes = { "Duck" };
+        public static string[] MediumCreatureTypes = { "Not Duck" };
+        public static string[] LargeCreatureTypes = { "Also Not Duck" };
 
         public Enemy(MapData mapData, int attackValue, EnemyManager enemyManager, Buffer buffer) // What is passed into Enemy
-            : base("DefaultEnemyName", 10, new string[] {"Enemy"}) // base = what it is given/needs by default from its parent/base class
+            : base("DefaultEnemyName", 10, new string[] { "Enemy" }) // base = what it is given/needs by default from its parent/base class
         {
             this.enemyManager = enemyManager;
             this.mapData = mapData;
@@ -32,13 +32,10 @@ namespace First_Playable
             attackValue = AttackValue;
             this.buffer = buffer;
             dead = false;
-
-            DetermineMaxHealth();
         }
-    public abstract void DetermineMaxHealth();
+        public override void Attack(Entity target) { } // target is of type Entity, fill this arguement with who is being attacked.
+        public abstract int DetermineMaxHealth();
 
-        public override void Attack(Entity target) {} // target is of type Entity, fill this arguement with who is being attacked.
-        
         public virtual void MoveEnemy(){}
         public void DrawEnemy()
         {
@@ -60,6 +57,7 @@ namespace First_Playable
             EnemyCol = randomY;
             EnemyRow = randomX;
             Name = name;
+            enemyManager.listOfEnemies.Add(this);
             string creatureType = creatureTypes[creatureTypeIndex];
         }
     }

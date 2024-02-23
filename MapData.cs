@@ -115,20 +115,7 @@ namespace First_Playable
                     case '⅝':
                     case '⅞':
                     return true;
-                    case '╭':
-                    case '─':
-                    case '╮':
-                    case '╯':
-                    case '╰':
-                    case '│':
-                    case '┘':
-                    case '┌':
-                    case '┐':
-                    case '└':
-                    case '├':
-                    case '┤':
-                    case '┬':
-                    case '┴':
+                    case '╭':case '─':case '╮': case '╯': case '╰':case '│': case '┘':case '┌': case '┐':case '└': case '├': case '┤':case '┬': case '┴':
                     return false;
                 }
             }

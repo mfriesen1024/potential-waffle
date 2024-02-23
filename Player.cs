@@ -41,15 +41,18 @@ namespace First_Playable
         public int CurrentHealth => healthSystem.CurrentHealth;
         public override void Attack(Entity target)
         {
-            target.TakeDamage(AttackValue, Modifer);
             if (target is Enemy enemy)
             {
+                target.TakeDamage(AttackValue, Modifer);
+                int DamageDealt = enemy.DetermineMaxHealth() - target.CurrentHealth;
+                HudDisplay.AddScore(DamageDealt);
                 if (enemy.CurrentHealth <= 0)
                 {
                     enemy.Die();
                 }
             }
         }
+
         public override void Die()
         {
             Console.Clear();
@@ -58,7 +61,7 @@ namespace First_Playable
             Console.ReadKey(true);
             dead = true;
         }
-        internal void CheckCollision(List<Duck> EnemyList, int rowChange, int columnChange)
+        internal void CheckCollision(List<Enemy> EnemyList, int rowChange, int columnChange)
         {
             int newRow = playerRow + rowChange;
             int newCol = playerCol + columnChange;
@@ -137,8 +140,8 @@ namespace First_Playable
                 playerCol = newCol;
 
 
-                if (item.HealthPickupChar == mapData.map[playerCol, playerRow])
-                {
+                //if (item.HealthPickupChar == mapData.map[playerCol, playerRow])
+                
                     switch (buffer.secondBuffer[playerCol, playerRow].ToString()) // Reads Char array from MapData and converts back to string for switch statement check.
                     {
                         case "☙":
@@ -148,7 +151,7 @@ namespace First_Playable
                             }
                             break;
                     }
-                }
+                
                 if (mapData.EnviromentalHazard.Contains(mapData.map[playerCol, playerRow].ToString())) // In short if the player occupies a hazard the following code runs.
                 {
                     Random random = new Random();

@@ -60,6 +60,12 @@ namespace First_Playable
                         case '♣':
                             Console.ForegroundColor = ConsoleColor.Green;
                             break;
+                        case '+':
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                            break;
+                        case '&':
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            break;
                         case '⅛':
                         case '⅜':
                         case '⅝':
