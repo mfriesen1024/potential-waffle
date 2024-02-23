@@ -13,16 +13,17 @@ namespace First_Playable
         private static MapData mapData;
         private static Player player;
         private static EnemyManager enemyManager;
-        private static ItemManager itemManager;
+        public static ItemManager itemManager;
         private static HudDisplay hudDisplay;
         private static Item item;
 
         public static void Initialize()
         {
+            Console.WriteLine("Initialize Running");
             buffer = new Buffer();
             mapData = new MapData(buffer);
             enemyManager = new EnemyManager(mapData);
-            itemManager = new ItemManager(buffer, mapData);
+            itemManager = new ItemManager(buffer, mapData, player);
             CreatePlayerInstance();
             hudDisplay = new HudDisplay(player);
             item = new Item();
@@ -45,18 +46,20 @@ namespace First_Playable
                 {
                 Environment.Exit(0);
                 }
+                Console.WriteLine("GameLoop Running");
                 player.HandleKeyPress(keyInfo.Key);
                 enemyManager.MoveEnemies(); 
                 mapData.PrintMap(); // Prevents the player from leaving a trail of player icons
                 player.DrawPlayer(); // Put player on the map
                 enemyManager.DrawEnemies();
                 buffer.DisplayBuffer(); // Double buffer prevents flickering
-                mapData.DrawBorder(); 
+                mapData.DrawBorder();
+                mapData.HudBorder();
+                itemManager.DrawItems();
+                Console.WriteLine(ItemManager.AllItemsList.Count);
             } 
             while (!player.dead);
         }
-
-
         static void Populate(MapData mapData, Player player, int attackValue, EnemyManager enemyManager, Buffer buffer, params (Type, int)[] enemyCounts)
         {
             foreach (var (enemyType, count) in enemyCounts)
@@ -90,13 +93,10 @@ namespace First_Playable
             }
             return enemies;
         }
-
-
         public static void InitializeEnemies1()
         {
+            Console.WriteLine("Enemies Initializing");
             Populate(mapData, player, Settings.EnemyAtk, enemyManager, buffer, (typeof(Duck), 2), (typeof(Lion), 4), (typeof(Goose), 10));
         }
-
-        
     }
 }

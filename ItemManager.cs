@@ -13,7 +13,7 @@ namespace First_Playable
         Player player;
         static internal List<Item> AllItemsList = new List<Item>();
 
-        public ItemManager(Buffer buffer, MapData mapData)
+        public ItemManager(Buffer buffer, MapData mapData, Player player)
         {
             this.mapData = mapData;
             this.buffer = buffer;
@@ -23,24 +23,29 @@ namespace First_Playable
         {
             this.player = player;
         }
-        // DrawItems()
-        public void SpreadItems(MapData mapData, Buffer buffer)
+        public void DrawItems()
+        {
+            foreach (var item in AllItemsList)
+            {
+                item.DrawItem(buffer);
+            }
+        }
+        public void SpreadItems(MapData mapData, Buffer buffer) // does not place items on the map just makes them and provides XY
         {
             int randomX, randomY;
             for (int i = 0; i < Settings.itemCount; i++)
             {
                 randomX = Settings.random.Next(1, 77);
                 randomY = Settings.random.Next(1, 27);
-                while (mapData.map[randomY, randomX] != ' ');
+                while (mapData.map[randomY, randomX] != ' ')
                 {
                     randomX = Settings.random.Next(1, 77);
                     randomY = Settings.random.Next(1, 27);
                 }
                 Item item = new Item();
                 item.SetItemXY(randomX, randomY);
-                AllItemsList.Add(item);
+                AllItemsList.Add(item); // And adds to list
             }
-            
         }
     }
 }

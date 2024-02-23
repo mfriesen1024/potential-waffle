@@ -18,6 +18,10 @@ namespace First_Playable
             int playerX = Settings.playerRow;
             int playerY = Settings.playerCol;
         }
+        void DrawHud()
+        { 
+        
+        }
         public static void AddScore(int scoretoadd)
         {
             TotalScore += scoretoadd;

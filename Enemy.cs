@@ -12,6 +12,7 @@ namespace First_Playable
         internal Player player;
         protected Buffer buffer;
         protected EnemyManager enemyManager;
+        public int TurnCount;
 
         protected char EnemyCharacter;
         public int EnemyCol;

@@ -10,15 +10,13 @@ namespace First_Playable
     {
         public char[,] ?firstBuffer;
         public char[,] ?secondBuffer;
-
         private MapData mapData;
-
-        public void SetMapData(MapData mapData) // This tells MapData what Buffer is, could fix later but its funny to think about.
+        public void SetMapData(MapData mapData)
         {
             this.mapData = mapData;
         }
 
-        public void DisplayBuffer() // Manages the buffer/screen refresh so I don't have a seizure playing my game.
+        public void DisplayBuffer()
         {
             for (int Y = 0; Y < firstBuffer?.GetLength(0); Y++)
             {
@@ -54,17 +52,17 @@ namespace First_Playable
                         case '☻':
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             break;
-                        case '☙':
+                        case Settings.HealthChar:
                             Console.ForegroundColor = ConsoleColor.Red;
                             break;
-                        case '♣':
+                        case Settings.DuckChar:
                             Console.ForegroundColor = ConsoleColor.Green;
                             break;
-                        case '+':
+                        case Settings.GooseChar:
                             Console.ForegroundColor = ConsoleColor.Blue;
                             break;
-                        case '&':
-                            Console.ForegroundColor = ConsoleColor.Red;
+                        case Settings.LionChar:
+                            Console.ForegroundColor = ConsoleColor.White;
                             break;
                         case '⅛':
                         case '⅜':

@@ -10,16 +10,15 @@ namespace First_Playable
     {
         private MapData mapData;
         private EnemyManager enemyManager;
-        private ItemManager itemManager;
-        private Item item;
+        private Buffer buffer;
+        private ItemManager itemManager; // not sure why these are gray, they are needed.
+        private Item item;  // not sure why these are gray, they are needed.
         
         public static int playerCol = Settings.playerCol; // there should only ever be one player on screen, many player statisics will be static to reflect this.
         public static int playerRow = Settings.playerRow;
-
+        public char playerCharacter { get; } = '☻';
         bool hasAttacked;
-
-        Buffer buffer;
-        
+        public int CurrentHealth => healthSystem.CurrentHealth;
 
         public Player(MapData mapData, EnemyManager enemyManager,
             string name, int initialHealth, int attackValue, Buffer buffer, Item item)
@@ -30,59 +29,15 @@ namespace First_Playable
             this.enemyManager = enemyManager;
             AttackValue = attackValue;
             this.item = item;
+            itemManager = Program.itemManager;
             Level = 1;
             attackValue = Level * 5;
             Modifer = Level * 2;
             playerCol = Settings.playerCol;
             playerRow = Settings.playerRow;
             enemyManager.SetPlayer(this);
+            itemManager.SetPlayer(this);
             this.buffer = buffer;
-        }
-        public char playerCharacter { get; } = '☻'; // the use of get here causes the player icon to be read-only which disallows it from changing later on
-        public int CurrentHealth => healthSystem.CurrentHealth;
-        public override void Attack(Entity target)
-        {
-            if (target is Enemy enemy)
-            {
-                target.TakeDamage(AttackValue, Modifer);
-                int DamageDealt = enemy.DetermineMaxHealth() - target.CurrentHealth;
-                HudDisplay.AddScore(DamageDealt);
-                if (enemy.CurrentHealth <= 0)
-                {
-                    enemy.Die();
-                }
-            }
-        }
-
-        public override void Die()
-        {
-            Console.Clear();
-            // Display Score
-            System.Console.WriteLine("You Died");
-            Console.ReadKey(true);
-            dead = true;
-        }
-        internal void CheckCollision(List<Enemy> EnemyList, int rowChange, int columnChange)
-        {
-            int newRow = playerRow + rowChange;
-            int newCol = playerCol + columnChange;
-
-            foreach (var enemy in EnemyList)
-            {
-                if (newCol == enemy.EnemyCol && newRow == enemy.EnemyRow)
-                {
-                    hasAttacked = true;
-                    Attack(enemy);
-                }
-            }
-            foreach (var item in itemManager.AllItemsList)
-            {
-                if (newCol == item.ItemY && newRow == item.ItemX)
-                {
-                    item.Collected = true;
-                    item.UseItem();
-                }
-            }
         }
         public void HandleKeyPress(ConsoleKey key)
         {
@@ -129,7 +84,31 @@ namespace First_Playable
                     break;
             }
         }
+        internal void CheckCollision(List<Enemy> EnemyList, int rowChange, int columnChange)
+        {
+            int newRow = playerRow + rowChange;
+            int newCol = playerCol + columnChange;
 
+            foreach (var enemy in EnemyList)
+            {
+                if (newCol == enemy.EnemyCol && newRow == enemy.EnemyRow)
+                {
+                    hasAttacked = true;
+                    Attack(enemy);
+                }
+            }
+            foreach (var item in ItemManager.AllItemsList)
+            {
+                int[] itemCoordinates = item.GetItemXY(); // Get the X and Y coordinates of the item
+                int itemX = itemCoordinates[0];
+                int itemY = itemCoordinates[1];
+                if (newCol == itemY && newRow == itemX)
+                {
+                    item.Collected = true;
+                    item.UseItem();
+                }
+            }
+        }
         private void MovePlayer(int rowChange, int columnChange)
         {
             Console.CursorVisible = false;
@@ -183,7 +162,27 @@ namespace First_Playable
                 }
             }
         }
-        
+        public override void Attack(Entity target)
+        {
+            if (target is Enemy enemy)
+            {
+                target.TakeDamage(AttackValue, Modifer);
+                int DamageDealt = enemy.DetermineMaxHealth() - target.CurrentHealth;
+                HudDisplay.AddScore(DamageDealt);
+                if (enemy.CurrentHealth <= 0)
+                {
+                    enemy.Die();
+                }
+            }
+        }
+        public override void Die()
+        {
+            Console.Clear();
+            // Display Score
+            System.Console.WriteLine("You Died");
+            Console.ReadKey(true);
+            dead = true;
+        }
         public void DrawPlayer()
         {
             buffer.secondBuffer[playerCol, playerRow] = playerCharacter;

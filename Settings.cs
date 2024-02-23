@@ -20,11 +20,10 @@ namespace First_Playable
         public const char DuckChar = '♣';
         public const char GooseChar = '+';
         public const char LionChar = '&';
-        public const char HealthChar = '☙';
+        public const char HealthChar = 'H';
 
         public static DateTime lastInputTime = DateTime.MinValue;
         public static TimeSpan inputDelay = TimeSpan.FromSeconds(0.1);
         public static Random random = new Random();
-
     }
 }

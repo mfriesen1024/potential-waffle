@@ -33,10 +33,10 @@ namespace First_Playable
         }
         public override void MoveEnemy()
         {
-            if(!dead)
+            if (!dead)
             {
                 int randomDirection = Settings.random.Next(4);
-                int newX = EnemyCol, newY = EnemyRow; 
+                int newX = EnemyCol, newY = EnemyRow;
 
                 switch (randomDirection) // 0: Up, 1: Right, 2: Down, 3: Left
                 {
@@ -53,7 +53,6 @@ namespace First_Playable
                         newX = EnemyCol - 1;
                         break;
                 }
-
                 if (Player.playerRow == newY && Player.playerCol == newX)
                 {
                     Attack(player);
@@ -67,6 +66,11 @@ namespace First_Playable
                     }
                 }
             }
+            else if (dead)
+            {
+                buffer.secondBuffer[EnemyCol, EnemyRow] = ' ';
+            }
+
         }
         public override void Die()
         {

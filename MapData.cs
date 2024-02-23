@@ -19,11 +19,45 @@ namespace First_Playable
             buffer.SetMapData(this);
         }
 
+
+
+        public void HudBorder()
+        {
+            int mapWidth = map.GetLength(1);
+            int mapHeight = map.GetLength(0);
+            int totalWidth = (mapWidth + 3);
+            int totalHeight = (mapHeight + 1);
+
+            // Calculate dimensions for HudBorder
+            int hudWidth = (totalWidth / 2) + (totalWidth % 2); // Round up if totalWidth is odd
+            int hudHeight = (totalHeight / 2) + (totalHeight % 2); // Round up if totalHeight is odd
+
+            // Set colors for HudBorder
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+
+            // Draw the HudBorder
+            for (int i = totalWidth + 1; i < totalWidth + hudWidth - 1; i++)
+            {
+                Console.SetCursorPosition(i, 0);
+                Console.Write(border[5]); // Top border
+                Console.SetCursorPosition(i, hudHeight);
+                Console.Write(border[5]); // Bottom border
+            }
+            for (int j = 1; j < hudHeight; j++)
+            {
+                Console.SetCursorPosition(totalWidth, j);
+                Console.Write(border[4]); // Left border
+                Console.SetCursorPosition(totalWidth + hudWidth - 1, j);
+                Console.Write(border[4]); // Right border
+            }
+            Console.ResetColor(); // Reset console colors after drawing
+        }
+
         public void PrintMap()
         {  
             Array.Copy(map, buffer.secondBuffer, map.Length);
         }
-
         static string[] border = new string[] // Stores Border ASCII characters
         {
             "╔","╗","╝","╚", "║","═"
@@ -41,30 +75,9 @@ namespace First_Playable
             int totalWidth = (mapWidth + 1);
             int totalHeight = (mapHeight + 1);
 
-            foreach (string ASCll in border)
-            {
-                switch (ASCll)
-                {
-                    case "╔":
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        break;
-                    case "╗":
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        break;
-                    case "╝":
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        break;
-                    case "╚":
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        break;
-                    case "║":
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
-                        break;
-                    case "═":
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
-                        break;
-                }
-            }
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.BackgroundColor = ConsoleColor.DarkRed;
+
             Console.SetCursorPosition(0, 0);
             Console.Write(border[0]);
             Console.SetCursorPosition(totalWidth, 0);
@@ -99,9 +112,8 @@ namespace First_Playable
             Console.Write(border[3]);
             Console.SetCursorPosition(totalWidth, totalHeight);
             Console.Write(border[2]);
+            Console.ResetColor();
         }
-
-
         public bool IsValidMove(int newRow, int newCol)
         {
             if (newRow >= 0 && newRow < map.GetLength(1) && newCol >= 0 && newCol < map.GetLength(0))
@@ -109,7 +121,7 @@ namespace First_Playable
                 switch (map[newCol, newRow])
                 {
                     case ' ':
-                    case '☙':
+                    case Settings.HealthChar:
                     case '⅛':
                     case '⅜':
                     case '⅝':

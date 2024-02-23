@@ -19,6 +19,7 @@ namespace First_Playable
             Modifer = Level;
             EnemyCharacter = Settings.LionChar;
             MaxHealth = 10;
+            TurnCount = 0;
         }
         public int Index { get; private set; }
         public string LionName { get; set; }
@@ -32,38 +33,50 @@ namespace First_Playable
         }
         public override void MoveEnemy()
         {
+            int deltaX;
+            int deltaY;
             if (!dead)
             {
-                int randomDirection = Settings.random.Next(12);
-                int newX = EnemyCol, newY = EnemyRow;
-
-                switch (randomDirection) // 0: Up, 1: Right, 2: Down, 3: Left
-                {
-                    case 0: // Up
-                        newY = EnemyRow - 3;
-                        break;
-                    case 1: // Right
-                        newX = EnemyCol + 3;
-                        break;
-                    case 2: // Down
-                        newY = EnemyRow + 3;
-                        break;
-                    case 3: // Left
-                        newX = EnemyCol - 3;
-                        break;
-                }
-
-                if (Player.playerRow == newY && Player.playerCol == newX)
-                {
-                    Attack(player);
-                }
-                else
-                {
-                    if (mapData.IsValidMove(newY, newX))
+                deltaX = EnemyRow - Player.playerRow;
+                deltaY = EnemyCol - Player.playerCol;
+                if (deltaX > -18 && deltaX < 18 && deltaY > -18 && deltaY < 18) // Creatures proximity to player in order to move
+                { 
+                    TurnCount++;
+                    if (TurnCount % 3 == 0)
                     {
-                        EnemyRow = newY;
-                        EnemyCol = newX;
+                        int randomDirection = Settings.random.Next(3);
+                        int newX = EnemyCol, newY = EnemyRow;
+
+                        switch (randomDirection) // 0: Up, 1: Right, 2: Down, 3: Left
+                        {
+                            case 0: // Up
+                                newY = EnemyRow - 3;
+                                break;
+                            case 1: // Right
+                                newX = EnemyCol + 3;
+                                break;
+                            case 2: // Down
+                                newY = EnemyRow + 3;
+                                break;
+                            case 3: // Left
+                                newX = EnemyCol - 3;
+                                break;
+                                // Cases 4 through 11 result in staying in place
+                        }
+                        if (Player.playerRow == newY && Player.playerCol == newX)
+                        {
+                            Attack(player);
+                        }
+                        else
+                        {
+                            if (mapData.IsValidMove(newY, newX))
+                            {
+                                EnemyRow = newY;
+                                EnemyCol = newX;
+                            }
+                        }
                     }
+
                 }
             }
         }

@@ -19,6 +19,7 @@ namespace First_Playable
             Modifer = Level;
             EnemyCharacter = Settings.GooseChar;
             MaxHealth = 10;
+            TurnCount = 0;
         }
         public int Index { get; private set; }
         public string GooseName { get; set; }
@@ -38,36 +39,40 @@ namespace First_Playable
             {
                 deltaX = EnemyRow - Player.playerRow;
                 deltaY = EnemyCol - Player.playerCol;
-                if (deltaX > -6 && deltaX < 6 && deltaY > -6 && deltaY < 6)
+                if (deltaX > -8 && deltaX < 8 && deltaY > -8 && deltaY < 8)
                 {
-                    int randomDirection = Settings.random.Next(4);
-                    int newX = EnemyCol, newY = EnemyRow;
+                    TurnCount++;
+                    if (TurnCount % 2 == 0)
+                    {
+                        int randomDirection = Settings.random.Next(4);
+                        int newX = EnemyCol, newY = EnemyRow;
 
-                    switch (randomDirection) // 0: Up, 1: Right, 2: Down, 3: Left
-                    {
-                        case 0: // Up
-                            newY = EnemyRow - 1;
-                            break;
-                        case 1: // Right
-                            newX = EnemyCol + 1;
-                            break;
-                        case 2: // Down
-                            newY = EnemyRow + 1;
-                            break;
-                        case 3: // Left
-                            newX = EnemyCol - 1;
-                            break;
-                    }
-                    if (Player.playerRow == newY && Player.playerCol == newX)
-                    {
-                        Attack(player);
-                    }
-                    else
-                    {
-                        if (mapData.IsValidMove(newY, newX))
+                        switch (randomDirection) // 0: Up, 1: Right, 2: Down, 3: Left
                         {
-                            EnemyRow = newY;
-                            EnemyCol = newX;
+                            case 0: // Up
+                                newY = EnemyRow - 1;
+                                break;
+                            case 1: // Right
+                                newX = EnemyCol + 1;
+                                break;
+                            case 2: // Down
+                                newY = EnemyRow + 1;
+                                break;
+                            case 3: // Left
+                                newX = EnemyCol - 1;
+                                break;
+                        }
+                        if (Player.playerRow == newY && Player.playerCol == newX)
+                        {
+                            Attack(player);
+                        }
+                        else
+                        {
+                            if (mapData.IsValidMove(newY, newX))
+                            {
+                                EnemyRow = newY;
+                                EnemyCol = newX;
+                            }
                         }
                     }
                 }

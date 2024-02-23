@@ -9,17 +9,13 @@ namespace First_Playable
     internal class Item
     {
         Player player;
-        MapData mapData;
         Buffer buffer;
 
         int xPos;
         int yPos;
-
+        public bool Collected = false;
         public char HealthPickupChar = Settings.HealthChar;
-        public string[] PickUpItems = new string[]
-        {
-        "☙", "PlaceHolder ATK buff", "PlaceHolder another buff"
-        };
+
         public int[] GetItemXY()
         {
             int[] pos = new int[2];
@@ -32,10 +28,19 @@ namespace First_Playable
             xPos = x;
             yPos = y;
         }
-
-        // DrawItem()
-
-        public bool Collected;
+        public void DrawItem(Buffer buffer)
+        {
+            Console.WriteLine("DrawItem is being called");
+            if (!Collected)
+            {
+                buffer.secondBuffer[yPos, xPos] = HealthPickupChar;
+                Console.WriteLine("Health Pick up has been put on buffer");
+            }
+            else
+            { 
+            Console.WriteLine("Draw Item Called but no pickup");
+            }
+        }
         public void SetPlayer(Player player)
         {
             this.player = player;
@@ -46,18 +51,14 @@ namespace First_Playable
         }
         public void UseItem()
         {
-            char charValue = buffer.secondBuffer[Settings.playerCol, Settings.playerRow];
-            switch (charValue) 
+            char charValue = buffer.secondBuffer[Player.playerRow, Player.playerCol];
+            if (charValue == Settings.HealthChar)
             {
-                case Settings.HealthChar:
-                    player.Heal(20);
-                    Collected = true;
-                    buffer.secondBuffer[Settings.playerCol, Settings.playerRow] = ' ';
-                    RemoveItem(this);
-                break;
-                    // case item char cases
+                player.Heal(20);
+                Collected = true;
+                buffer.secondBuffer[yPos, xPos] = ' ';
+                RemoveItem(this);
             }
         }
-
     }
 }
