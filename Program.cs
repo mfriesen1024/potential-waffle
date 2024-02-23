@@ -13,6 +13,7 @@ namespace First_Playable
         private static MapData mapData;
         private static Player player;
         private static EnemyManager enemyManager;
+        private static ItemManager itemManager;
         private static HudDisplay hudDisplay;
         private static Item item;
 
@@ -21,39 +22,18 @@ namespace First_Playable
             buffer = new Buffer();
             mapData = new MapData(buffer);
             enemyManager = new EnemyManager(mapData);
+            itemManager = new ItemManager(buffer, mapData);
             CreatePlayerInstance();
             hudDisplay = new HudDisplay(player);
             item = new Item();
             mapData.TxtFileToMapArray();
             buffer.DisplayBuffer();
-            item.SpreadItems(mapData, buffer);
+            itemManager.SpreadItems(mapData, buffer);
         }
-
-        // public static void InitializeEnemies()
-        // { 
-        //     List<Duck> listOfEnemies = Populate(5); 
-        // }
-
         static void CreatePlayerInstance() 
         { 
             player = new Player(mapData, enemyManager, "Sam Robichaud", 10, 5, buffer, item); 
         }
-
-
-        // static List<Duck> Populate(int amount)
-        // {
-        //     for (int i = 0; i < amount; i++)
-        //     {
-        //         Duck newEnemy = new Duck(mapData, player, Settings.EnemyAtk, enemyManager, buffer);
-        //         newEnemy.SpawnEnemy("Donald", 10, Enemy.SmallCreatureTypes, 0, 5);
-        //         enemyManager.listOfEnemies.Add(newEnemy);
-                
-        //     }
-        //     return enemyManager.listOfEnemies;
-        // }
-
-        
-
         public static void GameLoop()
         {
             do
@@ -77,7 +57,7 @@ namespace First_Playable
         }
 
 
-        static void Populate1(MapData mapData, Player player, int attackValue, EnemyManager enemyManager, Buffer buffer, params (Type, int)[] enemyCounts)
+        static void Populate(MapData mapData, Player player, int attackValue, EnemyManager enemyManager, Buffer buffer, params (Type, int)[] enemyCounts)
         {
             foreach (var (enemyType, count) in enemyCounts)
             {
@@ -114,7 +94,7 @@ namespace First_Playable
 
         public static void InitializeEnemies1()
         {
-            Populate1(mapData, player, Settings.EnemyAtk, enemyManager, buffer, (typeof(Duck), 2), (typeof(Lion), 4), (typeof(Goose), 10));
+            Populate(mapData, player, Settings.EnemyAtk, enemyManager, buffer, (typeof(Duck), 2), (typeof(Lion), 4), (typeof(Goose), 10));
         }
 
         

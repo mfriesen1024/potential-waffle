@@ -15,6 +15,7 @@ namespace First_Playable
         public const int StartingLevel = 1;
         public const int EnemyAtk = 5;
         public const int itemCount = 8;
+        
 
         public const char DuckChar = '♣';
         public const char GooseChar = '+';

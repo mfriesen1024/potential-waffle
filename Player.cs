@@ -10,6 +10,7 @@ namespace First_Playable
     {
         private MapData mapData;
         private EnemyManager enemyManager;
+        private ItemManager itemManager;
         private Item item;
         
         public static int playerCol = Settings.playerCol; // there should only ever be one player on screen, many player statisics will be static to reflect this.
@@ -72,6 +73,14 @@ namespace First_Playable
                 {
                     hasAttacked = true;
                     Attack(enemy);
+                }
+            }
+            foreach (var item in itemManager.AllItemsList)
+            {
+                if (newCol == item.ItemY && newRow == item.ItemX)
+                {
+                    item.Collected = true;
+                    item.UseItem();
                 }
             }
         }
@@ -137,20 +146,7 @@ namespace First_Playable
             if (mapData.IsValidMove(newRow, newCol))
             { 
                 playerRow = newRow;
-                playerCol = newCol;
-
-
-                //if (item.HealthPickupChar == mapData.map[playerCol, playerRow])
-                
-                    switch (buffer.secondBuffer[playerCol, playerRow].ToString()) // Reads Char array from MapData and converts back to string for switch statement check.
-                    {
-                        case "☙":
-                            if (CurrentHealth < Settings.MaxPlayerHealth ) 
-                            {
-                                Heal(20);
-                            }
-                            break;
-                    }
+                playerCol = newCol; 
                 
                 if (mapData.EnviromentalHazard.Contains(mapData.map[playerCol, playerRow].ToString())) // In short if the player occupies a hazard the following code runs.
                 {

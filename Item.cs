@@ -9,38 +9,54 @@ namespace First_Playable
     internal class Item
     {
         Player player;
-        public char HealthPickupChar = '☙';
+        MapData mapData;
+        Buffer buffer;
 
-        internal Item()
-        { 
-            HealthPickupChar = Settings.HealthChar;
-        }
-        public void SpreadItems(MapData mapData, Buffer buffer)
-        {
-            int randomX, randomY;
-            for (int i = 0; i < Settings.itemCount; i++)
-            {
-                do
-                {
-                    randomX = Settings.random.Next(1, 77);
-                    randomY = Settings.random.Next(1, 27);
-                    buffer.secondBuffer[randomY, randomX] = Settings.HealthChar;
-                } while (mapData.map[randomY, randomX] != ' ');
-            } 
-        }
+        int xPos;
+        int yPos;
+
+        public char HealthPickupChar = Settings.HealthChar;
         public string[] PickUpItems = new string[]
         {
-        "☙", "PlaceHolder ATK buff", "PlaceHolder another buff" 
+        "☙", "PlaceHolder ATK buff", "PlaceHolder another buff"
         };
+        public int[] GetItemXY()
+        {
+            int[] pos = new int[2];
+            pos[0] = xPos;
+            pos[1] = yPos;
+            return pos;
+        }
+        public void SetItemXY(int x, int y)
+        {
+            xPos = x;
+            yPos = y;
+        }
+
+        // DrawItem()
+
+        public bool Collected;
         public void SetPlayer(Player player)
         {
             this.player = player;
         }
-
-        public void UseItem(Player player)
+        public void RemoveItem(Item item)
         {
-
-        
+            ItemManager.AllItemsList.Remove(item);
+        }
+        public void UseItem()
+        {
+            char charValue = buffer.secondBuffer[Settings.playerCol, Settings.playerRow];
+            switch (charValue) 
+            {
+                case Settings.HealthChar:
+                    player.Heal(20);
+                    Collected = true;
+                    buffer.secondBuffer[Settings.playerCol, Settings.playerRow] = ' ';
+                    RemoveItem(this);
+                break;
+                    // case item char cases
+            }
         }
 
     }
