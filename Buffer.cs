@@ -75,7 +75,7 @@ namespace First_Playable
                     Console.Write(MapElements); 
                 }
             }
-            Array.Copy(firstBuffer, secondBuffer, mapData.map.Length);
+            Array.Copy(firstBuffer, secondBuffer, MapData.map.Length);
         }
     }
 }

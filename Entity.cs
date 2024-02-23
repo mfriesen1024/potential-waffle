@@ -28,6 +28,7 @@ namespace First_Playable
             Level = 1;
         }
         public abstract void Die();
+        public abstract void DisplayMessage(string message);
         public void TakeDamage(int attackValue, int Modifier) => healthSystem.TakeDamage(AttackValue, Modifier);
         public void Heal(int amount) => healthSystem.Heal(amount);
         public abstract void Attack(Entity target);

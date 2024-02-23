@@ -9,7 +9,7 @@ namespace First_Playable
     internal class MapData
     {
         internal Buffer buffer;
-        public char[,] ?map;
+        public static char[,] map;
         internal static int MapWidth;
         internal static int MapHeight;
 
@@ -18,9 +18,6 @@ namespace First_Playable
             this.buffer = buffer;
             buffer.SetMapData(this);
         }
-
-
-
         public void HudBorder()
         {
             int mapWidth = map.GetLength(1);
@@ -28,15 +25,11 @@ namespace First_Playable
             int totalWidth = (mapWidth + 3);
             int totalHeight = (mapHeight + 1);
 
-            // Calculate dimensions for HudBorder
-            int hudWidth = (totalWidth / 2) + (totalWidth % 2); // Round up if totalWidth is odd
-            int hudHeight = (totalHeight / 2) + (totalHeight % 2); // Round up if totalHeight is odd
-
-            // Set colors for HudBorder
+            int hudWidth = (totalWidth / 2) + (totalWidth % 2); 
+            int hudHeight = (totalHeight / 2) + (totalHeight % 2);
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.BackgroundColor = ConsoleColor.DarkBlue;
 
-            // Draw the HudBorder
             for (int i = totalWidth + 1; i < totalWidth + hudWidth - 1; i++)
             {
                 Console.SetCursorPosition(i, 0);

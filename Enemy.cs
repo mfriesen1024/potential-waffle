@@ -53,7 +53,7 @@ namespace First_Playable
             {
                 randomX = Settings.random.Next(8, 77);
                 randomY = Settings.random.Next(8, 27);
-            } while (mapData.map[randomY, randomX] != ' ');
+            } while (MapData.map[randomY, randomX] != ' ');
             DrawEnemy();
             EnemyCol = randomY;
             EnemyRow = randomX;

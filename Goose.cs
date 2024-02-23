@@ -31,6 +31,10 @@ namespace First_Playable
             MaxHealth = 10;
             return MaxHealth;
         }
+        public override void DisplayMessage(string message)
+        {
+            throw new NotImplementedException();
+        }
         public override void MoveEnemy()
         {
             int deltaX;

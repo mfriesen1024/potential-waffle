@@ -30,15 +30,16 @@ namespace First_Playable
         }
         public void DrawItem(Buffer buffer)
         {
-            Console.WriteLine("DrawItem is being called");
+
+            //Console.WriteLine("DrawItem is being called");
             if (!Collected)
             {
                 buffer.secondBuffer[yPos, xPos] = HealthPickupChar;
-                Console.WriteLine("Health Pick up has been put on buffer");
+                //Console.WriteLine("Health Pick up has been put on buffer");
             }
             else
             { 
-            Console.WriteLine("Draw Item Called but no pickup");
+            //Console.WriteLine("Draw Item Called but no pickup");
             }
         }
         public void SetPlayer(Player player)

@@ -11,9 +11,10 @@ namespace First_Playable
         Buffer buffer;
         MapData mapData;
         Player player;
+        HudDisplay hudDisplay;
         static internal List<Item> AllItemsList = new List<Item>();
 
-        public ItemManager(Buffer buffer, MapData mapData, Player player)
+        public ItemManager(Buffer buffer, MapData mapData, Player player, HudDisplay hudDisplay)
         {
             this.mapData = mapData;
             this.buffer = buffer;
@@ -30,14 +31,18 @@ namespace First_Playable
                 item.DrawItem(buffer);
             }
         }
-        public void SpreadItems(MapData mapData, Buffer buffer) // does not place items on the map just makes them and provides XY
+        public void SetHud(HudDisplay hudDisplay)
+        {
+            this.hudDisplay = hudDisplay;
+        }
+        public void SpreadItems(Buffer buffer) // does not place items on the map just makes them and provides XY
         {
             int randomX, randomY;
             for (int i = 0; i < Settings.itemCount; i++)
             {
                 randomX = Settings.random.Next(1, 77);
                 randomY = Settings.random.Next(1, 27);
-                while (mapData.map[randomY, randomX] != ' ')
+                while (MapData.map[randomY, randomX] != ' ')
                 {
                     randomX = Settings.random.Next(1, 77);
                     randomY = Settings.random.Next(1, 27);

@@ -11,8 +11,9 @@ namespace First_Playable
         private MapData mapData;
         private EnemyManager enemyManager;
         private Buffer buffer;
-        private ItemManager itemManager; // not sure why these are gray, they are needed.
-        private Item item;  // not sure why these are gray, they are needed.
+        private HudDisplay hudDisplay;
+        private ItemManager itemManager; 
+        private Item item;  
         
         public static int playerCol = Settings.playerCol; // there should only ever be one player on screen, many player statisics will be static to reflect this.
         public static int playerRow = Settings.playerRow;
@@ -21,23 +22,36 @@ namespace First_Playable
         public int CurrentHealth => healthSystem.CurrentHealth;
 
         public Player(MapData mapData, EnemyManager enemyManager,
-            string name, int initialHealth, int attackValue, Buffer buffer, Item item)
+            string name, int initialHealth, int attackValue, Buffer buffer, Item item, ItemManager itemManager, HudDisplay hudDisplay)
             : base(name, initialHealth, new string[]{"Player"})
-
         {
             this.mapData = mapData;
             this.enemyManager = enemyManager;
             AttackValue = attackValue;
             this.item = item;
-            itemManager = Program.itemManager;
+            //this.hudDisplay = hudDisplay;
             Level = 1;
             attackValue = Level * 5;
             Modifer = Level * 2;
             playerCol = Settings.playerCol;
             playerRow = Settings.playerRow;
+            hudDisplay.SetPlayer(this);
             enemyManager.SetPlayer(this);
-            itemManager.SetPlayer(this);
+            //itemManager.SetPlayer(this);
+
+            this.itemManager = itemManager;
             this.buffer = buffer;
+        }
+        public override void DisplayMessage(string message)
+        {   
+            if (HudDisplay.messages != null)
+            {
+                HudDisplay.messages.Add(message);
+            }
+            else
+            {
+                Console.Write("HudDisplay list of messages is " + HudDisplay.messages);
+            }
         }
         public void HandleKeyPress(ConsoleKey key)
         {
@@ -83,6 +97,7 @@ namespace First_Playable
                     MovePlayer(1, 0);
                     break;
             }
+            DisplayMessage("PLayer pressed a key");
         }
         internal void CheckCollision(List<Enemy> EnemyList, int rowChange, int columnChange)
         {
@@ -127,35 +142,33 @@ namespace First_Playable
                 playerRow = newRow;
                 playerCol = newCol; 
                 
-                if (mapData.EnviromentalHazard.Contains(mapData.map[playerCol, playerRow].ToString())) // In short if the player occupies a hazard the following code runs.
+                if (mapData.EnviromentalHazard.Contains(MapData.map[playerCol, playerRow].ToString())) // In short if the player occupies a hazard the following code runs.
                 {
-                    Random random = new Random();
-                    int damageChance = random.Next(8);
-
-                    switch (mapData.map[playerCol, playerRow].ToString()) // Reads Char array from MapData and converts back to string for switch statement check.
+                    int damageChance = Settings.random.Next(8);
+                    switch (MapData.map[playerCol, playerRow].ToString())
                     {
                         case "⅛":
                             if (damageChance == 0) // 1/8 probability
                             {
-                                TakeDamage(5, 0); // This is amazing how this works, the way I've set this up I don't need any prefix
+                                TakeDamage(5, 20); // This is amazing how this works, the way I've set this up I don't need any prefix
                             }
                             break;
                         case "⅜":
                             if (damageChance < 3) // 3/8 probability
                             {
-                                TakeDamage(5, 0); // I can use the standard name method without needing to tell it where to get it.
+                                TakeDamage(5, 20); // I can use the standard name method without needing to tell it where to get it.
                             }
                             break;
                         case "⅝":
                             if (damageChance < 5) // 5/8 probability
                             {
-                                TakeDamage(5, 0); // The TakeDamage method is stored in HealthSystem which is delegated to by Entity 
+                                TakeDamage(5, 20); // The TakeDamage method is stored in HealthSystem which is delegated to by Entity 
                             }
                             break;
                         case "⅞":
-                            if (damageChance < 7) // 7/8 probability
+                            if (damageChance < 20) // 7/8 probability
                             {
-                                TakeDamage(5, 0); // Player Inherits from Entity and any Health related methods go up to Entity and delegated over to Healthsystem smoothly.
+                                TakeDamage(5, 20); // Player Inherits from Entity and any Health related methods go up to Entity and delegated over to Healthsystem smoothly.
                             }
                             break; // Here's what the method actually looks like TakeDamage(int damage) => healthSystem.TakeDamage(damage);
                     }

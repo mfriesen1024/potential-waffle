@@ -23,36 +23,34 @@ namespace First_Playable
             buffer = new Buffer();
             mapData = new MapData(buffer);
             enemyManager = new EnemyManager(mapData);
-            itemManager = new ItemManager(buffer, mapData, player);
+            itemManager = new ItemManager(buffer, mapData, player, hudDisplay);
+            hudDisplay = new HudDisplay(itemManager); // create hud needs player, spiderman possible answer?
             CreatePlayerInstance();
-            hudDisplay = new HudDisplay(player);
             item = new Item();
             mapData.TxtFileToMapArray();
             buffer.DisplayBuffer();
-            itemManager.SpreadItems(mapData, buffer);
+            itemManager.SpreadItems(buffer);
         }
-        static void CreatePlayerInstance() 
-        { 
-            player = new Player(mapData, enemyManager, "Sam Robichaud", 10, 5, buffer, item); 
+        static void CreatePlayerInstance()
+        {
+            player = new Player(mapData, enemyManager, "Sam Robichaud", 10, 5, buffer, item, itemManager, hudDisplay); // create player needs Hud
         }
+
         public static void GameLoop()
         {
             do
             {
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                //Console.Clear();
-                //Console.SetCursorPosition(0, 0); // Needed for some Border reason that could likely be solved another way
                 if (keyInfo.Key == ConsoleKey.Escape)
                 {
                 Environment.Exit(0);
                 }
-                Console.WriteLine("GameLoop Running");
                 player.HandleKeyPress(keyInfo.Key);
                 enemyManager.MoveEnemies(); 
-                mapData.PrintMap(); // Prevents the player from leaving a trail of player icons
-                player.DrawPlayer(); // Put player on the map
+                mapData.PrintMap(); 
+                player.DrawPlayer(); 
                 enemyManager.DrawEnemies();
-                buffer.DisplayBuffer(); // Double buffer prevents flickering
+                buffer.DisplayBuffer(); 
                 mapData.DrawBorder();
                 mapData.HudBorder();
                 itemManager.DrawItems();
