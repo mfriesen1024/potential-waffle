@@ -22,24 +22,25 @@ namespace First_Playable
             Console.WriteLine("Initialize Running");
             buffer = new Buffer();
             mapData = new MapData(buffer);
+            mapData.TxtFileToMapArray();
             enemyManager = new EnemyManager(mapData);
             itemManager = new ItemManager(buffer, mapData, player, hudDisplay);
             hudDisplay = new HudDisplay(itemManager); // create hud needs player, spiderman possible answer?
             CreatePlayerInstance();
-            item = new Item();
-            mapData.TxtFileToMapArray();
             buffer.DisplayBuffer();
             itemManager.SpreadItems(buffer);
         }
         static void CreatePlayerInstance()
         {
-            player = new Player(mapData, enemyManager, "Sam Robichaud", 10, 5, buffer, item, itemManager, hudDisplay); // create player needs Hud
+            player = new Player(mapData, enemyManager, "Sam Robichaud", 40, 5, buffer, item, itemManager, hudDisplay); // create player needs Hud
         }
 
         public static void GameLoop()
         {
             do
             {
+                while (Console.KeyAvailable) Console.ReadKey(true);
+
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                 if (keyInfo.Key == ConsoleKey.Escape)
                 {
@@ -55,6 +56,7 @@ namespace First_Playable
                 mapData.HudBorder();
                 itemManager.DrawItems();
                 Console.WriteLine(ItemManager.AllItemsList.Count);
+                hudDisplay.DrawHudMessages();
             } 
             while (!player.dead);
         }
@@ -94,7 +96,7 @@ namespace First_Playable
         public static void InitializeEnemies1()
         {
             Console.WriteLine("Enemies Initializing");
-            Populate(mapData, player, Settings.EnemyAtk, enemyManager, buffer, (typeof(Duck), 2), (typeof(Lion), 4), (typeof(Goose), 10));
+            Populate(mapData, player, Settings.EnemyAtk, enemyManager, buffer, (typeof(Duck), Settings.DuckCount), (typeof(Lion), Settings.LionCount), (typeof(Goose), Settings.GooseCount));
         }
     }
 }

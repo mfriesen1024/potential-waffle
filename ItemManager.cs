@@ -47,7 +47,7 @@ namespace First_Playable
                     randomX = Settings.random.Next(1, 77);
                     randomY = Settings.random.Next(1, 27);
                 }
-                Item item = new Item();
+                Item item = new Item(player, buffer);
                 item.SetItemXY(randomX, randomY);
                 AllItemsList.Add(item); // And adds to list
             }

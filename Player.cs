@@ -29,7 +29,7 @@ namespace First_Playable
             this.enemyManager = enemyManager;
             AttackValue = attackValue;
             this.item = item;
-            //this.hudDisplay = hudDisplay;
+            //this.hudDisplay = hudDisplay; // useless?
             Level = 1;
             attackValue = Level * 5;
             Modifer = Level * 2;
@@ -37,9 +37,9 @@ namespace First_Playable
             playerRow = Settings.playerRow;
             hudDisplay.SetPlayer(this);
             enemyManager.SetPlayer(this);
-            //itemManager.SetPlayer(this);
+            itemManager.SetPlayer(this); // which one?
 
-            this.itemManager = itemManager;
+            this.itemManager = itemManager; // which one?
             this.buffer = buffer;
         }
         public override void DisplayMessage(string message)
@@ -47,10 +47,6 @@ namespace First_Playable
             if (HudDisplay.messages != null)
             {
                 HudDisplay.messages.Add(message);
-            }
-            else
-            {
-                Console.Write("HudDisplay list of messages is " + HudDisplay.messages);
             }
         }
         public void HandleKeyPress(ConsoleKey key)
@@ -97,7 +93,7 @@ namespace First_Playable
                     MovePlayer(1, 0);
                     break;
             }
-            DisplayMessage("PLayer pressed a key");
+            //DisplayMessage("Player pressed a key");
         }
         internal void CheckCollision(List<Enemy> EnemyList, int rowChange, int columnChange)
         {
@@ -106,7 +102,7 @@ namespace First_Playable
 
             foreach (var enemy in EnemyList)
             {
-                if (newCol == enemy.EnemyCol && newRow == enemy.EnemyRow)
+                if (newCol == enemy.EnemyCol && newRow == enemy.EnemyRow && !enemy.dead)
                 {
                     hasAttacked = true;
                     Attack(enemy);
@@ -142,35 +138,35 @@ namespace First_Playable
                 playerRow = newRow;
                 playerCol = newCol; 
                 
-                if (mapData.EnviromentalHazard.Contains(MapData.map[playerCol, playerRow].ToString())) // In short if the player occupies a hazard the following code runs.
+                if (mapData.EnviromentalHazard.Contains(MapData.map[playerCol, playerRow].ToString()))
                 {
                     int damageChance = Settings.random.Next(8);
                     switch (MapData.map[playerCol, playerRow].ToString())
                     {
                         case "⅛":
-                            if (damageChance == 0) // 1/8 probability
+                            if (damageChance == 0) 
                             {
-                                TakeDamage(5, 20); // This is amazing how this works, the way I've set this up I don't need any prefix
+                                TakeDamage(5, 20); 
                             }
                             break;
                         case "⅜":
-                            if (damageChance < 3) // 3/8 probability
+                            if (damageChance < 3) 
                             {
-                                TakeDamage(5, 20); // I can use the standard name method without needing to tell it where to get it.
+                                TakeDamage(5, 20); 
                             }
                             break;
                         case "⅝":
-                            if (damageChance < 5) // 5/8 probability
+                            if (damageChance < 5) 
                             {
-                                TakeDamage(5, 20); // The TakeDamage method is stored in HealthSystem which is delegated to by Entity 
+                                TakeDamage(5, 20);  
                             }
                             break;
                         case "⅞":
-                            if (damageChance < 20) // 7/8 probability
+                            if (damageChance < 20) 
                             {
-                                TakeDamage(5, 20); // Player Inherits from Entity and any Health related methods go up to Entity and delegated over to Healthsystem smoothly.
+                                TakeDamage(5, 20); 
                             }
-                            break; // Here's what the method actually looks like TakeDamage(int damage) => healthSystem.TakeDamage(damage);
+                            break;
                     }
                 }
             }
@@ -181,6 +177,7 @@ namespace First_Playable
             {
                 target.TakeDamage(AttackValue, Modifer);
                 int DamageDealt = enemy.DetermineMaxHealth() - target.CurrentHealth;
+                DisplayMessage("Player dealt " + DamageDealt + " and gained " + DamageDealt + " points.");
                 HudDisplay.AddScore(DamageDealt);
                 if (enemy.CurrentHealth <= 0)
                 {

@@ -85,7 +85,6 @@ namespace First_Playable
         public override void Die()
         {
             dead = true;
-
         }
         public override void Attack(Entity target)
         {

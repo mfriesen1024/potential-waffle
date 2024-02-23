@@ -114,7 +114,6 @@ namespace First_Playable
                 switch (map[newCol, newRow])
                 {
                     case ' ':
-                    case Settings.HealthChar:
                     case '⅛':
                     case '⅜':
                     case '⅝':

@@ -16,50 +16,55 @@ namespace First_Playable
         private int HudY;
         private int HudWidth;
         private int HudHeight;
-        public static List<string> messages;
+        public static List<string> messages = new();
 
         public HudDisplay(ItemManager itemManager)
         {
             itemManager.SetHud(this);
             CalculateHudPosition();
-            this.player = player;
         }
         public void SetPlayer(Player player)
         {
             this.player = player;
         }
-        private void CalculateHudPosition()
+        public int[] CalculateHudPosition()
         {
+            int[] HudXY = new int[2];
             int mapWidth = MapData.map.GetLength(1);
             int mapHeight = MapData.map.GetLength(0);
             int totalWidth = mapWidth + 3;
             int totalHeight = mapHeight + 1;
             HudWidth = (totalWidth / 2) + (totalWidth % 2);
             HudHeight = (totalHeight / 2) + (totalHeight % 2);
-            HudX = HudWidth - 1;
+            HudX = totalWidth + 1;
             HudY = 1;
+            HudXY[0] = HudX;
+            HudXY[1] = HudY;
+            return HudXY;
         }
-        public void DrawHudMessages(List<string> messages)
+        public void DrawHudMessages()
         {
+            if (messages.Count >= HudHeight)
+            {
+                messages.RemoveAt(0);
+            }
+
+            int[] HudXY = CalculateHudPosition();
+
+            HudY = HudXY[1];
+            HudX = HudXY[0];
             foreach (string message in messages)
             {
                 Console.SetCursorPosition(HudX, HudY);
-                Console.WriteLine(message);
+                Console.WriteLine(message); // should be (message) but that will be a lot of things later
+                // "tomato" will be used for testing this
                 HudY++;
-                if (HudY == HudHeight)
-                {
-                    if (messages.Count >= HudHeight)
-                    {
-                        Console.SetCursorPosition(HudX, HudY - messages.Count);
-                        Console.Write(new string(' ', HudWidth));
-                        messages.RemoveAt(0); 
-                    }
-                }
             }
         }
-        public static void AddScore(int scoreToAdd)
+        public static int AddScore(int scoreToAdd)
         {
             TotalScore += scoreToAdd;
+            return scoreToAdd;
         }
     }
 }
