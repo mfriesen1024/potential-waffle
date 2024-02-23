@@ -9,7 +9,7 @@ namespace First_Playable
     public class HealthSystem
     {
         public int CurrentHealth { get; set; }
-        public int MaxHealth;
+        public int MaxHealth = Settings.MaxPlayerHealth;
         public HealthSystem(int initialHealth)
         {
             CurrentHealth = initialHealth;
@@ -23,7 +23,7 @@ namespace First_Playable
         public virtual void Heal(int amount)
         {
             CurrentHealth += amount;
-            if(CurrentHealth < MaxHealth)
+            if(CurrentHealth > MaxHealth)
             {
                 CurrentHealth = MaxHealth;
             }

@@ -33,7 +33,6 @@ namespace First_Playable
             this.item = item;
             this.hudDisplay = hudDisplay; // useless?
             Level = 1;
-            attackValue = Level * 5;
             Modifer = Level * 2;
             playerCol = Settings.playerCol;
             playerRow = Settings.playerRow;
@@ -74,7 +73,18 @@ namespace First_Playable
         return isUIUpdated;
         }
 
-        public override void DisplayUI(string status)
+        public void Teleport()
+        {
+            playerCol = 4;
+            playerRow = 4;
+            DrawPlayer();
+        }
+        public void Buff()
+        {
+            Damage++;
+        }
+
+        public void DisplayUI(string status)
         {
             HudDisplay.Status.Add(status);
         }

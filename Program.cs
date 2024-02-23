@@ -54,11 +54,11 @@ namespace First_Playable
                 mapData.DrawBorder();
                 mapData.HudBorder();
                 mapData.UIBorder();
+                player.UpdatePlayerUI();
                 itemManager.DrawItems();
                 Console.WriteLine(ItemManager.AllItemsList.Count);
                 buffer.DisplayBuffer();
                 hudDisplay.DrawHudMessages();
-                player.UpdatePlayerUI();
             } 
             while (!player.dead);
         }

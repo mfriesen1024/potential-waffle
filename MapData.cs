@@ -26,8 +26,8 @@ namespace First_Playable
             int totalWidth = (mapWidth + 3);
             int totalHeight = (mapHeight + 1);
 
-            int hudWidth = (totalWidth / 4) + (totalWidth % 4);
-            int hudHeight = (totalHeight / 4) + (totalHeight % 4);
+            int hudWidth = (totalWidth / 3) + (totalWidth % 3);
+            int hudHeight = (totalHeight / 3) + (totalHeight % 3);
             Console.ForegroundColor = ConsoleColor.Black;
             Console.BackgroundColor = ConsoleColor.DarkYellow;
 

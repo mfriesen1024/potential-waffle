@@ -32,10 +32,7 @@ namespace First_Playable
             MaxHealth = 10;
             return MaxHealth;
         }
-        public override void DisplayUI(string status)
-        {
-            HudDisplay.Status.Add(status);
-        }
+
         public override void DisplayMessage(string message)
         {
             HudDisplay.messages.Add(message);

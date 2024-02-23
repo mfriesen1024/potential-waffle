@@ -15,10 +15,39 @@ namespace First_Playable
         int yPos;
         public bool Collected = false;
 
+        public enum ItemType
+        {
+            health,
+            teleport,
+            buff
+        }
+        public ItemType itemType;
+
         public Item(Player player, Buffer buffer)
         {
             this.player = player;
             this.buffer = player.buffer;
+            DetermineType();
+        }
+
+        void DetermineType()
+        {
+            int randomInt = Settings.random.Next(6);
+            switch (randomInt)
+            {
+                case 0:
+                case 1:
+                case 2:
+                    itemType = ItemType.health;
+                    break;
+                case 3:
+                case 4:
+                    itemType = ItemType.buff;
+                    break;
+                case 5:
+                    itemType = ItemType.teleport;
+                    break;
+            }
         }
 
         public int[] GetItemXY()
@@ -37,7 +66,22 @@ namespace First_Playable
         {
             if (!Collected)
             {
-                buffer.secondBuffer[yPos, xPos] = Settings.HealthChar;
+                char charToDraw = ' ';
+
+                switch(itemType)
+                {
+                    case ItemType.health:
+                        charToDraw = Settings.HealthChar;
+                        break;
+                    case ItemType.teleport:
+                        charToDraw = Settings.TeleportChar;
+                        break;
+                    case ItemType.buff:
+                        charToDraw = Settings.BuffChar;
+                        break;
+                }
+
+                buffer.secondBuffer[yPos, xPos] = charToDraw;
             }
         }
         public void SetPlayer(Player player)
@@ -50,10 +94,22 @@ namespace First_Playable
         }
         public void UseItem()
         {
+            Console.WriteLine(itemType);
             GetItemXY();
             if (xPos == Player.playerRow && yPos == Player.playerCol) 
             {
-                player.Heal(20);
+                switch(itemType)
+                {
+                    case ItemType.teleport:
+                        player.Teleport();
+                        break;
+                    case ItemType.health:
+                        player.Heal(20);
+                        break;
+                    case ItemType.buff:
+                        player.Buff();
+                        break;
+                }
                 Collected = true;
                 buffer.secondBuffer[yPos, xPos] = ' ';
                 RemoveItem(this);

@@ -18,6 +18,8 @@ namespace First_Playable
         private int UIY;
         private int HudWidth;
         private int HudHeight;
+        private int UIWidth;
+        private int UIHeight;
         public static List<string> Status = new();
         public static List<string> messages = new();
 
@@ -53,31 +55,35 @@ namespace First_Playable
             int totalWidth = (mapWidth + 3);
             int totalHeight = (mapHeight + 1);
 
-            int hudWidth = (totalWidth / 4) + (totalWidth % 4);
-            int hudHeight = (totalHeight / 4) + (totalHeight % 4);
+            UIWidth = (totalWidth / 4) + (totalWidth % 4);
+            UIHeight = (totalHeight / 4) + (totalHeight % 4);
             UIX = totalWidth + 1;
-            UIY = 1;
-            UIXY[0] = HudX;
-            UIXY[1] = HudY;
+            UIY = totalHeight - UIHeight + 1;
+            UIXY[0] = UIX;
+            UIXY[1] = UIY;
             return UIXY;
         }
 
         public void DrawUIMessages()
         {
+            Console.ResetColor();
+
             int[] UIXY = UIPosition();
 
             UIY = UIXY[1];
             UIX = UIXY[0];
-            foreach (string Status in messages)
+            foreach (string status in Status)
             {
                 Console.SetCursorPosition(UIX, UIY);
-                Console.WriteLine(Status);Console.WriteLine(Status);
+                Console.WriteLine(status);
                 UIY++;
             }
         }
 
         public void DrawHudMessages()
         {
+            Console.ResetColor();
+
             if (messages.Count >= HudHeight)
             {
                 messages.RemoveAt(0);

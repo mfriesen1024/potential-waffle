@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace First_Playable
 {   // Everything added to this class needs to have a reference within all of its children, don't clutter this
-    public abstract class Entity 
+    public abstract class Entity
     {
         protected HealthSystem healthSystem;
         public string Name { get; set; }
@@ -19,7 +19,7 @@ namespace First_Playable
 
         public bool dead;
 
-        public Entity(string name, int initialHealth, string[] creatureType) 
+        public Entity(string name, int initialHealth, string[] creatureType)
         {
             Name = name;
             CreatureType = creatureType;
@@ -29,7 +29,6 @@ namespace First_Playable
             Level = 1;
         }
         public abstract void Die();
-        public abstract void DisplayUI(string status);
         public abstract void DisplayMessage(string message);
         public void TakeDamage(int attackValue, int Modifier) => healthSystem.TakeDamage(AttackValue, Modifier);
         public void Heal(int amount) => healthSystem.Heal(amount);

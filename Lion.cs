@@ -35,10 +35,6 @@ namespace First_Playable
         {
             HudDisplay.messages.Add(message);
         }
-        public override void DisplayUI(string status)
-        {
-            HudDisplay.Status.Add(status);
-        }
         public override void MoveEnemy()
         {
             int deltaX;
