@@ -35,14 +35,9 @@ namespace First_Playable
         }
         public void DrawItem()
         {
-            //Console.WriteLine("DrawItem is being called");
             if (!Collected)
             {
                 buffer.secondBuffer[yPos, xPos] = Settings.HealthChar;
-            }
-            else
-            { 
-            //Console.WriteLine("Draw Item Called but no pickup");
             }
         }
         public void SetPlayer(Player player)

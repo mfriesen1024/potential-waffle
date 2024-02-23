@@ -14,8 +14,11 @@ namespace First_Playable
 
         private int HudX;
         private int HudY;
+        private int UIX;
+        private int UIY;
         private int HudWidth;
         private int HudHeight;
+        public static List<string> Status = new();
         public static List<string> messages = new();
 
         public HudDisplay(ItemManager itemManager)
@@ -42,6 +45,37 @@ namespace First_Playable
             HudXY[1] = HudY;
             return HudXY;
         }
+        private int[] UIPosition()
+        {
+            int[] UIXY = new int[2];
+            int mapWidth = MapData.map.GetLength(1);
+            int mapHeight = MapData.map.GetLength(0);
+            int totalWidth = (mapWidth + 3);
+            int totalHeight = (mapHeight + 1);
+
+            int hudWidth = (totalWidth / 4) + (totalWidth % 4);
+            int hudHeight = (totalHeight / 4) + (totalHeight % 4);
+            UIX = totalWidth + 1;
+            UIY = 1;
+            UIXY[0] = HudX;
+            UIXY[1] = HudY;
+            return UIXY;
+        }
+
+        public void DrawUIMessages()
+        {
+            int[] UIXY = UIPosition();
+
+            UIY = UIXY[1];
+            UIX = UIXY[0];
+            foreach (string Status in messages)
+            {
+                Console.SetCursorPosition(UIX, UIY);
+                Console.WriteLine(Status);Console.WriteLine(Status);
+                UIY++;
+            }
+        }
+
         public void DrawHudMessages()
         {
             if (messages.Count >= HudHeight)
@@ -56,8 +90,7 @@ namespace First_Playable
             foreach (string message in messages)
             {
                 Console.SetCursorPosition(HudX, HudY);
-                Console.WriteLine(message); // should be (message) but that will be a lot of things later
-                // "tomato" will be used for testing this
+                Console.WriteLine(message); // not 200
                 HudY++;
             }
         }

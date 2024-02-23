@@ -25,14 +25,14 @@ namespace First_Playable
             mapData.TxtFileToMapArray();
             enemyManager = new EnemyManager(mapData);
             itemManager = new ItemManager(buffer, mapData, player, hudDisplay);
-            hudDisplay = new HudDisplay(itemManager); // create hud needs player, spiderman possible answer?
+            hudDisplay = new HudDisplay(itemManager);
             CreatePlayerInstance();
             buffer.DisplayBuffer();
             itemManager.SpreadItems(buffer);
         }
         static void CreatePlayerInstance()
         {
-            player = new Player(mapData, enemyManager, "Sam Robichaud", 40, 5, buffer, item, itemManager, hudDisplay); // create player needs Hud
+            player = new Player(mapData, enemyManager, "Sam Robichaud", Settings.StartingHealth, 5, buffer, item, itemManager, hudDisplay); 
         }
 
         public static void GameLoop()
@@ -53,10 +53,12 @@ namespace First_Playable
                 enemyManager.DrawEnemies();
                 mapData.DrawBorder();
                 mapData.HudBorder();
+                mapData.UIBorder();
                 itemManager.DrawItems();
                 Console.WriteLine(ItemManager.AllItemsList.Count);
                 buffer.DisplayBuffer();
                 hudDisplay.DrawHudMessages();
+                player.UpdatePlayerUI();
             } 
             while (!player.dead);
         }
@@ -79,7 +81,6 @@ namespace First_Playable
                 }
             }
         }
-
         static List<Type> Spawner<Type>(MapData mapData, Player player, int attackValue, EnemyManager enemyManager, Buffer buffer, int count, string name, 
         int health, string[] creatureTypes, int creatureTypeIndex, int enemyAttackValue)
             where Type : Enemy

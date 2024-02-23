@@ -49,7 +49,7 @@ namespace First_Playable
                 }
                 Item item = new Item(player, buffer);
                 item.SetItemXY(randomX, randomY);
-                AllItemsList.Add(item); // And adds to list
+                AllItemsList.Add(item);
             }
         }
     }

@@ -10,8 +10,8 @@ namespace First_Playable
     {
         public static int playerCol = 4;
         public static int playerRow = 4;
-        public const int StartingHealth = 10;
-        public const int MaxPlayerHealth = 20;
+        public const int StartingHealth = 40;
+        public const int MaxPlayerHealth = 40;
         public const int StartingLevel = 1;
         public const int EnemyAtk = 5;
         public const int itemCount = 200;

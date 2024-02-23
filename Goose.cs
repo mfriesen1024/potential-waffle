@@ -33,7 +33,11 @@ namespace First_Playable
         }
         public override void DisplayMessage(string message)
         {
-            throw new NotImplementedException();
+            HudDisplay.messages.Add(message);
+        }
+        public override void DisplayUI(string status)
+        {
+            HudDisplay.Status.Add(status);
         }
         public override void MoveEnemy()
         {
@@ -89,8 +93,10 @@ namespace First_Playable
         public override void Attack(Entity target)
         {
             target.TakeDamage(AttackValue, Modifer);
+            int Damage = AttackValue + Modifer;
             if (target is Entity player)
             {
+                DisplayMessage("Player was damaged for " + Damage);
                 if (player.CurrentHealth <= 0)
                 {
                     player.Die();

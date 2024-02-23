@@ -14,6 +14,7 @@ namespace First_Playable
         public int AttackValue { get; set; }
         public int Modifer { get; set; }
         public int Level { get; set; }
+        public int Damage;
         public int CurrentHealth { get => healthSystem.CurrentHealth; set => healthSystem.CurrentHealth = value; }
 
         public bool dead;
@@ -28,6 +29,7 @@ namespace First_Playable
             Level = 1;
         }
         public abstract void Die();
+        public abstract void DisplayUI(string status);
         public abstract void DisplayMessage(string message);
         public void TakeDamage(int attackValue, int Modifier) => healthSystem.TakeDamage(AttackValue, Modifier);
         public void Heal(int amount) => healthSystem.Heal(amount);

@@ -18,6 +18,36 @@ namespace First_Playable
             this.buffer = buffer;
             buffer.SetMapData(this);
         }
+
+        public void UIBorder()
+        {
+            int mapWidth = map.GetLength(1);
+            int mapHeight = map.GetLength(0);
+            int totalWidth = (mapWidth + 3);
+            int totalHeight = (mapHeight + 1);
+
+            int hudWidth = (totalWidth / 4) + (totalWidth % 4);
+            int hudHeight = (totalHeight / 4) + (totalHeight % 4);
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.DarkYellow;
+
+            for (int i = totalWidth + 1; i < totalWidth + hudWidth - 1; i++)
+            {
+                Console.SetCursorPosition(i, totalHeight - hudHeight);
+                Console.Write(border[5]); // Top border
+                Console.SetCursorPosition(i, totalHeight);
+                Console.Write(border[5]); // Bottom border
+            }
+            for (int j = totalHeight - hudHeight; j < totalHeight; j++)
+            {
+                Console.SetCursorPosition(totalWidth, j);
+                Console.Write(border[4]); // Left border
+                Console.SetCursorPosition(totalWidth + hudWidth - 1, j);
+                Console.Write(border[4]); // Right border
+            }
+            Console.ResetColor(); // Reset console colors after drawing
+        }
+
         public void HudBorder()
         {
             int mapWidth = map.GetLength(1);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace First_Playable
 {
@@ -13,8 +14,9 @@ namespace First_Playable
         public Buffer buffer;
         private HudDisplay hudDisplay;
         private ItemManager itemManager; 
-        private Item item;  
-        
+        private Item item;
+        private bool isUIUpdated = false;
+
         public static int playerCol = Settings.playerCol; // there should only ever be one player on screen, many player statisics will be static to reflect this.
         public static int playerRow = Settings.playerRow;
         public static char playerCharacter { get; } = '☻';
@@ -29,7 +31,7 @@ namespace First_Playable
             this.enemyManager = enemyManager;
             AttackValue = attackValue;
             this.item = item;
-            //this.hudDisplay = hudDisplay; // useless?
+            this.hudDisplay = hudDisplay; // useless?
             Level = 1;
             attackValue = Level * 5;
             Modifer = Level * 2;
@@ -41,6 +43,8 @@ namespace First_Playable
 
             this.itemManager = itemManager; // which one?
             this.buffer = buffer;
+            Damage = attackValue + Modifer;
+           
         }
         public override void DisplayMessage(string message)
         {   
@@ -48,6 +52,31 @@ namespace First_Playable
             {
                 HudDisplay.messages.Add(message);
             }
+        }
+
+        public bool UpdatePlayerUI()
+        {
+            if (!isUIUpdated)
+            {
+                Console.WriteLine(isUIUpdated);
+                HudDisplay.Status.Add("Player Level: " + Level);
+                HudDisplay.Status.Add("Player Location: " + playerRow + ", " + playerCol);
+                HudDisplay.Status.Add("Player HP: " + CurrentHealth);
+                HudDisplay.Status.Add("Player ATK Damage: " + Damage);
+                hudDisplay.DrawUIMessages();
+                isUIUpdated = true;
+            }
+            else
+            {
+                isUIUpdated = false;
+                HudDisplay.Status.Clear();
+            }
+        return isUIUpdated;
+        }
+
+        public override void DisplayUI(string status)
+        {
+            HudDisplay.Status.Add(status);
         }
         public void HandleKeyPress(ConsoleKey key)
         {
@@ -113,7 +142,7 @@ namespace First_Playable
                 int[] itemCoordinates = item.GetItemXY(); // Get the X and Y coordinates of the item
                 int itemX = itemCoordinates[0];
                 int itemY = itemCoordinates[1];
-                if (newCol == itemY && newRow == itemX)
+                if (newCol == itemY && newRow == itemX && !item.Collected)
                 {
                     item.Collected = true;
                     DisplayMessage("Player picked up an item");
@@ -139,37 +168,38 @@ namespace First_Playable
                 playerRow = newRow;
                 playerCol = newCol; 
                 
-                if (mapData.EnviromentalHazard.Contains(MapData.map[playerCol, playerRow].ToString()))
-                {
-                    int damageChance = Settings.random.Next(8);
-                    switch (MapData.map[playerCol, playerRow].ToString())
-                    {
-                        case "⅛":
-                            if (damageChance == 0) 
-                            {
-                                TakeDamage(5, 20); 
-                            }
-                            break;
-                        case "⅜":
-                            if (damageChance < 3) 
-                            {
-                                TakeDamage(5, 20); 
-                            }
-                            break;
-                        case "⅝":
-                            if (damageChance < 5) 
-                            {
-                                TakeDamage(5, 20);  
-                            }
-                            break;
-                        case "⅞":
-                            if (damageChance < 20) 
-                            {
-                                TakeDamage(5, 20); 
-                            }
-                            break;
-                    }
-                }
+                //if (mapData.EnviromentalHazard.Contains(MapData.map[playerCol, playerRow].ToString()))
+                //{
+                //    int damageChance = Settings.random.Next(8);
+                //    switch (MapData.map[playerCol, playerRow].ToString())
+                //    {
+                //        case "⅛":
+                //            if (damageChance == 0) 
+                //            {
+                //                TakeDamage(5, 20);
+
+                //            }
+                //            break;
+                //        case "⅜":
+                //            if (damageChance < 3) 
+                //            {
+                //                TakeDamage(5, 20); 
+                //            }
+                //            break;
+                //        case "⅝":
+                //            if (damageChance < 5) 
+                //            {
+                //                TakeDamage(5, 20);  
+                //            }
+                //            break;
+                //        case "⅞":
+                //            if (damageChance < 20) 
+                //            {
+                //                TakeDamage(5, 20); 
+                //            }
+                //            break;
+                //    }
+                //}
             }
         }
         public override void Attack(Entity target)
