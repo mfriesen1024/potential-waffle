@@ -13,6 +13,9 @@ namespace First_Playable
             Console.OutputEncoding = Encoding.UTF8;
             Program.Initialize();
             Program.InitializeEnemies1();
+            Console.WriteLine("Initialization Complete");
+            Console.WriteLine("Trying Game Loop");
+            Console.ReadKey(true);
             Program.GameLoop();
         }
     }

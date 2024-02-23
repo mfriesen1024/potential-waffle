@@ -27,6 +27,7 @@ namespace First_Playable
             string name, int initialHealth, int attackValue, Buffer buffer, Item item, ItemManager itemManager, HudDisplay hudDisplay)
             : base(name, initialHealth, new string[]{"Player"})
         {
+            dead = false;
             this.mapData = mapData;
             this.enemyManager = enemyManager;
             AttackValue = attackValue;

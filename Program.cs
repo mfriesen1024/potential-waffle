@@ -37,6 +37,7 @@ namespace First_Playable
 
         public static void GameLoop()
         {
+            Console.WriteLine("Game Loop Initializing");
             do
             {
                 while (Console.KeyAvailable) Console.ReadKey(true);
