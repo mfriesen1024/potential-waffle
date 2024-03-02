@@ -53,22 +53,29 @@ namespace First_Playable
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             break;
                         case Settings.HealthChar:
+                        case Settings.BuffChar:
+                        case '↑': // key 2 // also key 4
+                        case '→': // key 1 // also key 6
+                        case '↓': // key 5
+                        case '←': // key 3
+                        case '↔': // Key 0
                             Console.ForegroundColor = ConsoleColor.Red;
                             break;
                         case Settings.DuckChar:
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            break;
                         case Settings.GooseChar:
-                            Console.ForegroundColor = ConsoleColor.Blue;
-                            break;
                         case Settings.LionChar:
+                             Console.ForegroundColor = ConsoleColor.Green;
+                            break;
+                        case '░':
+                        case '╦':
+                        case '╠':
+                        case '╣':
+                        case '╩':
+                        case '╬':
                             Console.ForegroundColor = ConsoleColor.White;
                             break;
-                        case '⅛':
-                        case '⅜':
-                        case '⅝':
-                        case '⅞':
-                            Console.ForegroundColor = ConsoleColor.White;
+                        case '╳':
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
                             break;
                     }
                     Console.SetCursorPosition(Left, Top);

@@ -74,11 +74,9 @@ namespace First_Playable
         return isUIUpdated;
         }
 
-        public void Teleport()
+        public void OpenPathway()
         {
-            playerCol = 4;
-            playerRow = 4;
-            DrawPlayer();
+        //if()
         }
         public void Buff()
         {
@@ -133,7 +131,6 @@ namespace First_Playable
                     MovePlayer(1, 0);
                     break;
             }
-            //DisplayMessage("Player pressed a key");
         }
         internal void CheckCollision(List<Enemy> EnemyList, int rowChange, int columnChange)
         {
@@ -178,39 +175,6 @@ namespace First_Playable
             { 
                 playerRow = newRow;
                 playerCol = newCol; 
-                
-                //if (mapData.EnviromentalHazard.Contains(MapData.map[playerCol, playerRow].ToString()))
-                //{
-                //    int damageChance = Settings.random.Next(8);
-                //    switch (MapData.map[playerCol, playerRow].ToString())
-                //    {
-                //        case "⅛":
-                //            if (damageChance == 0) 
-                //            {
-                //                TakeDamage(5, 20);
-
-                //            }
-                //            break;
-                //        case "⅜":
-                //            if (damageChance < 3) 
-                //            {
-                //                TakeDamage(5, 20); 
-                //            }
-                //            break;
-                //        case "⅝":
-                //            if (damageChance < 5) 
-                //            {
-                //                TakeDamage(5, 20);  
-                //            }
-                //            break;
-                //        case "⅞":
-                //            if (damageChance < 20) 
-                //            {
-                //                TakeDamage(5, 20); 
-                //            }
-                //            break;
-                //    }
-                //}
             }
         }
         public override void Attack(Entity target)

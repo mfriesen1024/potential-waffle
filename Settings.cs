@@ -20,7 +20,7 @@ namespace First_Playable
         public const char DuckChar = '♣';
         public const int DuckCount = 20;
         public const char GooseChar = '+';
-        public const int GooseCount = 10;
+        public const int GooseCount = 70;
         public const char LionChar = '&';
         public const int LionCount = 5;
         public const char HealthChar = 'H';

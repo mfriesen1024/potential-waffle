@@ -13,12 +13,11 @@ namespace First_Playable
         internal static int MapWidth;
         internal static int MapHeight;
 
-        public MapData(Buffer buffer) // This is a constructor that does the funny spiderman pointing meme with Buffer.
+        public MapData(Buffer buffer)
         {
             this.buffer = buffer;
             buffer.SetMapData(this);
         }
-
         public void UIBorder()
         {
             int mapWidth = map.GetLength(1);
@@ -47,7 +46,6 @@ namespace First_Playable
             }
             Console.ResetColor(); // Reset console colors after drawing
         }
-
         public void HudBorder()
         {
             int mapWidth = map.GetLength(1);
@@ -76,7 +74,6 @@ namespace First_Playable
             }
             Console.ResetColor(); // Reset console colors after drawing
         }
-
         public void PrintMap()
         {  
             Array.Copy(map, buffer.secondBuffer, map.Length);
@@ -84,10 +81,6 @@ namespace First_Playable
         static string[] border = new string[] // Stores Border ASCII characters
         {
             "╔","╗","╝","╚", "║","═"
-        };
-        public string[] EnviromentalHazard = new string[] // Stores fractional ASCII characters used for Hazards
-        {
-            "⅛","⅜","⅝","⅞"
         };
         public void DrawBorder()
         {
@@ -149,8 +142,6 @@ namespace First_Playable
                     case '⅝':
                     case '⅞':
                     return true;
-                    case '╭':case '─':case '╮': case '╯': case '╰':case '│': case '┘':case '┌': case '┐':case '└': case '├': case '┤':case '┬': case '┴':
-                    return false;
                 }
             }
             return false;

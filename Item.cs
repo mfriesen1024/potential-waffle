@@ -18,7 +18,7 @@ namespace First_Playable
         public enum ItemType
         {
             health,
-            teleport,
+            key,
             buff
         }
         public ItemType itemType;
@@ -45,7 +45,7 @@ namespace First_Playable
                     itemType = ItemType.buff;
                     break;
                 case 5:
-                    itemType = ItemType.teleport;
+                    itemType = ItemType.key;
                     break;
             }
         }
@@ -73,7 +73,7 @@ namespace First_Playable
                     case ItemType.health:
                         charToDraw = Settings.HealthChar;
                         break;
-                    case ItemType.teleport:
+                    case ItemType.key:
                         charToDraw = Settings.TeleportChar;
                         break;
                     case ItemType.buff:
@@ -100,8 +100,8 @@ namespace First_Playable
             {
                 switch(itemType)
                 {
-                    case ItemType.teleport:
-                        player.Teleport();
+                    case ItemType.key:
+                        player.OpenPathway();
                         break;
                     case ItemType.health:
                         player.Heal(20);
