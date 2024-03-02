@@ -40,12 +40,12 @@ namespace First_Playable
             int randomX, randomY;
             for (int i = 0; i < Settings.itemCount; i++)
             {
-                randomX = Settings.random.Next(1, 77);
-                randomY = Settings.random.Next(1, 27);
+                randomX = Settings.random.Next(8, 77);
+                randomY = Settings.random.Next(8, 27);
                 while (MapData.map[randomY, randomX] != ' ')
                 {
-                    randomX = Settings.random.Next(1, 77);
-                    randomY = Settings.random.Next(1, 27);
+                    randomX = Settings.random.Next(8, 77);
+                    randomY = Settings.random.Next(8, 27);
                 }
                 Item item = new Item(player, buffer);
                 item.SetItemXY(randomX, randomY);

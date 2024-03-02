@@ -20,8 +20,8 @@ namespace First_Playable
         public int CurrentHealth => healthSystem.CurrentHealth;
         public int MaxHealth;
         public static string[] SmallCreatureTypes = { "Duck" };
-        public static string[] MediumCreatureTypes = { "Not Duck" };
-        public static string[] LargeCreatureTypes = { "Also Not Duck" };
+        public static string[] MediumCreatureTypes = { "Goose" };
+        public static string[] LargeCreatureTypes = { "Lion" };
 
         public Enemy(MapData mapData, int attackValue, EnemyManager enemyManager, Buffer buffer) // What is passed into Enemy
             : base("DefaultEnemyName", 10, new string[] { "Enemy" }) // base = what it is given/needs by default from its parent/base class
@@ -45,7 +45,6 @@ namespace First_Playable
             buffer.secondBuffer[EnemyCol, EnemyRow] = EnemyCharacter; // USE AS FUTURE REFERENCE FOR DRAWING INTO BUFFER
             }
         }
-        
         protected internal void SpawnEnemy(string name, int health, string[] creatureTypes, int creatureTypeIndex, int attackValue)
         {
             int randomX, randomY;

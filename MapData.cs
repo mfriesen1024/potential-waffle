@@ -137,11 +137,29 @@ namespace First_Playable
                 switch (map[newCol, newRow])
                 {
                     case ' ':
-                    case '⅛':
-                    case '⅜':
-                    case '⅝':
-                    case '⅞':
-                    return true;
+                    case Settings.BuffChar:
+                    case Settings.HealthChar:
+                    case Settings.key0: 
+                        // add method triggers on each key here.
+                        return true;
+                    case Settings.key1:
+                        // add method triggers on each key here.
+                        return true;
+                    case Settings.key2:
+                        // add method triggers on each key here.
+                        return true;
+                    case Settings.key3:
+                        // add method triggers on each key here.
+                        return true;
+                    case Settings.key4:
+                        // add method triggers on each key here.
+                        return true;
+                    case Settings.key5:
+                        // add method triggers on each key here.
+                        return true;
+                    case Settings.key6:
+                        // add method triggers on each key here.
+                        return true;               
                 }
             }
             return false;

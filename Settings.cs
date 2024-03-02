@@ -8,25 +8,35 @@ namespace First_Playable
 {
     internal class Settings
     {
+        #region Collectibles
+        public const char key0 = '↔';
+        public const char key1 = '>';
+        public const char key2 = '^';
+        public const char key3 = '←';
+        public const char key4 = '↑';
+        public const char key5 = '↓';
+        public const char key6 = '→';
+        public const char HealthChar = 'H';
+        public const char BuffChar = 'A';
+        public static char[] Collectibles = new char[] { key0, key1, key2, key3, key4, key5, key6,HealthChar, BuffChar};
+        #endregion
+
         public static int playerCol = 4;
         public static int playerRow = 4;
         public const int StartingHealth = 20;
         public const int MaxPlayerHealth = 60;
         public const int StartingLevel = 1;
+        public const int itemCount = 12;
+
+        #region EnemyInfo 
         public const int EnemyAtk = 5;
-        public const int itemCount = 40;
-
-
         public const char DuckChar = '♣';
         public const int DuckCount = 20;
         public const char GooseChar = '+';
-        public const int GooseCount = 70;
+        public const int GooseCount = 10;
         public const char LionChar = '&';
         public const int LionCount = 5;
-        public const char HealthChar = 'H';
-        public const char BuffChar = 'A';
-        public const char TeleportChar = 'T';
-
+        #endregion
 
         public static DateTime lastInputTime = DateTime.MinValue;
         public static TimeSpan inputDelay = TimeSpan.FromSeconds(0.1);

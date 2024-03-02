@@ -32,7 +32,7 @@ namespace First_Playable
 
         void DetermineType()
         {
-            int randomInt = Settings.random.Next(6);
+            int randomInt = Settings.random.Next(5);
             switch (randomInt)
             {
                 case 0:
@@ -43,9 +43,6 @@ namespace First_Playable
                 case 3:
                 case 4:
                     itemType = ItemType.buff;
-                    break;
-                case 5:
-                    itemType = ItemType.key;
                     break;
             }
         }
@@ -72,9 +69,6 @@ namespace First_Playable
                 {
                     case ItemType.health:
                         charToDraw = Settings.HealthChar;
-                        break;
-                    case ItemType.key:
-                        charToDraw = Settings.TeleportChar;
                         break;
                     case ItemType.buff:
                         charToDraw = Settings.BuffChar;
@@ -112,6 +106,7 @@ namespace First_Playable
                 }
                 Collected = true;
                 buffer.secondBuffer[yPos, xPos] = ' ';
+                MapData.map[yPos, xPos] = ' ';
                 RemoveItem(this);
             }
         }

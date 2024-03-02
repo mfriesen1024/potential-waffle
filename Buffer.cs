@@ -52,14 +52,8 @@ namespace First_Playable
                         case '☻':
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             break;
-                        case Settings.HealthChar:
-                        case Settings.BuffChar:
-                        case '↑': // key 2 // also key 4
-                        case '→': // key 1 // also key 6
-                        case '↓': // key 5
-                        case '←': // key 3
-                        case '↔': // Key 0
-                            Console.ForegroundColor = ConsoleColor.Red;
+                        case '╳':
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
                             break;
                         case Settings.DuckChar:
                         case Settings.GooseChar:
@@ -72,10 +66,13 @@ namespace First_Playable
                         case '╣':
                         case '╩':
                         case '╬':
-                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.ForegroundColor = ConsoleColor.White; // white means they will be replaced with blanks when certain keys are obtained
                             break;
-                        case '╳':
-                            Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        default:
+                            if (Settings.Collectibles.Contains(MapElements))
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                            }
                             break;
                     }
                     Console.SetCursorPosition(Left, Top);
