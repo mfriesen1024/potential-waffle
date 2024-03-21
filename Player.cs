@@ -185,7 +185,7 @@ namespace First_Playable
         public override void Die()
         {
             Console.Clear();
-            // Display Score
+            Console.WriteLine(HudDisplay.TotalScore.ToString());
             System.Console.WriteLine("You Died");
             Console.ReadKey(true);
             dead = true;

@@ -52,7 +52,6 @@ namespace First_Playable
         public const int SmallEnemyHP = 5;
         public const int MediumEnemyHP = 10;
         public const int LargeEnemyHP = 15;
-        public const int EnemyAtk = 5;
         public const char DuckChar = '♣';
         public const int DuckCount = 25;
         public const char GooseChar = '+';

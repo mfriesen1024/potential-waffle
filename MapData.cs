@@ -10,9 +10,7 @@ namespace First_Playable
     {
         internal Buffer buffer;
         public static char[,] map;
-        internal static int MapWidth;
-        internal static int MapHeight;
-        public int[,] KeyXY;
+        
         public int numKeyCollected = 0;
 
         public MapData(Buffer buffer)
@@ -166,64 +164,76 @@ namespace First_Playable
                 }
             }
         }
-        public void CheckForKeyPickup(int row, int col) // Don't think this runs
+        public void CheckForKeyPickup(int row, int col)
         {
-            if (Settings.Collectibles.Contains(map[col, row]))
+            if (Settings.Collectibles.Contains(map[col, row])) // breaks when outside bounds attempt is made.
             {
-                Console.WriteLine("A");
                 foreach (var keyXY in Settings.keysXY)
                 {
-                    if (keyXY[0] == row && keyXY[1] == col)
+                    //HudDisplay.messages.Add(keyXY[0].ToString() + ", " + keyXY[1].ToString());
+                    //HudDisplay.messages.Add(row + " AAAAA " + col);
+                    if (keyXY[0] == col + 1 && keyXY[1] == row + 1)
                     {
-                        Console.WriteLine("B");
                         numKeyCollected++;
                         ReplaceMapTiles(numKeyCollected);
                         return;
                     }
                 }
-                Console.WriteLine("There is neither a key nor empty space found here.");
+                //HudDisplay.messages.Add("There is neither a key nor empty space found here.");
             }
         }
         public void ReplaceMapTiles(int numKeyCollected)
         {
-            Console.WriteLine("C");
+            int mapWidth = map.GetLength(1);
+            int mapHeight = map.GetLength(0);
             char wallToReplace;
-            int wallRow = MapWidth;
-            int wallCol = MapHeight;
+            char keyToReplace;
             switch (numKeyCollected)
             {
-                case 0:
+                case 1:
+                    keyToReplace = Settings.key0;
                     wallToReplace = Settings.Wall0;
                     break;
-                case 1:
+                case 2:
+                    keyToReplace = Settings.key1;
                     wallToReplace = Settings.Wall1;
                     break;
-                case 2:
+                case 3:
+                    keyToReplace = Settings.key2;
                     wallToReplace = Settings.Wall2;
                     break;
-                case 3:
+                case 4:
+                    keyToReplace = Settings.key3;
                     wallToReplace = Settings.Wall3;
                     break;
-                case 4:
+                case 5:
+                    keyToReplace = Settings.key4;
                     wallToReplace = Settings.Wall4;
                     break;
-                case 5:
+                case 6:
+                    keyToReplace = Settings.key5;
                     wallToReplace = Settings.Wall5;
                     break;
-                case 6:
+                case 7:
+                    keyToReplace = Settings.key6;
                     wallToReplace = Settings.Wall6;
                     break;
                 default:
+                    keyToReplace = ' ';
                     wallToReplace = ' ';
                     break;
             }
-            for (int row = 0; row < MapWidth; row++)
+            for (int row = 0; row < mapWidth; row++)
             {
-                for (int col = 0; col < MapHeight; col++)
+                for (int col = 0; col < mapHeight; col++)
                 {
-                    if (Settings.Walls.Contains(map[row, col]))
+                    if (Settings.Collectibles.Contains(map[col, row]) && map[col, row] == keyToReplace)
+                    { 
+                        map[col, row] = ' ';
+                    }
+                    if (Settings.Walls.Contains(map[col, row]) && map[col, row] == wallToReplace)
                     {
-                        map[row, col] = wallToReplace;
+                        map[col, row] = ' ';
                     }
                 }
             }
