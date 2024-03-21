@@ -32,16 +32,16 @@ namespace First_Playable
             this.enemyManager = enemyManager;
             AttackValue = attackValue;
             this.item = item;
-            // this.hudDisplay = hudDisplay; // useless?
+            this.hudDisplay = hudDisplay;
             Level = 1;
             Modifer = Level * 2;
             playerCol = Settings.playerCol;
             playerRow = Settings.playerRow;
             hudDisplay.SetPlayer(this);
             enemyManager.SetPlayer(this);
-            itemManager.SetPlayer(this); // which one?
+            itemManager.SetPlayer(this);
 
-            // this.itemManager = itemManager; // which one?
+            this.itemManager = itemManager;
             this.buffer = buffer;
             Damage = attackValue + Modifer;
         }
@@ -144,12 +144,12 @@ namespace First_Playable
                 int itemY = itemCoordinates[1];
                 if (newCol == itemY && newRow == itemX && !item.Collected)
                 {
-                    mapData.CheckForKeyPickup(newRow, newCol);
                     item.Collected = true;
                     DisplayMessage("Player picked up an item");
                     item.UseItem();
                 }
             }
+            mapData.CheckForKeyPickup(newRow, newCol);
         }
         private void MovePlayer(int rowChange, int columnChange)
         {

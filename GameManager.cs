@@ -34,10 +34,8 @@ namespace First_Playable
         {
             player = new Player(mapData, enemyManager, "Sam Robichaud", Settings.StartingHealth, 5, buffer, item, itemManager, hudDisplay); 
         }
-
         public static void GameLoop()
         {
-            
             do
             {
                 while (Console.KeyAvailable) Console.ReadKey(true);
@@ -60,6 +58,10 @@ namespace First_Playable
                 }
             } 
             while (!player.dead);
+            if (player.dead)
+            {
+                Console.WriteLine("You died lolz");
+            }
         }
         static void Populate(MapData mapData, Player player, int attackValue, EnemyManager enemyManager, Buffer buffer, params (Type, int)[] enemyCounts)
         {
@@ -76,7 +78,6 @@ namespace First_Playable
                     case nameof(Lion):
                         List<Lion> lions = Spawner<Lion>(mapData, player, attackValue, enemyManager, buffer, count, "Simba", 15, Enemy.LargeCreatureTypes, 0, 8);
                         break;
-                    // Add cases for other enemy types
                 }
             }
         }
@@ -93,7 +94,7 @@ namespace First_Playable
             }
             return enemies;
         }
-        public static void InitializeEnemies1()
+        public static void InitializeEnemies()
         {
             Console.WriteLine("Enemies Initializing");
             Populate(mapData, player, Settings.EnemyAtk, enemyManager, buffer, (typeof(Duck), Settings.DuckCount), (typeof(Lion), Settings.LionCount), (typeof(Goose), Settings.GooseCount));

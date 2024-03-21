@@ -13,6 +13,7 @@ namespace First_Playable
         internal static int MapWidth;
         internal static int MapHeight;
         public int[,] KeyXY;
+        public int numKeyCollected = 0;
 
         public MapData(Buffer buffer)
         {
@@ -45,7 +46,7 @@ namespace First_Playable
                 Console.SetCursorPosition(totalWidth + hudWidth - 1, j);
                 Console.Write(border[4]); // Right border
             }
-            Console.ResetColor(); 
+            Console.ResetColor();
         }
         public void HudBorder()
         {
@@ -54,7 +55,7 @@ namespace First_Playable
             int totalWidth = mapWidth + 3;
             int totalHeight = mapHeight + 1;
 
-            int hudWidth = (totalWidth / 2) + (totalWidth % 2); 
+            int hudWidth = (totalWidth / 2) + (totalWidth % 2);
             int hudHeight = (totalHeight / 2) + (totalHeight % 2);
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.BackgroundColor = ConsoleColor.DarkBlue;
@@ -73,10 +74,10 @@ namespace First_Playable
                 Console.SetCursorPosition(totalWidth + hudWidth - 1, j);
                 Console.Write(border[4]); // Right border
             }
-            Console.ResetColor(); 
+            Console.ResetColor();
         }
         public void PrintMap()
-        {  
+        {
             Array.Copy(map, buffer.secondBuffer, map.Length);
         }
         static string[] border = new string[]
@@ -140,29 +141,29 @@ namespace First_Playable
                     case ' ':
                     case Settings.BuffChar:
                     case Settings.HealthChar:
-                    case Settings.key0: 
+                    case Settings.key0:
                     case Settings.key1:
                     case Settings.key2:
                     case Settings.key3:
                     case Settings.key4:
                     case Settings.key5:
                     case Settings.key6:
-                        return true;               
+                        return true;
                 }
             }
             return false;
         }
-        public void TxtFileToMapArray() 
+        public void TxtFileToMapArray()
         {
             string[] lines = File.ReadAllLines("Map.txt");
             buffer.firstBuffer = new char[lines.GetLength(0), lines[0].Length];
             buffer.secondBuffer = new char[lines.GetLength(0), lines[0].Length];
             map = new char[lines.GetLength(0), lines[0].Length];
-            for (int i = 0; i < lines.GetLength(0); i++) 
+            for (int i = 0; i < lines.GetLength(0); i++)
             {
                 for (int j = 0; j < lines[i].Length; j++)
                 {
-                    map[i, j] = lines[i][j]; 
+                    map[i, j] = lines[i][j];
                 }
             }
         }
@@ -172,7 +173,6 @@ namespace First_Playable
             {
                 foreach (var keyXY in Settings.keysXY)
                 {
-                    int numKeyCollected = 0;
                     if (keyXY[0] == row && keyXY[1] == col)
                     {
                         numKeyCollected++;
@@ -183,46 +183,45 @@ namespace First_Playable
                 Console.WriteLine("There is neither a key nor empty space found here.");
             }
         }
-
         public void ReplaceMapTiles(int numKeyCollected)
         {
-        // Determine which wall character to replace based on the number of keys collected
-        char wallToReplace;
-        switch (numKeyCollected)
-        {
-            case 0:
-                wallToReplace = Settings.Wall0;
-                break;
-            case 1:
-                wallToReplace = Settings.Wall1;
-                break;
-            case 2:
-                wallToReplace = Settings.Wall2;
-                break;
-            case 3:
-                wallToReplace = Settings.Wall3;
-                break;
-            case 4:
-                wallToReplace = Settings.Wall4;
-                break;
-            case 5:
-                wallToReplace = Settings.Wall5;
-                break;
-            case 6:
-                wallToReplace = Settings.Wall6;
-                break;
-            default:
-                wallToReplace = ' '; // Set default value to space character
-                break;
-        }
-        // Replace all occurrences of the selected wall character with ' ' on the map
-            for (int row = 0; row < MapData.MapHeight; row++)
+            char wallToReplace;
+            int wallRow = MapWidth;
+            int wallCol = MapHeight;
+            switch (numKeyCollected)
             {
-                for (int col = 0; col < MapData.MapWidth; col++)
+                case 0:
+                    wallToReplace = Settings.Wall0;
+                    break;
+                case 1:
+                    wallToReplace = Settings.Wall1;
+                    break;
+                case 2:
+                    wallToReplace = Settings.Wall2;
+                    break;
+                case 3:
+                    wallToReplace = Settings.Wall3;
+                    break;
+                case 4:
+                    wallToReplace = Settings.Wall4;
+                    break;
+                case 5:
+                    wallToReplace = Settings.Wall5;
+                    break;
+                case 6:
+                    wallToReplace = Settings.Wall6;
+                    break;
+                default:
+                    wallToReplace = ' ';
+                    break;
+            }
+            for (int row = 0; row < MapWidth; row++)
+            {
+                for (int col = 0; col < MapHeight; col++)
                 {
-                    if (map[row, col] == wallToReplace)
+                    if (Settings.Walls.Contains(map[row, col]))
                     {
-                        map[row, col] = ' ';
+                        map[row, col] = wallToReplace;
                     }
                 }
             }

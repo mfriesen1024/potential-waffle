@@ -84,7 +84,6 @@ namespace First_Playable
         }
         public void UseItem()
         {
-            Console.WriteLine(itemType);
             GetItemXY();
             if (xPos == Player.playerRow && yPos == Player.playerCol) 
             {
@@ -92,6 +91,9 @@ namespace First_Playable
                 {
                     case ItemType.health:
                         player.Heal(20);
+                        break;
+                    case ItemType.key:
+                        HudDisplay.Status.Add("Found a key ");
                         break;
                     case ItemType.buff:
                         player.Buff();

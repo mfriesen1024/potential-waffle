@@ -9,7 +9,6 @@ namespace First_Playable
     internal class Settings
     {
         #region Collectibles
-        public const char key0 = '↔';
         public static int[][] keysXY = new int[][]
     {
         new int[] { 8, 11 },// key0XY
@@ -20,6 +19,7 @@ namespace First_Playable
         new int[] { 2, 16 },// key5XY
         new int[] { 19, 21 }// key6XY
     };
+        public const char key0 = '↔';
         public const char key1 = '>';
         public const char key2 = '^';
         public const char key3 = '←';
@@ -28,6 +28,9 @@ namespace First_Playable
         public const char key6 = '→';
         public const char HealthChar = 'H';
         public const char BuffChar = 'A';
+        public static char[] Collectibles = new char[] { key0, key1, key2, key3, key4, key5, key6,HealthChar, BuffChar};
+        #endregion
+        #region Walls
         public const char Wall0 = '░';
         public const char Wall1 = '╠';
         public const char Wall2 = '╩';
@@ -36,7 +39,6 @@ namespace First_Playable
         public const char Wall5 = '═';
         public const char Wall6 = '╣';
         public static char[] Walls = new char[] {Wall0, Wall1, Wall2, Wall3, Wall4, Wall5, Wall6};
-        public static char[] Collectibles = new char[] { key0, key1, key2, key3, key4, key5, key6,HealthChar, BuffChar};
         #endregion
 
         public static int playerCol = 4;

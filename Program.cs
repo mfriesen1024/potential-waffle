@@ -8,7 +8,7 @@ namespace First_Playable
         {
             Console.OutputEncoding = Encoding.UTF8;
             GameManager.Initialize();
-            GameManager.InitializeEnemies1();
+            GameManager.InitializeEnemies();
             Console.WriteLine("Initialization Complete");
             Console.WriteLine("Trying Game Loop");
             Console.ReadKey(true);
