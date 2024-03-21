@@ -11,13 +11,13 @@ namespace First_Playable
         #region Collectibles
         public static int[][] keysXY = new int[][]
     {
-        new int[] { 8, 11 },// key0XY
-        new int[] { 24, 2 },// key1XY
-        new int[] { 24, 50 },// key2XY
-        new int[] { 9, 50 },// key3XY
-        new int[] { 10, 15 },//key4XY
-        new int[] { 2, 16 },// key5XY
-        new int[] { 19, 21 }// key6XY
+        new int[] { 8, 11 },//  key0XY
+        new int[] { 24, 2 },//  key1XY
+        new int[] { 24, 60 },// key2XY
+        new int[] { 9, 54 },//  key3XY
+        new int[] { 10, 31 },// key4XY
+        new int[] { 2, 30 },//  key5XY
+        new int[] { 19, 31 }//  key6XY
     };
         public const char key0 = '↔';
         public const char key1 = '>';
@@ -43,8 +43,8 @@ namespace First_Playable
 
         public static int playerCol = 4;
         public static int playerRow = 4;
-        public const int StartingHealth = 20;
-        public const int MaxPlayerHealth = 60;
+        public const int StartingHealth = 200;
+        public const int MaxPlayerHealth = 600;
         public const int StartingLevel = 1;
         public const int itemCount = 30;
 
