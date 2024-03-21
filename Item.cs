@@ -29,7 +29,10 @@ namespace First_Playable
             this.buffer = player.buffer;
             DetermineType();
         }
-
+         public void SetPlayer(Player player)
+        {
+            this.player = player;
+        }
         void DetermineType()
         {
             int randomInt = Settings.random.Next(5);
@@ -46,7 +49,6 @@ namespace First_Playable
                     break;
             }
         }
-
         public int[] GetItemXY()
         {
             int[] pos = new int[2];
@@ -64,7 +66,6 @@ namespace First_Playable
             if (!Collected)
             {
                 char charToDraw = ' ';
-
                 switch(itemType)
                 {
                     case ItemType.health:
@@ -74,13 +75,8 @@ namespace First_Playable
                         charToDraw = Settings.BuffChar;
                         break;
                 }
-
                 buffer.secondBuffer[yPos, xPos] = charToDraw;
             }
-        }
-        public void SetPlayer(Player player)
-        {
-            this.player = player;
         }
         public void RemoveItem(Item item)
         {
@@ -94,9 +90,6 @@ namespace First_Playable
             {
                 switch(itemType)
                 {
-                    case ItemType.key:
-                        player.OpenPathway();
-                        break;
                     case ItemType.health:
                         player.Heal(20);
                         break;
@@ -106,7 +99,6 @@ namespace First_Playable
                 }
                 Collected = true;
                 buffer.secondBuffer[yPos, xPos] = ' ';
-                MapData.map[yPos, xPos] = ' ';
                 RemoveItem(this);
             }
         }

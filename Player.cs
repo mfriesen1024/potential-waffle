@@ -17,7 +17,7 @@ namespace First_Playable
         private Item item;
         private bool isUIUpdated = false;
 
-        public static int playerCol = Settings.playerCol; // there should only ever be one player on screen, many player statisics will be static to reflect this.
+        public static int playerCol = Settings.playerCol;
         public static int playerRow = Settings.playerRow;
         public static char playerCharacter { get; } = '☻';
         bool hasAttacked;
@@ -32,7 +32,7 @@ namespace First_Playable
             this.enemyManager = enemyManager;
             AttackValue = attackValue;
             this.item = item;
-            this.hudDisplay = hudDisplay; // useless?
+            // this.hudDisplay = hudDisplay; // useless?
             Level = 1;
             Modifer = Level * 2;
             playerCol = Settings.playerCol;
@@ -41,10 +41,9 @@ namespace First_Playable
             enemyManager.SetPlayer(this);
             itemManager.SetPlayer(this); // which one?
 
-            this.itemManager = itemManager; // which one?
+            // this.itemManager = itemManager; // which one?
             this.buffer = buffer;
             Damage = attackValue + Modifer;
-           
         }
         public override void DisplayMessage(string message)
         {   
@@ -53,7 +52,6 @@ namespace First_Playable
                 HudDisplay.messages.Add(message);
             }
         }
-
         public bool UpdatePlayerUI()
         {
             if (!isUIUpdated)
@@ -73,16 +71,10 @@ namespace First_Playable
             }
         return isUIUpdated;
         }
-
-        public void OpenPathway()
-        {
-        //if()
-        }
         public void Buff()
         {
             Damage++;
         }
-
         public void DisplayUI(string status)
         {
             HudDisplay.Status.Add(status);
@@ -147,11 +139,12 @@ namespace First_Playable
             }
             foreach (var item in ItemManager.AllItemsList)
             {
-                int[] itemCoordinates = item.GetItemXY(); // Get the X and Y coordinates of the item
+                int[] itemCoordinates = item.GetItemXY();
                 int itemX = itemCoordinates[0];
                 int itemY = itemCoordinates[1];
                 if (newCol == itemY && newRow == itemX && !item.Collected)
                 {
+                    mapData.CheckForKeyPickup(newRow, newCol);
                     item.Collected = true;
                     DisplayMessage("Player picked up an item");
                     item.UseItem();
@@ -161,16 +154,13 @@ namespace First_Playable
         private void MovePlayer(int rowChange, int columnChange)
         {
             Console.CursorVisible = false;
-            
             if (hasAttacked)
             {
                 hasAttacked = false;
                 return;
             }
-
             int newRow = playerRow + rowChange;
             int newCol = playerCol + columnChange;
-
             if (mapData.IsValidMove(newRow, newCol))
             { 
                 playerRow = newRow;

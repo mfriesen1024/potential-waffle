@@ -12,6 +12,7 @@ namespace First_Playable
         public static char[,] map;
         internal static int MapWidth;
         internal static int MapHeight;
+        public int[,] KeyXY;
 
         public MapData(Buffer buffer)
         {
@@ -44,14 +45,14 @@ namespace First_Playable
                 Console.SetCursorPosition(totalWidth + hudWidth - 1, j);
                 Console.Write(border[4]); // Right border
             }
-            Console.ResetColor(); // Reset console colors after drawing
+            Console.ResetColor(); 
         }
         public void HudBorder()
         {
             int mapWidth = map.GetLength(1);
             int mapHeight = map.GetLength(0);
-            int totalWidth = (mapWidth + 3);
-            int totalHeight = (mapHeight + 1);
+            int totalWidth = mapWidth + 3;
+            int totalHeight = mapHeight + 1;
 
             int hudWidth = (totalWidth / 2) + (totalWidth % 2); 
             int hudHeight = (totalHeight / 2) + (totalHeight % 2);
@@ -72,13 +73,13 @@ namespace First_Playable
                 Console.SetCursorPosition(totalWidth + hudWidth - 1, j);
                 Console.Write(border[4]); // Right border
             }
-            Console.ResetColor(); // Reset console colors after drawing
+            Console.ResetColor(); 
         }
         public void PrintMap()
         {  
             Array.Copy(map, buffer.secondBuffer, map.Length);
         }
-        static string[] border = new string[] // Stores Border ASCII characters
+        static string[] border = new string[]
         {
             "╔","╗","╝","╚", "║","═"
         };
@@ -88,8 +89,8 @@ namespace First_Playable
             int mapHeight = map.GetLength(0);
             int HorizontalWall = 1;
             int VerticalWall = 1;
-            int totalWidth = (mapWidth + 1);
-            int totalHeight = (mapHeight + 1);
+            int totalWidth = mapWidth + 1;
+            int totalHeight = mapHeight + 1;
 
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.BackgroundColor = ConsoleColor.DarkRed;
@@ -130,7 +131,7 @@ namespace First_Playable
             Console.Write(border[2]);
             Console.ResetColor();
         }
-        public bool IsValidMove(int newRow, int newCol)
+        public bool IsValidMove(int newRow, int newCol) // Handles what the player is permitted to walk on.
         {
             if (newRow >= 0 && newRow < map.GetLength(1) && newCol >= 0 && newCol < map.GetLength(0))
             {
@@ -140,25 +141,12 @@ namespace First_Playable
                     case Settings.BuffChar:
                     case Settings.HealthChar:
                     case Settings.key0: 
-                        // add method triggers on each key here.
-                        return true;
                     case Settings.key1:
-                        // add method triggers on each key here.
-                        return true;
                     case Settings.key2:
-                        // add method triggers on each key here.
-                        return true;
                     case Settings.key3:
-                        // add method triggers on each key here.
-                        return true;
                     case Settings.key4:
-                        // add method triggers on each key here.
-                        return true;
                     case Settings.key5:
-                        // add method triggers on each key here.
-                        return true;
                     case Settings.key6:
-                        // add method triggers on each key here.
                         return true;               
                 }
             }
@@ -175,6 +163,67 @@ namespace First_Playable
                 for (int j = 0; j < lines[i].Length; j++)
                 {
                     map[i, j] = lines[i][j]; 
+                }
+            }
+        }
+        public void CheckForKeyPickup(int row, int col)
+        {
+            if (Settings.Collectibles.Contains(map[row, col]))
+            {
+                foreach (var keyXY in Settings.keysXY)
+                {
+                    int numKeyCollected = 0;
+                    if (keyXY[0] == row && keyXY[1] == col)
+                    {
+                        numKeyCollected++;
+                        ReplaceMapTiles(numKeyCollected);
+                        return;
+                    }
+                }
+                Console.WriteLine("There is neither a key nor empty space found here.");
+            }
+        }
+
+        public void ReplaceMapTiles(int numKeyCollected)
+        {
+        // Determine which wall character to replace based on the number of keys collected
+        char wallToReplace;
+        switch (numKeyCollected)
+        {
+            case 0:
+                wallToReplace = Settings.Wall0;
+                break;
+            case 1:
+                wallToReplace = Settings.Wall1;
+                break;
+            case 2:
+                wallToReplace = Settings.Wall2;
+                break;
+            case 3:
+                wallToReplace = Settings.Wall3;
+                break;
+            case 4:
+                wallToReplace = Settings.Wall4;
+                break;
+            case 5:
+                wallToReplace = Settings.Wall5;
+                break;
+            case 6:
+                wallToReplace = Settings.Wall6;
+                break;
+            default:
+                wallToReplace = ' '; // Set default value to space character
+                break;
+        }
+        // Replace all occurrences of the selected wall character with ' ' on the map
+            for (int row = 0; row < MapData.MapHeight; row++)
+            {
+                for (int col = 0; col < MapData.MapWidth; col++)
+                {
+                    if (map[row, col] == wallToReplace)
+                    {
+                        map[row, col] = ' ';
+                    }
                 }
             }
         }

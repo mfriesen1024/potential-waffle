@@ -43,7 +43,7 @@ namespace First_Playable
             {
                 deltaX = EnemyRow - Player.playerRow;
                 deltaY = EnemyCol - Player.playerCol;
-                if (deltaX > -18 && deltaX < 18 && deltaY > -18 && deltaY < 18) // Creatures proximity to player in order to move
+                if (deltaX > -18 && deltaX < 18 && deltaY > -18 && deltaY < 18) // Required proximity to player in order to move
                 { 
                     TurnCount++;
                     if (TurnCount % 3 == 0)
@@ -51,7 +51,7 @@ namespace First_Playable
                         int randomDirection = Settings.random.Next(3);
                         int newX = EnemyCol, newY = EnemyRow;
 
-                        switch (randomDirection) // 0: Up, 1: Right, 2: Down, 3: Left
+                        switch (randomDirection)
                         {
                             case 0: // Up
                                 newY = EnemyRow - 3;
@@ -65,7 +65,6 @@ namespace First_Playable
                             case 3: // Left
                                 newX = EnemyCol - 3;
                                 break;
-                                // Cases 4 through 11 result in staying in place
                         }
                         if (Player.playerRow == newY && Player.playerCol == newX)
                         {
