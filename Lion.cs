@@ -48,7 +48,7 @@ namespace First_Playable
                     TurnCount++;
                     if (TurnCount % 3 == 0)
                     {
-                        int randomDirection = Settings.random.Next(3);
+                        int randomDirection = Settings.random.Next(4);
                         int newX = EnemyCol, newY = EnemyRow;
 
                         switch (randomDirection)
@@ -93,7 +93,7 @@ namespace First_Playable
             int Damage = AttackValue + Modifer;
             if (target is Entity player)
             {
-                DisplayMessage("Player was damaged for " + Damage);
+                DisplayMessage("Player was damaged by a Lion for " + Damage);
                 if (player.CurrentHealth <= 0)
                 {
                     player.Die();

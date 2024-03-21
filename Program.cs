@@ -11,7 +11,6 @@ namespace First_Playable
             GameManager.InitializeEnemies();
             Console.WriteLine("Initialization Complete");
             Console.WriteLine("Trying Game Loop");
-            Console.ReadKey(true);
             GameManager.GameLoop();
         }
     }

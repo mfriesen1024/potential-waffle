@@ -9,7 +9,6 @@ namespace First_Playable
 {
     internal class Duck : Enemy
     {
-
         public Duck(MapData mapData, Player player, int attackValue,
             EnemyManager enemyManager, Buffer buffer)
             : base(mapData, attackValue, enemyManager, buffer)
@@ -44,7 +43,7 @@ namespace First_Playable
                 int randomDirection = Settings.random.Next(4);
                 int newX = EnemyCol, newY = EnemyRow;
 
-                switch (randomDirection) // 0: Up, 1: Right, 2: Down, 3: Left
+                switch (randomDirection)
                 {
                     case 0: // Up
                         newY = EnemyRow - 1;
@@ -87,7 +86,7 @@ namespace First_Playable
             int Damage = AttackValue + Modifer;
             if (target is Entity player)
             {
-                DisplayMessage("Player was damaged for " + Damage);
+                DisplayMessage("Player was damaged by a Duck for " + Damage);
                 if (player.CurrentHealth <= 0)
                 {
                     player.Die();

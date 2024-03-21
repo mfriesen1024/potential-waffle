@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
@@ -40,7 +41,6 @@ namespace First_Playable
             hudDisplay.SetPlayer(this);
             enemyManager.SetPlayer(this);
             itemManager.SetPlayer(this);
-
             this.itemManager = itemManager;
             this.buffer = buffer;
             Damage = attackValue + Modifer;
@@ -56,11 +56,11 @@ namespace First_Playable
         {
             if (!isUIUpdated)
             {
-                Console.WriteLine(isUIUpdated);
                 HudDisplay.Status.Add("Player Level: " + Level);
                 HudDisplay.Status.Add("Player Location: " + playerRow + ", " + playerCol);
                 HudDisplay.Status.Add("Player HP: " + CurrentHealth);
                 HudDisplay.Status.Add("Player ATK Damage: " + Damage);
+                HudDisplay.Status.Add("Score: " + HudDisplay.TotalScore);
                 hudDisplay.DrawUIMessages();
                 isUIUpdated = true;
             }
@@ -123,6 +123,7 @@ namespace First_Playable
                     MovePlayer(1, 0);
                     break;
             }
+            UpdatePlayerUI();
         }
         internal void CheckCollision(List<Enemy> EnemyList, int rowChange, int columnChange)
         {

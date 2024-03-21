@@ -48,7 +48,6 @@ namespace First_Playable
                 mapData.DrawBorder();
                 mapData.HudBorder();
                 mapData.UIBorder();
-                player.UpdatePlayerUI();
                 itemManager.DrawItems();
                 buffer.DisplayBuffer();
                 hudDisplay.DrawHudMessages();
@@ -58,25 +57,21 @@ namespace First_Playable
                 }
             } 
             while (!player.dead);
-            if (player.dead)
-            {
-                Console.WriteLine("You died lolz");
-            }
         }
-        static void Populate(MapData mapData, Player player, int attackValue, EnemyManager enemyManager, Buffer buffer, params (Type, int)[] enemyCounts)
+        static void Populate(MapData mapData, Player player, EnemyManager enemyManager, Buffer buffer, params (Type, int, int)[] enemyCounts)
         {
-            foreach (var (enemyType, count) in enemyCounts)
+            foreach (var (enemyType, count, attackValue) in enemyCounts)
             {
                 switch (enemyType.Name)
                 {
                     case nameof(Duck):
-                        List<Duck> ducks = Spawner<Duck>(mapData, player, attackValue, enemyManager, buffer, count, "Donald", 10, Enemy.SmallCreatureTypes, 0, 5);
+                        List<Duck> ducks = Spawner<Duck>(mapData, player, attackValue, enemyManager, buffer, count, "Donald", Settings.SmallEnemyHP, Enemy.SmallCreatureTypes, 0, 5);
                         break;
                     case nameof(Goose):
-                        List<Goose> geese = Spawner<Goose>(mapData, player, attackValue, enemyManager, buffer, count, "Gary", 12, Enemy.MediumCreatureTypes, 0, 6);
+                        List<Goose> geese = Spawner<Goose>(mapData, player, attackValue, enemyManager, buffer, count, "Gary", Settings.MediumEnemyHP, Enemy.MediumCreatureTypes, 0, 6);
                         break;
                     case nameof(Lion):
-                        List<Lion> lions = Spawner<Lion>(mapData, player, attackValue, enemyManager, buffer, count, "Simba", 15, Enemy.LargeCreatureTypes, 0, 8);
+                        List<Lion> lions = Spawner<Lion>(mapData, player, attackValue, enemyManager, buffer, count, "Simba", Settings.LargeEnemyHP, Enemy.LargeCreatureTypes, 0, 8);
                         break;
                 }
             }
@@ -97,7 +92,10 @@ namespace First_Playable
         public static void InitializeEnemies()
         {
             Console.WriteLine("Enemies Initializing");
-            Populate(mapData, player, Settings.EnemyAtk, enemyManager, buffer, (typeof(Duck), Settings.DuckCount), (typeof(Lion), Settings.LionCount), (typeof(Goose), Settings.GooseCount));
+            Populate(mapData, player, enemyManager, buffer,
+                (typeof(Duck), Settings.DuckCount, Settings.SmallEnemyHP),
+                (typeof(Goose), Settings.GooseCount, Settings.MediumEnemyHP),
+                (typeof(Lion), Settings.LionCount, Settings.LargeEnemyHP));
         }
     }
 }

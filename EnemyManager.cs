@@ -10,7 +10,6 @@ namespace First_Playable
     {
         internal MapData mapData;
         internal Player player;
-
         internal List<List<Enemy>> allEnemyLists = new List<List<Enemy>>();
         internal List<Enemy> listOfEnemies = new List<Enemy>();
 
@@ -18,7 +17,6 @@ namespace First_Playable
         {
             this.mapData = mapData;
         }
-
         public void MoveEnemies()
         { 
             foreach (var enemy in listOfEnemies)

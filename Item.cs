@@ -93,7 +93,7 @@ namespace First_Playable
                         player.Heal(20);
                         break;
                     case ItemType.key:
-                        HudDisplay.Status.Add("Found a key ");
+                        HudDisplay.Status.Add("Found a key "); // this does not run
                         break;
                     case ItemType.buff:
                         player.Buff();

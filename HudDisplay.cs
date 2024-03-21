@@ -63,7 +63,6 @@ namespace First_Playable
             UIXY[1] = UIY;
             return UIXY;
         }
-
         public void DrawUIMessages()
         {
             Console.ResetColor();
@@ -79,7 +78,6 @@ namespace First_Playable
                 UIY++;
             }
         }
-
         public void DrawHudMessages()
         {
             Console.ResetColor();
@@ -96,7 +94,7 @@ namespace First_Playable
             foreach (string message in messages)
             {
                 Console.SetCursorPosition(HudX, HudY);
-                Console.WriteLine(message); // not 200
+                Console.WriteLine(message);
                 HudY++;
             }
         }

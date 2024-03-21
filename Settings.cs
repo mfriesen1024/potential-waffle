@@ -46,9 +46,12 @@ namespace First_Playable
         public const int StartingHealth = 20;
         public const int MaxPlayerHealth = 60;
         public const int StartingLevel = 1;
-        public const int itemCount = 12;
+        public const int itemCount = 30;
 
         #region EnemyInfo 
+        public const int SmallEnemyHP = 5;
+        public const int MediumEnemyHP = 10;
+        public const int LargeEnemyHP = 15;
         public const int EnemyAtk = 5;
         public const char DuckChar = '♣';
         public const int DuckCount = 25;

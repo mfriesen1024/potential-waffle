@@ -95,7 +95,6 @@ namespace First_Playable
 
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.BackgroundColor = ConsoleColor.DarkRed;
-
             Console.SetCursorPosition(0, 0);
             Console.Write(border[0]);
             Console.SetCursorPosition(totalWidth, 0);
@@ -167,14 +166,16 @@ namespace First_Playable
                 }
             }
         }
-        public void CheckForKeyPickup(int row, int col)
+        public void CheckForKeyPickup(int row, int col) // Don't think this runs
         {
-            if (Settings.Collectibles.Contains(map[row, col]))
+            if (Settings.Collectibles.Contains(map[col, row]))
             {
+                Console.WriteLine("A");
                 foreach (var keyXY in Settings.keysXY)
                 {
                     if (keyXY[0] == row && keyXY[1] == col)
                     {
+                        Console.WriteLine("B");
                         numKeyCollected++;
                         ReplaceMapTiles(numKeyCollected);
                         return;
@@ -185,6 +186,7 @@ namespace First_Playable
         }
         public void ReplaceMapTiles(int numKeyCollected)
         {
+            Console.WriteLine("C");
             char wallToReplace;
             int wallRow = MapWidth;
             int wallCol = MapHeight;

@@ -23,8 +23,8 @@ namespace First_Playable
         public static string[] MediumCreatureTypes = { "Goose" };
         public static string[] LargeCreatureTypes = { "Lion" };
 
-        public Enemy(MapData mapData, int attackValue, EnemyManager enemyManager, Buffer buffer) // What is passed into Enemy
-            : base("DefaultEnemyName", 10, new string[] { "Enemy" }) // base = what it is given/needs by default from its parent/base class
+        public Enemy(MapData mapData, int attackValue, EnemyManager enemyManager, Buffer buffer)
+            : base("DefaultEnemyName", 10, new string[] { "Enemy" })
         {
             this.enemyManager = enemyManager;
             this.mapData = mapData;
@@ -42,7 +42,7 @@ namespace First_Playable
         {
             if (!dead)
             {
-            buffer.secondBuffer[EnemyCol, EnemyRow] = EnemyCharacter; // USE AS FUTURE REFERENCE FOR DRAWING INTO BUFFER
+            buffer.secondBuffer[EnemyCol, EnemyRow] = EnemyCharacter;
             }
         }
         protected internal void SpawnEnemy(string name, int health, string[] creatureTypes, int creatureTypeIndex, int attackValue)
