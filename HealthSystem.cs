@@ -10,24 +10,22 @@ namespace First_Playable
     {
         public int CurrentHealth { get; set; }
         public int MaxHealth = Settings.MaxPlayerHealth;
+        public int Damage;
         public HealthSystem(int initialHealth)
         {
             CurrentHealth = initialHealth;
         }
-        public virtual void TakeDamage(int attackValue, int modifier)
+        public virtual void TakeDamage(int Damage)
         {
-            int damage = attackValue + modifier;
-            CurrentHealth -= damage;
-            //Console.WriteLine($"Entity took {damage} damage. Current health: {CurrentHealth}");
+            CurrentHealth -= Damage;
         }
         public virtual void Heal(int amount)
         {
             CurrentHealth += amount;
-            if(CurrentHealth > MaxHealth)
+            if(CurrentHealth >= MaxHealth)
             {
                 CurrentHealth = MaxHealth;
             }
-            //Console.WriteLine($"Entity healed for {amount}. Current health: {CurrentHealth}");
         }
     }
 }

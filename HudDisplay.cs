@@ -58,11 +58,12 @@ namespace First_Playable
             UIWidth = (totalWidth / 4) + (totalWidth % 4);
             UIHeight = (totalHeight / 4) + (totalHeight % 4);
             UIX = totalWidth + 1;
-            UIY = totalHeight - UIHeight + 1;
+            UIY = totalHeight - UIHeight - 2;
             UIXY[0] = UIX;
             UIXY[1] = UIY;
             return UIXY;
         }
+
         public void DrawUIMessages()
         {
             Console.ResetColor();
@@ -78,6 +79,7 @@ namespace First_Playable
                 UIY++;
             }
         }
+
         public void DrawHudMessages()
         {
             Console.ResetColor();
@@ -94,13 +96,29 @@ namespace First_Playable
             foreach (string message in messages)
             {
                 Console.SetCursorPosition(HudX, HudY);
-                Console.WriteLine(message);
+
+                string newMessage = message;
+
+                int remainder = HudWidth + 8 - message.Length;
+                for (int i = 0; i < remainder; i++)
+                    newMessage += ' ';
+
+                Console.WriteLine(newMessage);
                 HudY++;
             }
+        }
+        public static void OneUpCheck()
+        {
+            //if (TotalScore / (100 * Settings.playerLevel) >= 1)
+            //{ 
+            //    Settings.playerLevel++;
+            //    TotalScore = 0;
+            //}
         }
         public static int AddScore(int scoreToAdd)
         {
             TotalScore += scoreToAdd;
+            OneUpCheck();
             return scoreToAdd;
         }
     }

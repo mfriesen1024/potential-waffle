@@ -14,11 +14,10 @@ namespace First_Playable
         {
             AttackValue = attackValue;
             this.player = player;
-            Level = 1;
-            AttackValue = Level * 2;
-            Modifer = Level;
+            AttackValue = Settings.NPCLevel * 2;
+            Modifer = Settings.NPCLevel * 2;
             EnemyCharacter = Settings.LionChar;
-            MaxHealth = 10;
+            MaxHealth = 15;
             TurnCount = 0;
         }
         public int Index { get; private set; }
@@ -28,7 +27,7 @@ namespace First_Playable
 
         public override int DetermineMaxHealth()
         {
-            MaxHealth = 10;
+            MaxHealth = 15;
             return MaxHealth;
         }
         public override void DisplayMessage(string message)
@@ -89,11 +88,11 @@ namespace First_Playable
         }
         public override void Attack(Entity target)
         {
-            target.TakeDamage(AttackValue, Modifer);
             int Damage = AttackValue + Modifer;
+            target.TakeDamage(Damage);
             if (target is Entity player)
             {
-                DisplayMessage("Player was damaged by a Lion for " + Damage);
+                DisplayMessage("Player was damaged by a Lion for " + Damage + " damage.");
                 if (player.CurrentHealth <= 0)
                 {
                     player.Die();

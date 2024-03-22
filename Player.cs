@@ -34,8 +34,7 @@ namespace First_Playable
             AttackValue = attackValue;
             this.item = item;
             this.hudDisplay = hudDisplay;
-            Level = 1;
-            Modifer = Level * 2;
+            Modifer = Settings.playerLevel * 2;
             playerCol = Settings.playerCol;
             playerRow = Settings.playerRow;
             hudDisplay.SetPlayer(this);
@@ -54,26 +53,19 @@ namespace First_Playable
         }
         public bool UpdatePlayerUI()
         {
-            if (!isUIUpdated)
-            {
-                HudDisplay.Status.Add("Player Level: " + Level);
-                HudDisplay.Status.Add("Player Location: " + playerRow + ", " + playerCol);
-                HudDisplay.Status.Add("Player HP: " + CurrentHealth);
-                HudDisplay.Status.Add("Player ATK Damage: " + Damage);
-                HudDisplay.Status.Add("Score: " + HudDisplay.TotalScore);
-                hudDisplay.DrawUIMessages();
-                isUIUpdated = true;
-            }
-            else
-            {
-                isUIUpdated = false;
-                HudDisplay.Status.Clear();
-            }
-        return isUIUpdated;
+            HudDisplay.Status.Clear();
+            HudDisplay.Status.Add("Player Level: " + Settings.playerLevel);
+            HudDisplay.Status.Add("Player Location: " + playerRow + ", " + playerCol);
+            HudDisplay.Status.Add("Player HP: " + CurrentHealth + " / " + Settings.MaxPlayerHealth);
+            HudDisplay.Status.Add("Player ATK Damage: " + Damage);
+            HudDisplay.Status.Add("Score: " + HudDisplay.TotalScore);
+            HudDisplay.OneUpCheck();
+            hudDisplay.DrawUIMessages();
+            return isUIUpdated;
         }
         public void Buff()
         {
-            Damage++;
+            Damage += 2;
         }
         public void DisplayUI(string status)
         {
@@ -114,7 +106,7 @@ namespace First_Playable
                     break;
 
                 case ConsoleKey.A:
-                    CheckCollision(enemyManager.listOfEnemies,-1,0 );
+                    CheckCollision(enemyManager.listOfEnemies, -1, 0);
                     MovePlayer(-1, 0);
                     break;
 
@@ -138,19 +130,20 @@ namespace First_Playable
                     Attack(enemy);
                 }
             }
-            foreach (var item in ItemManager.AllItemsList)
+            for (int i = 0; i < ItemManager.AllItemsList.Count; i++)
             {
-                int[] itemCoordinates = item.GetItemXY();
+                int[] itemCoordinates = ItemManager.AllItemsList[i].GetItemXY();
                 int itemX = itemCoordinates[0];
                 int itemY = itemCoordinates[1];
-                if (newCol == itemY && newRow == itemX && !item.Collected)
+                if (newCol == itemY && newRow == itemX && !ItemManager.AllItemsList[i].Collected)
                 {
-                    item.Collected = true;
+                    ItemManager.AllItemsList[i].Collected = true;
                     DisplayMessage("Player picked up an item");
-                    item.UseItem();
+                    ItemManager.AllItemsList[i].UseItem();
+                    UpdatePlayerUI();
                 }
+                mapData.CheckForKeyPickup(newRow, newCol);
             }
-            mapData.CheckForKeyPickup(newRow, newCol);
         }
         private void MovePlayer(int rowChange, int columnChange)
         {
@@ -165,16 +158,20 @@ namespace First_Playable
             if (mapData.IsValidMove(newRow, newCol))
             { 
                 playerRow = newRow;
-                playerCol = newCol; 
+                playerCol = newCol;
+                if (Settings.WinLocation.Any(location => location[0] == newCol && location[1] == newRow))
+                {
+                    WinGame();
+                }
             }
         }
         public override void Attack(Entity target)
         {
             if (target is Enemy enemy)
             {
-                target.TakeDamage(AttackValue, Modifer);
-                int DamageDealt = enemy.DetermineMaxHealth() - target.CurrentHealth;
-                DisplayMessage("Player dealt " + DamageDealt + " and gained " + DamageDealt + " points.");
+                int DamageDealt = Damage;
+                target.TakeDamage(Damage);
+                DisplayMessage("Player dealt " + DamageDealt + " damage and gained " + DamageDealt + " points.");
                 HudDisplay.AddScore(DamageDealt);
                 if (enemy.CurrentHealth <= 0)
                 {
@@ -185,8 +182,14 @@ namespace First_Playable
         public override void Die()
         {
             Console.Clear();
-            Console.WriteLine(HudDisplay.TotalScore.ToString());
-            System.Console.WriteLine("You Died");
+            Console.WriteLine("You Died with a Score of: " + HudDisplay.TotalScore.ToString());
+            Console.ReadKey(true);
+            dead = true;
+        }
+        public void WinGame()
+        {
+            Console.Clear();
+            Console.WriteLine("YOU WIN!!! YOUR SCORE WAS: " + HudDisplay.TotalScore.ToString());
             Console.ReadKey(true);
             dead = true;
         }

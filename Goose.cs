@@ -14,9 +14,8 @@ namespace First_Playable
         {
             AttackValue = attackValue;
             this.player = player;
-            Level = 1;
-            AttackValue = Level * 2;
-            Modifer = Level;
+            AttackValue = Settings.NPCLevel * 2;
+            Modifer = Settings.NPCLevel;
             EnemyCharacter = Settings.GooseChar;
             MaxHealth = 10;
             TurnCount = 0;
@@ -88,11 +87,11 @@ namespace First_Playable
         }
         public override void Attack(Entity target)
         {
-            target.TakeDamage(AttackValue, Modifer);
             int Damage = AttackValue + Modifer;
+            target.TakeDamage(Damage);
             if (target is Entity player)
             {
-                DisplayMessage("Player was damaged by a Goose for " + Damage);
+                DisplayMessage("Player was damaged by a Goose for " + Damage + " damage.");
                 if (player.CurrentHealth <= 0)
                 {
                     player.Die();

@@ -34,7 +34,7 @@ namespace First_Playable
             this.buffer = buffer;
             dead = false;
         }
-        public override void Attack(Entity target) { } // target is of type Entity, fill this arguement with who is being attacked.
+        public override void Attack(Entity target) { }
         public abstract int DetermineMaxHealth();
 
         public virtual void MoveEnemy(){}

@@ -25,7 +25,7 @@ namespace First_Playable
             int totalWidth = (mapWidth + 3);
             int totalHeight = (mapHeight + 1);
 
-            int hudWidth = (totalWidth / 3) + (totalWidth % 3);
+            int hudWidth = (totalWidth / 2) + (totalWidth % 2);
             int hudHeight = (totalHeight / 3) + (totalHeight % 3);
             Console.ForegroundColor = ConsoleColor.Black;
             Console.BackgroundColor = ConsoleColor.DarkYellow;
@@ -51,9 +51,9 @@ namespace First_Playable
             int mapWidth = map.GetLength(1);
             int mapHeight = map.GetLength(0);
             int totalWidth = mapWidth + 3;
-            int totalHeight = mapHeight + 1;
+            int totalHeight = mapHeight + 5;
 
-            int hudWidth = (totalWidth / 2) + (totalWidth % 2);
+            int hudWidth = (totalWidth / 2) + (totalWidth % 2) + 10;
             int hudHeight = (totalHeight / 2) + (totalHeight % 2);
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.BackgroundColor = ConsoleColor.DarkBlue;
@@ -166,7 +166,11 @@ namespace First_Playable
         }
         public void CheckForKeyPickup(int row, int col)
         {
-            if (Settings.Collectibles.Contains(map[col, row])) // breaks when outside bounds attempt is made.
+            if (numKeyCollected >= 7)
+            { 
+            return;
+            }
+            if (IsValidMove(row, col) && Settings.Collectibles.Contains(map[col, row])) // breaks when outside bounds attempt is made.
             {
                 foreach (var keyXY in Settings.keysXY)
                 {

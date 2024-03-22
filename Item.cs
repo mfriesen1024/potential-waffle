@@ -85,24 +85,18 @@ namespace First_Playable
         public void UseItem()
         {
             GetItemXY();
-            if (xPos == Player.playerRow && yPos == Player.playerCol) 
+            switch (itemType)
             {
-                switch(itemType)
-                {
-                    case ItemType.health:
-                        player.Heal(20);
-                        break;
-                    case ItemType.key:
-                        HudDisplay.messages.Add("Found a key "); // this does not run
-                        break;
-                    case ItemType.buff:
-                        player.Buff();
-                        break;
-                }
-                Collected = true;
-                buffer.secondBuffer[yPos, xPos] = ' ';
-                RemoveItem(this);
+                case ItemType.health:
+                    player.Heal(20 + 2*Settings.NPCLevel);
+                    break;
+                case ItemType.buff:
+                    player.Buff();
+                    break;
             }
+            Collected = true;
+            buffer.secondBuffer[yPos, xPos] = ' ';
+            RemoveItem(this);
         }
     }
 }

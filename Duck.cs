@@ -15,11 +15,10 @@ namespace First_Playable
         {
             AttackValue = attackValue;
             this.player = player;
-            Level = 1;
-            AttackValue = Level * 2;
-            Modifer = Level;
+            AttackValue = Settings.NPCLevel * 2;
+            Modifer = Settings.NPCLevel;
             EnemyCharacter = Settings.DuckChar;  
-            MaxHealth = 10;
+            MaxHealth = 5;
         }
         public int Index { get; private set; }
         public string DuckName { get; set; }
@@ -82,11 +81,12 @@ namespace First_Playable
         }
         public override void Attack(Entity target)
         {
-            target.TakeDamage(AttackValue, Modifer);
             int Damage = AttackValue + Modifer;
+            target.TakeDamage(Damage);
+            
             if (target is Entity player)
             {
-                DisplayMessage("Player was damaged by a Duck for " + Damage);
+                DisplayMessage("Player was damaged by a Duck for " + Damage + " damage.");
                 if (player.CurrentHealth <= 0)
                 {
                     player.Die();

@@ -10,7 +10,7 @@ namespace First_Playable
     {
         #region Collectibles
         public static int[][] keysXY = new int[][]
-    {
+        {
         new int[] { 8, 11 },//  key0XY
         new int[] { 24, 2 },//  key1XY
         new int[] { 24, 60 },// key2XY
@@ -18,7 +18,19 @@ namespace First_Playable
         new int[] { 10, 31 },// key4XY
         new int[] { 2, 30 },//  key5XY
         new int[] { 19, 31 }//  key6XY
-    };
+        };
+        public static int[][] WinLocation = new int[][]
+        {
+            new int[] {19, 76 },
+            new int[] {20, 76 },
+            new int[] {21, 76 },
+            new int[] {22, 76 },
+            new int[] {23, 76 },
+            new int[] {24, 76 },
+            new int[] {25, 76 },
+            new int[] {26, 76 },
+            new int[] {27, 76 }
+        };
         public const char key0 = '↔';
         public const char key1 = '>';
         public const char key2 = '^';
@@ -43,25 +55,24 @@ namespace First_Playable
 
         public static int playerCol = 4;
         public static int playerRow = 4;
-        public const int StartingHealth = 200;
-        public const int MaxPlayerHealth = 600;
+        public static int playerLevel = 1;
+        public static int StartingHealth = 100;
+        public static int MaxPlayerHealth = StartingHealth + (playerLevel * 40);
         public const int StartingLevel = 1;
-        public const int itemCount = 30;
+        public const int itemCount = 50;
 
         #region EnemyInfo 
+        public static int NPCLevel = 1;
         public const int SmallEnemyHP = 5;
         public const int MediumEnemyHP = 10;
         public const int LargeEnemyHP = 15;
         public const char DuckChar = '♣';
         public const int DuckCount = 25;
         public const char GooseChar = '+';
-        public const int GooseCount = 10;
+        public const int GooseCount = 25;
         public const char LionChar = '&';
-        public const int LionCount = 5;
+        public const int LionCount = 10;
         #endregion
-
-        public static DateTime lastInputTime = DateTime.MinValue;
-        public static TimeSpan inputDelay = TimeSpan.FromSeconds(0.1);
         public static Random random = new Random();
     }
 }
