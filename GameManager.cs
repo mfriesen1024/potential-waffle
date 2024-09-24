@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.Design;
 using System.Text;
 
-namespace First_Playable
+namespace untitled
 {
     internal class GameManager
     {

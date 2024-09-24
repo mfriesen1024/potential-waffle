@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace First_Playable
+namespace untitled
 {   // Everything added to this class needs to have a reference within all of its children, don't clutter this
     public abstract class Entity
     {

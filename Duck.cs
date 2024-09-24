@@ -4,8 +4,9 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using untitled.Map;
 
-namespace First_Playable
+namespace untitled
 {
     internal class Duck : Enemy
     {

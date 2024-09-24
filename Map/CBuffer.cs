@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace First_Playable
+namespace untitled.Map
 {
-    internal class Buffer
+    internal class CBuffer
     {
-        public char[,] ?firstBuffer;
-        public char[,] ?secondBuffer;
+        public char[,]? firstBuffer;
+        public char[,]? secondBuffer;
         private MapData mapData;
         public void SetMapData(MapData mapData)
         {
@@ -24,7 +24,7 @@ namespace First_Playable
                 for (int X = 0; X < firstBuffer.GetLength(1); X++)
                 {
                     char MapElements = secondBuffer[Y, X];
-                        
+
                     if (MapElements == firstBuffer[Y, X])
                     {
                         continue;
@@ -58,7 +58,7 @@ namespace First_Playable
                         case Settings.DuckChar:
                         case Settings.GooseChar:
                         case Settings.LionChar:
-                             Console.ForegroundColor = ConsoleColor.Green;
+                            Console.ForegroundColor = ConsoleColor.Green;
                             break;
                         case '░':
                         case '╦':
@@ -84,7 +84,7 @@ namespace First_Playable
                             break;
                     }
                     Console.SetCursorPosition(Left, Top);
-                    Console.Write(MapElements); 
+                    Console.Write(MapElements);
                 }
             }
             Array.Copy(firstBuffer, secondBuffer, MapData.map.Length);

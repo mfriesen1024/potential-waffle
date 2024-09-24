@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using untitled.Map;
 
-namespace First_Playable
+namespace untitled
 {
     internal abstract class Enemy : Entity // base class for all enemy types to inherit from
     {

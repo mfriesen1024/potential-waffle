@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace First_Playable
+namespace untitled.Map
 {
     internal class MapData
     {
-        internal Buffer buffer;
+        internal CBuffer buffer;
         public static char[,] map;
-        
+
         public int numKeyCollected = 0;
 
-        public MapData(Buffer buffer)
+        public MapData(CBuffer buffer)
         {
             this.buffer = buffer;
             buffer.SetMapData(this);
@@ -22,11 +22,11 @@ namespace First_Playable
         {
             int mapWidth = map.GetLength(1);
             int mapHeight = map.GetLength(0);
-            int totalWidth = (mapWidth + 3);
-            int totalHeight = (mapHeight + 1);
+            int totalWidth = mapWidth + 3;
+            int totalHeight = mapHeight + 1;
 
-            int hudWidth = (totalWidth / 2) + (totalWidth % 2);
-            int hudHeight = (totalHeight / 3) + (totalHeight % 3);
+            int hudWidth = totalWidth / 2 + totalWidth % 2;
+            int hudHeight = totalHeight / 3 + totalHeight % 3;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.BackgroundColor = ConsoleColor.DarkYellow;
 
@@ -53,8 +53,8 @@ namespace First_Playable
             int totalWidth = mapWidth + 3;
             int totalHeight = mapHeight + 5;
 
-            int hudWidth = (totalWidth / 2) + (totalWidth % 2) + 10;
-            int hudHeight = (totalHeight / 2) + (totalHeight % 2);
+            int hudWidth = totalWidth / 2 + totalWidth % 2 + 10;
+            int hudHeight = totalHeight / 2 + totalHeight % 2;
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.BackgroundColor = ConsoleColor.DarkBlue;
 
@@ -167,8 +167,8 @@ namespace First_Playable
         public void CheckForKeyPickup(int row, int col)
         {
             if (numKeyCollected >= 7)
-            { 
-            return;
+            {
+                return;
             }
             if (IsValidMove(row, col) && Settings.Collectibles.Contains(map[col, row])) // breaks when outside bounds attempt is made.
             {
@@ -232,7 +232,7 @@ namespace First_Playable
                 for (int col = 0; col < mapHeight; col++)
                 {
                     if (Settings.Collectibles.Contains(map[col, row]) && map[col, row] == keyToReplace)
-                    { 
+                    {
                         map[col, row] = ' ';
                     }
                     if (Settings.Walls.Contains(map[col, row]) && map[col, row] == wallToReplace)
