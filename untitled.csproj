@@ -6,6 +6,7 @@
     <RootNamespace>untitled</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <StartupObject>untitled.Entry</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
