@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using untitled.Map;
 
-namespace untitled
+namespace untitled.Managers
 {
     internal class GameManager
     {
@@ -32,7 +32,7 @@ namespace untitled
         }
         static void CreatePlayerInstance()
         {
-            player = new Player(mapData, enemyManager, "Sam Robichaud", Settings.StartingHealth, 3, buffer, item, itemManager, hudDisplay); 
+            player = new Player(mapData, enemyManager, "Sam Robichaud", Settings.StartingHealth, 3, buffer, item, itemManager, hudDisplay);
         }
         public static void RunGameLoop()
         {
@@ -41,9 +41,9 @@ namespace untitled
                 while (Console.KeyAvailable) Console.ReadKey(true);
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                 player.HandleKeyPress(keyInfo.Key);
-                enemyManager.MoveEnemies(); 
-                mapData.PrintMap(); 
-                player.DrawPlayer(); 
+                enemyManager.MoveEnemies();
+                mapData.PrintMap();
+                player.DrawPlayer();
                 enemyManager.DrawEnemies();
                 mapData.DrawBorder();
                 mapData.HudBorder();
@@ -55,7 +55,7 @@ namespace untitled
                 {
                     Environment.Exit(0);
                 }
-            } 
+            }
             while (!player.dead);
         }
         static void Populate(MapData mapData, Player player, EnemyManager enemyManager, CBuffer buffer, params (Type, int, int)[] enemyCounts)
@@ -76,7 +76,7 @@ namespace untitled
                 }
             }
         }
-        static List<Type> Spawner<Type>(MapData mapData, Player player, int attackValue, EnemyManager enemyManager, CBuffer buffer, int count, string name, 
+        static List<Type> Spawner<Type>(MapData mapData, Player player, int attackValue, EnemyManager enemyManager, CBuffer buffer, int count, string name,
         int health, string[] creatureTypes, int creatureTypeIndex, int enemyAttackValue)
             where Type : Enemy
         {
@@ -84,7 +84,7 @@ namespace untitled
             for (int i = 0; i < count; i++)
             {
                 Type newEnemy = (Type)Activator.CreateInstance(typeof(Type), mapData, player, attackValue, enemyManager, buffer);
-                newEnemy.SpawnEnemy(name, health, creatureTypes, creatureTypeIndex, enemyAttackValue); 
+                newEnemy.SpawnEnemy(name, health, creatureTypes, creatureTypeIndex, enemyAttackValue);
                 enemies.Add(newEnemy);
             }
             return enemies;
