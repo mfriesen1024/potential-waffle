@@ -10,7 +10,7 @@ namespace untitled
 {
     internal class GameLoop
     {
-        private static Buffer buffer;
+        private static CBuffer buffer;
         private static MapData mapData;
         private static Player player;
         private static EnemyManager enemyManager;
@@ -20,7 +20,7 @@ namespace untitled
 
         public static void Initialize()
         {
-            buffer = new Buffer();
+            buffer = new Map.CBuffer();
             mapData = new MapData(buffer);
             mapData.TxtFileToMapArray();
             enemyManager = new EnemyManager(mapData);
@@ -58,7 +58,7 @@ namespace untitled
             } 
             while (!player.dead);
         }
-        static void Populate(MapData mapData, Player player, EnemyManager enemyManager, Buffer buffer, params (Type, int, int)[] enemyCounts)
+        static void Populate(MapData mapData, Player player, EnemyManager enemyManager, CBuffer buffer, params (Type, int, int)[] enemyCounts)
         {
             foreach (var (enemyType, count, attackValue) in enemyCounts)
             {
@@ -76,7 +76,7 @@ namespace untitled
                 }
             }
         }
-        static List<Type> Spawner<Type>(MapData mapData, Player player, int attackValue, EnemyManager enemyManager, Buffer buffer, int count, string name, 
+        static List<Type> Spawner<Type>(MapData mapData, Player player, int attackValue, EnemyManager enemyManager, CBuffer buffer, int count, string name, 
         int health, string[] creatureTypes, int creatureTypeIndex, int enemyAttackValue)
             where Type : Enemy
         {

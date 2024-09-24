@@ -9,13 +9,13 @@ namespace untitled
 {
     internal class ItemManager
     {
-        Buffer buffer;
+        CBuffer buffer;
         MapData mapData;
         Player player;
         HudDisplay hudDisplay;
         static internal List<Item> AllItemsList = new List<Item>();
 
-        public ItemManager(Buffer buffer, MapData mapData, Player player, HudDisplay hudDisplay)
+        public ItemManager(CBuffer buffer, MapData mapData, Player player, HudDisplay hudDisplay)
         {
             this.mapData = mapData;
             this.buffer = buffer;
@@ -36,7 +36,7 @@ namespace untitled
         {
             this.hudDisplay = hudDisplay;
         }
-        public void SpreadItems(Buffer buffer) // does not place items on the map just makes them and provides XY
+        public void SpreadItems(CBuffer buffer) // does not place items on the map just makes them and provides XY
         {
             int randomX, randomY;
             for (int i = 0; i < Settings.itemCount; i++)

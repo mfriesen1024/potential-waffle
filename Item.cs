@@ -10,7 +10,7 @@ namespace untitled
     internal class Item
     {
         Player player;
-        Buffer buffer;
+        CBuffer buffer;
 
         int xPos;
         int yPos;
@@ -24,7 +24,7 @@ namespace untitled
         }
         public ItemType itemType;
 
-        public Item(Player player, Buffer buffer)
+        public Item(Player player, CBuffer buffer)
         {
             this.player = player;
             this.buffer = player.buffer;

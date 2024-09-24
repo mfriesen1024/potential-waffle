@@ -11,7 +11,7 @@ namespace untitled
     {
         internal MapData mapData;
         internal Player player;
-        protected Buffer buffer;
+        protected CBuffer buffer;
         protected EnemyManager enemyManager;
         public int TurnCount;
 
@@ -24,7 +24,7 @@ namespace untitled
         public static string[] MediumCreatureTypes = { "Goose" };
         public static string[] LargeCreatureTypes = { "Lion" };
 
-        public Enemy(MapData mapData, int attackValue, EnemyManager enemyManager, Buffer buffer)
+        public Enemy(MapData mapData, int attackValue, EnemyManager enemyManager, CBuffer buffer)
             : base("DefaultEnemyName", 10, new string[] { "Enemy" })
         {
             this.enemyManager = enemyManager;

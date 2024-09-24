@@ -13,7 +13,7 @@ namespace untitled
     {
         private MapData mapData;
         private EnemyManager enemyManager;
-        public Buffer buffer;
+        public CBuffer buffer;
         private HudDisplay hudDisplay;
         private ItemManager itemManager; 
         private Item item;
@@ -26,7 +26,7 @@ namespace untitled
         public int CurrentHealth => healthSystem.CurrentHealth;
 
         public Player(MapData mapData, EnemyManager enemyManager,
-            string name, int initialHealth, int attackValue, Buffer buffer, Item item, ItemManager itemManager, HudDisplay hudDisplay)
+            string name, int initialHealth, int attackValue, CBuffer buffer, Item item, ItemManager itemManager, HudDisplay hudDisplay)
             : base(name, initialHealth, new string[]{"Player"})
         {
             dead = false;
