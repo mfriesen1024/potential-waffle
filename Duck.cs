@@ -12,7 +12,7 @@ namespace untitled
     internal class Duck : Enemy
     {
         public Duck(MapData mapData, Player player, int attackValue,
-            EnemyManager enemyManager, Buffer buffer)
+            EnemyManager enemyManager, CBuffer buffer)
             : base(mapData, attackValue, enemyManager, buffer)
         {
             AttackValue = attackValue;
