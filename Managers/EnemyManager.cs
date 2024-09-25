@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using untitled.Map;
 
-namespace untitled
+namespace untitled.Managers
 {
     internal class EnemyManager
     {
@@ -19,7 +19,7 @@ namespace untitled
             this.mapData = mapData;
         }
         public void MoveEnemies()
-        { 
+        {
             foreach (var enemy in listOfEnemies)
             {
                 if (enemy.dead) continue;
