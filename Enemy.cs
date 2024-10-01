@@ -16,7 +16,7 @@ namespace untitled
         protected EnemyManager enemyManager;
         public int TurnCount;
 
-        protected char EnemyCharacter;
+        protected Tile EnemyTile;
         public int EnemyCol;
         public int EnemyRow;
         public int CurrentHealth => healthSystem.CurrentHealth;
@@ -44,7 +44,7 @@ namespace untitled
         {
             if (!dead)
             {
-            buffer.secondBuffer[EnemyCol, EnemyRow] = EnemyCharacter;
+            buffer.secondBuffer[EnemyCol, EnemyRow] = EnemyTile;
             }
         }
         protected internal void SpawnEnemy(string name, int health, string[] creatureTypes, int creatureTypeIndex, int attackValue)

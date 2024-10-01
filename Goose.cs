@@ -18,7 +18,7 @@ namespace untitled
             this.player = player;
             AttackValue = Settings.NPCLevel * 2;
             Modifer = Settings.NPCLevel;
-            EnemyCharacter = Settings.GooseChar;
+            EnemyTile = Settings.GooseChar;
             MaxHealth = 10;
             TurnCount = 0;
         }

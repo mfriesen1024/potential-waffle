@@ -19,7 +19,7 @@ namespace untitled
             this.player = player;
             AttackValue = Settings.NPCLevel * 2;
             Modifer = Settings.NPCLevel;
-            EnemyCharacter = Settings.DuckChar;  
+            EnemyTile = Settings.DuckTile;  
             MaxHealth = 5;
         }
         public int Index { get; private set; }
