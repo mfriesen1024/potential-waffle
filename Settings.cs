@@ -31,17 +31,27 @@ namespace untitled
             new int[] {25, 76 },
             new int[] {26, 76 },
             new int[] {27, 76 }
-        };
-        public const char key0 = '↔';
-        public const char key1 = '>';
-        public const char key2 = '^';
-        public const char key3 = '←';
-        public const char key4 = '↑';
-        public const char key5 = '↓';
-        public const char key6 = '→';
-        public const char HealthChar = 'H';
-        public const char BuffChar = 'A';
-        public static char[] Collectibles = new char[] { key0, key1, key2, key3, key4, key5, key6,HealthChar, BuffChar};
+        ];
+        public const ConsoleColor keyFG = ConsoleColor.Cyan;
+        const char key0c = '↔';
+        public static Tile key0 { get { return new Tile() { character = key0c, foreground = keyFG }; } }
+        const char key1c = '>';
+        public static Tile key1 { get { return new Tile() { character = key1c, foreground = keyFG }; } }
+        const char key2c = '^';
+        public static Tile key2 { get { return new Tile() { character = key2c, foreground = keyFG }; } }
+        const char key3c = '←';
+        public static Tile key3 { get { return new Tile() { character = key3c, foreground = keyFG }; } }
+        const char key4c = '↑';
+        public static Tile key4 { get { return new Tile() { character = key4c, foreground = keyFG }; } }
+        const char key5c = '↓';
+        public static Tile key5 { get { return new Tile() { character = key5c, foreground = keyFG }; } }
+        const char key6c = '→';
+        public static Tile key6 { get { return new Tile() { character = key6c, foreground = keyFG }; } }
+        const char HealthChar = 'H';
+        public static Tile HealthTile { get { return new Tile() { character = 'H', foreground = ConsoleColor.Red}; } }
+        const char BuffChar = 'A';
+        public static Tile BuffTile { get { return new Tile() { character = 'A', foreground = ConsoleColor.Red }; } }
+        public static Tile[] Collectibles = { key0, key1, key2, key3, key4, key5, key6,HealthTile, BuffTile};
         #endregion
         #region Walls
         public const char Wall0 = '░';
