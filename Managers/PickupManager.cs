@@ -7,15 +7,15 @@ using untitled.Map;
 
 namespace untitled.Managers
 {
-    internal class ItemManager
+    internal class PickupManager
     {
         CBuffer buffer;
         MapData mapData;
         Player player;
         HudDisplay hudDisplay;
-        static internal List<Item> AllItemsList = new List<Item>();
+        static internal List<Pickup> AllPickups = new List<Pickup>();
 
-        public ItemManager(CBuffer buffer, MapData mapData, Player player, HudDisplay hudDisplay)
+        public PickupManager(CBuffer buffer, MapData mapData, Player player, HudDisplay hudDisplay)
         {
             this.mapData = mapData;
             this.buffer = buffer;
@@ -27,7 +27,7 @@ namespace untitled.Managers
         }
         public void DrawItems()
         {
-            foreach (var item in AllItemsList)
+            foreach (var item in AllPickups)
             {
                 item.DrawItem();
             }
@@ -49,9 +49,9 @@ namespace untitled.Managers
                     randomX = Settings.random.Next(8, 77);
                     randomY = Settings.random.Next(8, 27);
                 }
-                Item item = new Item(player, buffer);
+                Pickup item = new Pickup(player, buffer);
                 item.SetItemXY(randomX, randomY);
-                AllItemsList.Add(item);
+                AllPickups.Add(item);
                 Utils.Print($"Added item {i+1} of {Settings.itemCount} at position {randomX}, {randomY}");
             }
         }

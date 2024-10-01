@@ -8,7 +8,7 @@ using untitled.Map;
 
 namespace untitled
 {
-    internal class Item
+    internal class Pickup
     {
         Player player;
         CBuffer buffer;
@@ -25,7 +25,7 @@ namespace untitled
         }
         public ItemType itemType;
 
-        public Item(Player player, CBuffer buffer)
+        public Pickup(Player player, CBuffer buffer)
         {
             this.player = player;
             this.buffer = player.buffer;
@@ -82,9 +82,9 @@ namespace untitled
                 buffer.secondBuffer[yPos, xPos] = tileToDraw;
             }
         }
-        public void RemoveItem(Item item)
+        public void RemoveItem(Pickup item)
         {
-            ItemManager.AllItemsList.Remove(this);
+            PickupManager.AllPickups.Remove(this);
         }
         public void UseItem()
         {

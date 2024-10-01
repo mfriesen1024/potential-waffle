@@ -10,9 +10,12 @@ namespace untitled
         private EnemyManager enemyManager;
         public CBuffer buffer;
         private HudDisplay hudDisplay;
-        private ItemManager itemManager;
-        private Item item;
+        private PickupManager itemManager;
+        private Pickup pickup;
         private bool isUIUpdated = false;
+
+        // Technically this is bad practice, but am lazy. Logic: what if multiplayer? Well it isn't. Too bad!
+        public static int gold = 0;
 
         public static int playerCol = Settings.playerCol;
         public static int playerRow = Settings.playerRow;
@@ -21,14 +24,14 @@ namespace untitled
         public int CurrentHealth => healthSystem.CurrentHealth;
 
         public Player(MapData mapData, EnemyManager enemyManager,
-            string name, int initialHealth, int attackValue, CBuffer buffer, Item item, ItemManager itemManager, HudDisplay hudDisplay)
+            string name, int initialHealth, int attackValue, CBuffer buffer, Pickup item, PickupManager itemManager, HudDisplay hudDisplay)
             : base(name, initialHealth, new string[] { "Player" })
         {
             dead = false;
             this.mapData = mapData;
             this.enemyManager = enemyManager;
             AttackValue = attackValue;
-            this.item = item;
+            this.pickup = item;
             this.hudDisplay = hudDisplay;
             Modifer = Settings.playerLevel * 2;
             playerCol = Settings.playerCol;
@@ -110,16 +113,16 @@ namespace untitled
                     Attack(enemy);
                 }
             }
-            for (int i = 0; i < ItemManager.AllItemsList.Count; i++)
+            for (int i = 0; i < PickupManager.AllPickups.Count; i++)
             {
-                int[] itemCoordinates = ItemManager.AllItemsList[i].GetItemXY();
+                int[] itemCoordinates = PickupManager.AllPickups[i].GetItemXY();
                 int itemX = itemCoordinates[0];
                 int itemY = itemCoordinates[1];
-                if (newCol == itemY && newRow == itemX && !ItemManager.AllItemsList[i].Collected)
+                if (newCol == itemY && newRow == itemX && !PickupManager.AllPickups[i].Collected)
                 {
-                    ItemManager.AllItemsList[i].Collected = true;
+                    PickupManager.AllPickups[i].Collected = true;
                     DisplayMessage("Player picked up an item");
-                    ItemManager.AllItemsList[i].UseItem();
+                    PickupManager.AllPickups[i].UseItem();
                     UpdatePlayerUI();
                 }
                 mapData.CheckForKeyPickup(newRow, newCol);

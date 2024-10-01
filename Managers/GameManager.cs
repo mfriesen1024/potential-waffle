@@ -15,9 +15,9 @@ namespace untitled.Managers
         private static MapData mapData;
         private static Player player;
         private static EnemyManager enemyManager;
-        public static ItemManager itemManager;
+        public static PickupManager itemManager;
         private static HudDisplay hudDisplay;
-        private static Item item;
+        private static Pickup item;
 
         public static void Initialize()
         {
@@ -28,7 +28,7 @@ namespace untitled.Managers
             mapData.TxtFileToMapArray();
             Utils.Print("Creating more vars.");
             enemyManager = new EnemyManager(mapData);
-            itemManager = new ItemManager(buffer, mapData, player, hudDisplay);
+            itemManager = new PickupManager(buffer, mapData, player, hudDisplay);
             hudDisplay = new HudDisplay(itemManager);
             CreatePlayerInstance();
             Utils.Print("Drawing buffer.");
