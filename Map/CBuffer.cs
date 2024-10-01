@@ -23,15 +23,15 @@ namespace untitled.Map
 
                 for (int X = 0; X < firstBuffer.GetLength(1); X++)
                 {
-                    char MapElements = secondBuffer[Y, X];
+                    char MapElement = secondBuffer[Y, X];
 
-                    if (MapElements == firstBuffer[Y, X])
+                    if (MapElement == firstBuffer[Y, X])
                     {
                         continue;
                     }
                     int Top = Y + 1;
                     int Left = X + 1;
-                    switch (MapElements)
+                    switch (MapElement)
                     {
                         case '╭':
                         case '─':
@@ -84,7 +84,7 @@ namespace untitled.Map
                             break;
                     }
                     Console.SetCursorPosition(Left, Top);
-                    Console.Write(MapElements);
+                    Console.Write(MapElement);
                 }
             }
             Array.Copy(firstBuffer, secondBuffer, MapData.map.Length);
