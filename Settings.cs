@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using untitled.Map;
 
 namespace untitled
 {
@@ -67,10 +68,14 @@ namespace untitled
         public const int MediumEnemyHP = 10;
         public const int LargeEnemyHP = 15;
         public const char DuckChar = '♣';
+        private const ConsoleColor foeColour = ConsoleColor.Green;
+        public static Tile DuckTile = new Tile() {character = DuckChar, foreground = foeColour };
         public const int DuckCount = 25;
         public const char GooseChar = '+';
+        public static Tile GooseTile = new Tile() { character = GooseChar, foreground = foeColour };
         public const int GooseCount = 25;
         public const char LionChar = '&';
+        public static Tile LionTile = new Tile() { character = LionChar, foreground = foeColour };
         public const int LionCount = 10;
         #endregion
         public static Random random = new Random();
