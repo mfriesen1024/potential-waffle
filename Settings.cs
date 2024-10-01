@@ -33,34 +33,34 @@ namespace untitled
             new int[] {27, 76 }
         ];
         public const ConsoleColor keyFG = ConsoleColor.Cyan;
-        const char key0c = '↔';
+        public const char key0c = '↔';
         public static Tile key0 { get { return new Tile() { character = key0c, foreground = keyFG }; } }
-        const char key1c = '>';
+        public const char key1c = '>';
         public static Tile key1 { get { return new Tile() { character = key1c, foreground = keyFG }; } }
-        const char key2c = '^';
+        public const char key2c = '^';
         public static Tile key2 { get { return new Tile() { character = key2c, foreground = keyFG }; } }
-        const char key3c = '←';
+        public const char key3c = '←';
         public static Tile key3 { get { return new Tile() { character = key3c, foreground = keyFG }; } }
-        const char key4c = '↑';
+        public const char key4c = '↑';
         public static Tile key4 { get { return new Tile() { character = key4c, foreground = keyFG }; } }
-        const char key5c = '↓';
+        public const char key5c = '↓';
         public static Tile key5 { get { return new Tile() { character = key5c, foreground = keyFG }; } }
-        const char key6c = '→';
+        public const char key6c = '→';
         public static Tile key6 { get { return new Tile() { character = key6c, foreground = keyFG }; } }
-        const char HealthChar = 'H';
+        public const char HealthChar = 'H';
         public static Tile HealthTile { get { return new Tile() { character = 'H', foreground = ConsoleColor.Red }; } }
-        const char BuffChar = 'A';
+        public const char BuffChar = 'A';
         public static Tile BuffTile { get { return new Tile() { character = 'A', foreground = ConsoleColor.Red }; } }
         public static Tile[] Collectibles = { key0, key1, key2, key3, key4, key5, key6, HealthTile, BuffTile };
         #endregion
         #region Walls
-        public const char Wall0 = '░';
-        public const char Wall1 = '╠';
-        public const char Wall2 = '╩';
-        public const char Wall3 = '╦';
-        public const char Wall4 = '╬';
-        public const char Wall5 = '═';
-        public const char Wall6 = '╣';
+        public const char Wall0t = '░';
+        public const char Wall1t = '╠';
+        public const char Wall2t = '╩';
+        public const char Wall3t = '╦';
+        public const char Wall4t = '╬';
+        public const char Wall5t = '═';
+        public const char Wall6t = '╣';
         public static Tile Wall0 { get { return new Tile() { character = '░' }; } }
         public static Tile Wall1 { get { return new Tile() { character = '╠' }; } }
         public static Tile Wall2 { get { return new Tile() { character = '╩' }; } }
@@ -84,16 +84,16 @@ namespace untitled
         public const int SmallEnemyHP = 5;
         public const int MediumEnemyHP = 10;
         public const int LargeEnemyHP = 15;
-        const char DuckChar = '♣';
+        public const char DuckChar = '♣';
         private const ConsoleColor foeColour = ConsoleColor.Green;
         internal static Tile DuckTile { get => duckTile.Clone(); }
         private static Tile duckTile = new Tile() { character = DuckChar, foreground = foeColour };
         public const int DuckCount = 25;
-        const char GooseChar = '+';
+        public const char GooseChar = '+';
         internal static Tile GooseTile { get => gooseTile.Clone(); }
         private static Tile gooseTile = new Tile() { character = GooseChar, foreground = foeColour };
         public const int GooseCount = 25;
-        const char LionChar = '&';
+        public const char LionChar = '&';
         internal static Tile LionTile { get => lionTile.Clone(); }
         private static Tile lionTile = new Tile() { character = LionChar, foreground = foeColour };
         public const int LionCount = 10;
