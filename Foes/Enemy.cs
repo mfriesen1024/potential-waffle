@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using untitled.Managers;
 using untitled.Map;
 
-namespace untitled
+namespace untitled.Foes
 {
     internal abstract class Enemy : Entity // base class for all enemy types to inherit from
     {
@@ -39,12 +39,12 @@ namespace untitled
         public override void Attack(Entity target) { }
         public abstract int DetermineMaxHealth();
 
-        public virtual void MoveEnemy(){}
+        public virtual void MoveEnemy() { }
         public void DrawEnemy()
         {
             if (!dead)
             {
-            buffer.secondBuffer[EnemyCol, EnemyRow] = EnemyTile;
+                buffer.secondBuffer[EnemyCol, EnemyRow] = EnemyTile;
             }
         }
         protected internal void SpawnEnemy(string name, int health, string[] creatureTypes, int creatureTypeIndex, int attackValue)

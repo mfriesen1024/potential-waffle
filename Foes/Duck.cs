@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using untitled.Managers;
 using untitled.Map;
 
-namespace untitled
+namespace untitled.Foes
 {
     internal class Duck : Enemy
     {
@@ -19,7 +19,7 @@ namespace untitled
             this.player = player;
             AttackValue = Settings.NPCLevel * 2;
             Modifer = Settings.NPCLevel;
-            EnemyTile = Settings.DuckTile;  
+            EnemyTile = Settings.DuckTile;
             MaxHealth = 5;
         }
         public int Index { get; private set; }
@@ -79,13 +79,13 @@ namespace untitled
         }
         public override void Die()
         {
-           dead = true;
+            dead = true;
         }
         public override void Attack(Entity target)
         {
             int Damage = AttackValue + Modifer;
             target.TakeDamage(Damage);
-            
+
             if (target is Entity player)
             {
                 DisplayMessage("Player was damaged by a Duck for " + Damage + " damage.");

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using untitled.Foes;
 using untitled.Managers;
 using untitled.Map;
 using static System.Net.Mime.MediaTypeNames;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using untitled.Managers;
 using untitled.Map;
 
-namespace untitled
+namespace untitled.Foes
 {
     internal class Goose : Enemy
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using untitled.Managers;
 using untitled.Map;
 
-namespace untitled
+namespace untitled.Foes
 {
     internal class Lion : Enemy
     {
@@ -45,7 +45,7 @@ namespace untitled
                 deltaX = EnemyRow - Player.playerRow;
                 deltaY = EnemyCol - Player.playerCol;
                 if (deltaX > -18 && deltaX < 18 && deltaY > -18 && deltaY < 18) // Required proximity to player in order to move
-                { 
+                {
                     TurnCount++;
                     if (TurnCount % 3 == 0)
                     {
