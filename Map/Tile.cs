@@ -17,5 +17,22 @@ namespace untitled.Map
         {
             return new Tile() { character = character, background = background, foreground = foreground, hazard = hazard };
         }
+
+        public override bool Equals(object? obj)
+        {
+            if(obj == null || obj is not Tile) { return false; }
+            else
+            {
+                Tile t = obj as Tile;
+
+                if(character != t.character) { return false; }
+                if(foreground != t.foreground) { return false; }
+                if(background != t.background) { return false; }
+                if(hazard != t.hazard) { return false; }
+
+                // if nothing doesn't match, then it must be the same object.
+                return true;
+            }
+        }
     }
 }
