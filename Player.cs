@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using untitled.Foes;
+﻿using untitled.Foes;
 using untitled.Managers;
 using untitled.Map;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace untitled
 {
@@ -17,7 +10,7 @@ namespace untitled
         private EnemyManager enemyManager;
         public CBuffer buffer;
         private HudDisplay hudDisplay;
-        private ItemManager itemManager; 
+        private ItemManager itemManager;
         private Item item;
         private bool isUIUpdated = false;
 
@@ -29,7 +22,7 @@ namespace untitled
 
         public Player(MapData mapData, EnemyManager enemyManager,
             string name, int initialHealth, int attackValue, CBuffer buffer, Item item, ItemManager itemManager, HudDisplay hudDisplay)
-            : base(name, initialHealth, new string[]{"Player"})
+            : base(name, initialHealth, new string[] { "Player" })
         {
             dead = false;
             this.mapData = mapData;
@@ -48,7 +41,7 @@ namespace untitled
             Damage = attackValue + Modifer;
         }
         public override void DisplayMessage(string message)
-        {   
+        {
             if (HudDisplay.messages != null)
             {
                 HudDisplay.messages.Add(message);
@@ -79,40 +72,24 @@ namespace untitled
             switch (key)
             {
                 case ConsoleKey.UpArrow:
-                    CheckCollision(enemyManager.listOfEnemies, 0, -1);
-                    MovePlayer(0, -1);
-                    break;
-
-                case ConsoleKey.DownArrow:
-                    CheckCollision(enemyManager.listOfEnemies, 0, 1);
-                    MovePlayer(0, 1);
-                    break;
-
-                case ConsoleKey.LeftArrow:
-                    CheckCollision(enemyManager.listOfEnemies, -1, 0);
-                    MovePlayer(-1, 0);
-                    break;
-
-                case ConsoleKey.RightArrow:
-                    CheckCollision(enemyManager.listOfEnemies, 1, 0);
-                    MovePlayer(1, 0);
-                    break;
-
                 case ConsoleKey.W:
                     CheckCollision(enemyManager.listOfEnemies, 0, -1);
                     MovePlayer(0, -1);
                     break;
 
+                case ConsoleKey.DownArrow:
                 case ConsoleKey.S:
                     CheckCollision(enemyManager.listOfEnemies, 0, 1);
                     MovePlayer(0, 1);
                     break;
 
+                case ConsoleKey.LeftArrow:
                 case ConsoleKey.A:
                     CheckCollision(enemyManager.listOfEnemies, -1, 0);
                     MovePlayer(-1, 0);
                     break;
 
+                case ConsoleKey.RightArrow:
                 case ConsoleKey.D:
                     CheckCollision(enemyManager.listOfEnemies, 1, 0);
                     MovePlayer(1, 0);
@@ -159,7 +136,7 @@ namespace untitled
             int newRow = playerRow + rowChange;
             int newCol = playerCol + columnChange;
             if (mapData.MoveCheck(newRow, newCol))
-            { 
+            {
                 playerRow = newRow;
                 playerCol = newCol;
                 if (Settings.WinLocation.Any(location => location[0] == newCol && location[1] == newRow))
