@@ -13,7 +13,7 @@ namespace untitled.Managers
     {
         private static CBuffer buffer;
         private static MapData mapData;
-        private static Player player;
+        public static Player player;
         private static EnemyManager enemyManager;
         public static PickupManager itemManager;
         private static HudDisplay hudDisplay;
