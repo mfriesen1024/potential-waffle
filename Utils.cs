@@ -11,14 +11,15 @@ namespace untitled
         /// <param name="waitWhenDone">Waits for a readkey before continuing.</param>
         public static void Print(object content, bool waitWhenDone = false)
         {
+            Console.SetCursorPosition(0, 0);
             if(content is string)
             {
-                Console.WriteLine(content as string);
+                Console.Write(content as string);
                 Debug.WriteLine(content as string);
             }
             else
             {
-                Console.WriteLine(content.ToString());
+                Console.Write(content.ToString());
                 Debug.WriteLine(content.ToString());
             }
 

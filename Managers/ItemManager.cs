@@ -38,6 +38,7 @@ namespace untitled.Managers
         }
         public void SpreadItems(CBuffer buffer) // does not place items on the map just makes them and provides XY
         {
+            Utils.Print("Spawning items");
             int randomX, randomY;
             for (int i = 0; i < Settings.itemCount; i++)
             {
@@ -51,6 +52,7 @@ namespace untitled.Managers
                 Item item = new Item(player, buffer);
                 item.SetItemXY(randomX, randomY);
                 AllItemsList.Add(item);
+                Utils.Print($"Added item {i+1} of {Settings.itemCount} at position {randomX}, {randomY}");
             }
         }
     }
