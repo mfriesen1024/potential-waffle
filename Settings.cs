@@ -48,10 +48,10 @@ namespace untitled
         const char key6c = '→';
         public static Tile key6 { get { return new Tile() { character = key6c, foreground = keyFG }; } }
         const char HealthChar = 'H';
-        public static Tile HealthTile { get { return new Tile() { character = 'H', foreground = ConsoleColor.Red}; } }
+        public static Tile HealthTile { get { return new Tile() { character = 'H', foreground = ConsoleColor.Red }; } }
         const char BuffChar = 'A';
         public static Tile BuffTile { get { return new Tile() { character = 'A', foreground = ConsoleColor.Red }; } }
-        public static Tile[] Collectibles = { key0, key1, key2, key3, key4, key5, key6,HealthTile, BuffTile};
+        public static Tile[] Collectibles = { key0, key1, key2, key3, key4, key5, key6, HealthTile, BuffTile };
         #endregion
         #region Walls
         public const char Wall0 = '░';
@@ -61,7 +61,14 @@ namespace untitled
         public const char Wall4 = '╬';
         public const char Wall5 = '═';
         public const char Wall6 = '╣';
-        public static char[] Walls = new char[] {Wall0, Wall1, Wall2, Wall3, Wall4, Wall5, Wall6};
+        public static Tile Wall0 { get { return new Tile() { character = '░' }; } }
+        public static Tile Wall1 { get { return new Tile() { character = '╠' }; } }
+        public static Tile Wall2 { get { return new Tile() { character = '╩' }; } }
+        public static Tile Wall3 { get { return new Tile() { character = '╦' }; } }
+        public static Tile Wall4 { get { return new Tile() { character = '╬' }; } }
+        public static Tile Wall5 { get { return new Tile() { character = '═' }; } }
+        public static Tile Wall6 { get { return new Tile() { character = '╣' }; } }
+        public static Tile[] Walls = { Wall0, Wall1, Wall2, Wall3, Wall4, Wall5, Wall6 };
         #endregion
 
         public static int playerCol = 4;
