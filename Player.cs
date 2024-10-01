@@ -11,6 +11,7 @@ namespace untitled
         public CBuffer buffer;
         private HudDisplay hudDisplay;
         private PickupManager itemManager;
+        public Item weapon = new();
         private Pickup pickup;
         private bool isUIUpdated = false;
 
@@ -56,7 +57,7 @@ namespace untitled
             HudDisplay.Status.Add("Player Level: " + Settings.playerLevel);
             HudDisplay.Status.Add("Player Location: " + playerRow + ", " + playerCol);
             HudDisplay.Status.Add("Player HP: " + CurrentHealth + " / " + Settings.MaxPlayerHealth);
-            HudDisplay.Status.Add("Player ATK Damage: " + Damage);
+            HudDisplay.Status.Add($"Player ATK Damage: {Damage + weapon.str}");
             HudDisplay.Status.Add("Score: " + HudDisplay.TotalScore);
             HudDisplay.OneUpCheck();
             hudDisplay.DrawUIMessages();
@@ -152,8 +153,8 @@ namespace untitled
         {
             if (target is Enemy enemy)
             {
-                int DamageDealt = Damage;
-                target.TakeDamage(Damage);
+                int DamageDealt = Damage + weapon.str;
+                target.TakeDamage(DamageDealt);
                 DisplayMessage("Player dealt " + DamageDealt + " damage and gained " + DamageDealt + " points.");
                 HudDisplay.AddScore(DamageDealt);
                 if (enemy.CurrentHealth <= 0)
