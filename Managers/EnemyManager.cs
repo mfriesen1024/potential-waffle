@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using untitled.Map;
 
-namespace First_Playable
+namespace untitled.Managers
 {
     internal class EnemyManager
     {
@@ -18,7 +19,7 @@ namespace First_Playable
             this.mapData = mapData;
         }
         public void MoveEnemies()
-        { 
+        {
             foreach (var enemy in listOfEnemies)
             {
                 if (enemy.dead) continue;

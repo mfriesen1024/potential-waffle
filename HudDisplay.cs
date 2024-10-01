@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using untitled.Managers;
+using untitled.Map;
 
-namespace First_Playable
+namespace untitled
 {
     internal class HudDisplay
     {

@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using untitled.Managers;
+using untitled.Map;
 
-namespace First_Playable
+namespace untitled
 {
     internal abstract class Enemy : Entity // base class for all enemy types to inherit from
     {
         internal MapData mapData;
         internal Player player;
-        protected Buffer buffer;
+        protected CBuffer buffer;
         protected EnemyManager enemyManager;
         public int TurnCount;
 
-        protected char EnemyCharacter;
+        protected Tile EnemyTile;
         public int EnemyCol;
         public int EnemyRow;
         public int CurrentHealth => healthSystem.CurrentHealth;
@@ -23,7 +25,7 @@ namespace First_Playable
         public static string[] MediumCreatureTypes = { "Goose" };
         public static string[] LargeCreatureTypes = { "Lion" };
 
-        public Enemy(MapData mapData, int attackValue, EnemyManager enemyManager, Buffer buffer)
+        public Enemy(MapData mapData, int attackValue, EnemyManager enemyManager, CBuffer buffer)
             : base("DefaultEnemyName", 10, new string[] { "Enemy" })
         {
             this.enemyManager = enemyManager;
@@ -42,7 +44,7 @@ namespace First_Playable
         {
             if (!dead)
             {
-            buffer.secondBuffer[EnemyCol, EnemyRow] = EnemyCharacter;
+            buffer.secondBuffer[EnemyCol, EnemyRow] = EnemyTile;
             }
         }
         protected internal void SpawnEnemy(string name, int health, string[] creatureTypes, int creatureTypeIndex, int attackValue)
@@ -52,7 +54,7 @@ namespace First_Playable
             {
                 randomX = Settings.random.Next(8, 77);
                 randomY = Settings.random.Next(8, 27);
-            } while (MapData.map[randomY, randomX] != ' ');
+            } while (!MapData.map[randomY, randomX].Equals(new Tile()));
             DrawEnemy();
             EnemyCol = randomY;
             EnemyRow = randomX;

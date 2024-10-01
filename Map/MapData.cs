@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace First_Playable
+namespace untitled.Map
 {
     internal class MapData
     {
-        internal Buffer buffer;
-        public static char[,] map;
-        
+        internal CBuffer buffer;
+        public static Tile[,] map;
+
         public int numKeyCollected = 0;
 
-        public MapData(Buffer buffer)
+        public MapData(CBuffer buffer)
         {
             this.buffer = buffer;
             buffer.SetMapData(this);
@@ -22,11 +22,11 @@ namespace First_Playable
         {
             int mapWidth = map.GetLength(1);
             int mapHeight = map.GetLength(0);
-            int totalWidth = (mapWidth + 3);
-            int totalHeight = (mapHeight + 1);
+            int totalWidth = mapWidth + 3;
+            int totalHeight = mapHeight + 1;
 
-            int hudWidth = (totalWidth / 2) + (totalWidth % 2);
-            int hudHeight = (totalHeight / 3) + (totalHeight % 3);
+            int hudWidth = totalWidth / 2 + totalWidth % 2;
+            int hudHeight = totalHeight / 3 + totalHeight % 3;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.BackgroundColor = ConsoleColor.DarkYellow;
 
@@ -53,8 +53,8 @@ namespace First_Playable
             int totalWidth = mapWidth + 3;
             int totalHeight = mapHeight + 5;
 
-            int hudWidth = (totalWidth / 2) + (totalWidth % 2) + 10;
-            int hudHeight = (totalHeight / 2) + (totalHeight % 2);
+            int hudWidth = totalWidth / 2 + totalWidth % 2 + 10;
+            int hudHeight = totalHeight / 2 + totalHeight % 2;
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.BackgroundColor = ConsoleColor.DarkBlue;
 
@@ -129,23 +129,14 @@ namespace First_Playable
             Console.Write(border[2]);
             Console.ResetColor();
         }
-        public bool IsValidMove(int newRow, int newCol) // Handles what the player is permitted to walk on.
+        public bool MoveCheck(int newRow, int newCol) // Handles what the player is permitted to walk on.
         {
             if (newRow >= 0 && newRow < map.GetLength(1) && newCol >= 0 && newCol < map.GetLength(0))
             {
-                switch (map[newCol, newRow])
+                switch (map[newCol, newRow].hazard)
                 {
-                    case ' ':
-                    case Settings.BuffChar:
-                    case Settings.HealthChar:
-                    case Settings.key0:
-                    case Settings.key1:
-                    case Settings.key2:
-                    case Settings.key3:
-                    case Settings.key4:
-                    case Settings.key5:
-                    case Settings.key6:
-                        return true;
+                    case 0: return true;
+                    case 1: return false;
                 }
             }
             return false;
@@ -153,24 +144,24 @@ namespace First_Playable
         public void TxtFileToMapArray()
         {
             string[] lines = File.ReadAllLines("Map.txt");
-            buffer.firstBuffer = new char[lines.GetLength(0), lines[0].Length];
-            buffer.secondBuffer = new char[lines.GetLength(0), lines[0].Length];
-            map = new char[lines.GetLength(0), lines[0].Length];
+            buffer.firstBuffer = new Tile[lines.GetLength(0), lines[0].Length];
+            buffer.secondBuffer = new Tile[lines.GetLength(0), lines[0].Length];
+            map = new Tile[lines.GetLength(0), lines[0].Length];
             for (int i = 0; i < lines.GetLength(0); i++)
             {
                 for (int j = 0; j < lines[i].Length; j++)
                 {
-                    map[i, j] = lines[i][j];
+                    map[i, j] = (Tile)lines[i][j];
                 }
             }
         }
         public void CheckForKeyPickup(int row, int col)
         {
             if (numKeyCollected >= 7)
-            { 
-            return;
+            {
+                return;
             }
-            if (IsValidMove(row, col) && Settings.Collectibles.Contains(map[col, row])) // breaks when outside bounds attempt is made.
+            if (MoveCheck(row, col) && Settings.Collectibles.Contains(map[col, row])) // breaks when outside bounds attempt is made.
             {
                 foreach (var keyXY in Settings.keysXY)
                 {
@@ -190,8 +181,8 @@ namespace First_Playable
         {
             int mapWidth = map.GetLength(1);
             int mapHeight = map.GetLength(0);
-            char wallToReplace;
-            char keyToReplace;
+            Tile wallToReplace;
+            Tile keyToReplace;
             switch (numKeyCollected)
             {
                 case 1:
@@ -223,21 +214,21 @@ namespace First_Playable
                     wallToReplace = Settings.Wall6;
                     break;
                 default:
-                    keyToReplace = ' ';
-                    wallToReplace = ' ';
+                    keyToReplace = new Tile();
+                    wallToReplace = new Tile();
                     break;
             }
             for (int row = 0; row < mapWidth; row++)
             {
                 for (int col = 0; col < mapHeight; col++)
                 {
-                    if (Settings.Collectibles.Contains(map[col, row]) && map[col, row] == keyToReplace)
-                    { 
-                        map[col, row] = ' ';
-                    }
-                    if (Settings.Walls.Contains(map[col, row]) && map[col, row] == wallToReplace)
+                    if (Settings.Collectibles.Contains(map[col, row]) && map[col, row].Equals(keyToReplace)  )
                     {
-                        map[col, row] = ' ';
+                        map[col, row] = new Tile();
+                    }
+                    if (Settings.Walls.Contains(map[col, row]) && map[col, row].Equals(wallToReplace))
+                    {
+                        map[col, row] = new Tile();
                     }
                 }
             }

@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using untitled.Map;
 
-namespace First_Playable
+namespace untitled.Managers
 {
     internal class ItemManager
     {
-        Buffer buffer;
+        CBuffer buffer;
         MapData mapData;
         Player player;
         HudDisplay hudDisplay;
         static internal List<Item> AllItemsList = new List<Item>();
 
-        public ItemManager(Buffer buffer, MapData mapData, Player player, HudDisplay hudDisplay)
+        public ItemManager(CBuffer buffer, MapData mapData, Player player, HudDisplay hudDisplay)
         {
             this.mapData = mapData;
             this.buffer = buffer;
@@ -35,14 +36,15 @@ namespace First_Playable
         {
             this.hudDisplay = hudDisplay;
         }
-        public void SpreadItems(Buffer buffer) // does not place items on the map just makes them and provides XY
+        public void SpreadItems(CBuffer buffer) // does not place items on the map just makes them and provides XY
         {
+            Utils.Print("Spawning items");
             int randomX, randomY;
             for (int i = 0; i < Settings.itemCount; i++)
             {
                 randomX = Settings.random.Next(8, 77);
                 randomY = Settings.random.Next(8, 27);
-                while (MapData.map[randomY, randomX] != ' ')
+                while (!MapData.map[randomY, randomX].Equals(new Tile()))
                 {
                     randomX = Settings.random.Next(8, 77);
                     randomY = Settings.random.Next(8, 27);
@@ -50,6 +52,7 @@ namespace First_Playable
                 Item item = new Item(player, buffer);
                 item.SetItemXY(randomX, randomY);
                 AllItemsList.Add(item);
+                Utils.Print($"Added item {i+1} of {Settings.itemCount} at position {randomX}, {randomY}");
             }
         }
     }

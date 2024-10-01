@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using untitled.Managers;
+using untitled.Map;
 
-namespace First_Playable
+namespace untitled
 {
     internal class Item
     {
         Player player;
-        Buffer buffer;
+        CBuffer buffer;
 
         int xPos;
         int yPos;
@@ -23,7 +25,7 @@ namespace First_Playable
         }
         public ItemType itemType;
 
-        public Item(Player player, Buffer buffer)
+        public Item(Player player, CBuffer buffer)
         {
             this.player = player;
             this.buffer = player.buffer;
@@ -65,17 +67,19 @@ namespace First_Playable
         {
             if (!Collected)
             {
-                char charToDraw = ' ';
+                Tile tileToDraw = null;
                 switch(itemType)
                 {
                     case ItemType.health:
-                        charToDraw = Settings.HealthChar;
+                        tileToDraw = Settings.HealthTile;
                         break;
                     case ItemType.buff:
-                        charToDraw = Settings.BuffChar;
+                        tileToDraw = Settings.BuffTile;
                         break;
+                    default:
+                        throw new NotImplementedException($"Item type {itemType} is not valid");
                 }
-                buffer.secondBuffer[yPos, xPos] = charToDraw;
+                buffer.secondBuffer[yPos, xPos] = tileToDraw;
             }
         }
         public void RemoveItem(Item item)
@@ -95,7 +99,7 @@ namespace First_Playable
                     break;
             }
             Collected = true;
-            buffer.secondBuffer[yPos, xPos] = ' ';
+            buffer.secondBuffer[yPos, xPos] = new();
             RemoveItem(this);
         }
     }

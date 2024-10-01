@@ -4,12 +4,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using untitled.Map;
 
-namespace First_Playable
+namespace untitled.Managers
 {
-    internal class GameLoop
+    internal class GameManager
     {
-        private static Buffer buffer;
+        private static CBuffer buffer;
         private static MapData mapData;
         private static Player player;
         private static EnemyManager enemyManager;
@@ -19,19 +20,24 @@ namespace First_Playable
 
         public static void Initialize()
         {
-            buffer = new Buffer();
+            Utils.Print("Creating vars.");
+            buffer = new CBuffer();
             mapData = new MapData(buffer);
+            Utils.Print("Loading map.");
             mapData.TxtFileToMapArray();
+            Utils.Print("Creating more vars.");
             enemyManager = new EnemyManager(mapData);
             itemManager = new ItemManager(buffer, mapData, player, hudDisplay);
             hudDisplay = new HudDisplay(itemManager);
             CreatePlayerInstance();
+            Utils.Print("Drawing buffer.");
             buffer.DisplayBuffer();
             itemManager.SpreadItems(buffer);
+            Utils.Print("Init complete!");
         }
         static void CreatePlayerInstance()
         {
-            player = new Player(mapData, enemyManager, "Sam Robichaud", Settings.StartingHealth, 3, buffer, item, itemManager, hudDisplay); 
+            player = new Player(mapData, enemyManager, "Sam Robichaud", Settings.StartingHealth, 3, buffer, item, itemManager, hudDisplay);
         }
         public static void RunGameLoop()
         {
@@ -40,9 +46,9 @@ namespace First_Playable
                 while (Console.KeyAvailable) Console.ReadKey(true);
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                 player.HandleKeyPress(keyInfo.Key);
-                enemyManager.MoveEnemies(); 
-                mapData.PrintMap(); 
-                player.DrawPlayer(); 
+                enemyManager.MoveEnemies();
+                mapData.PrintMap();
+                player.DrawPlayer();
                 enemyManager.DrawEnemies();
                 mapData.DrawBorder();
                 mapData.HudBorder();
@@ -54,10 +60,10 @@ namespace First_Playable
                 {
                     Environment.Exit(0);
                 }
-            } 
+            }
             while (!player.dead);
         }
-        static void Populate(MapData mapData, Player player, EnemyManager enemyManager, Buffer buffer, params (Type, int, int)[] enemyCounts)
+        static void Populate(MapData mapData, Player player, EnemyManager enemyManager, CBuffer buffer, params (Type, int, int)[] enemyCounts)
         {
             foreach (var (enemyType, count, attackValue) in enemyCounts)
             {
@@ -75,7 +81,7 @@ namespace First_Playable
                 }
             }
         }
-        static List<Type> Spawner<Type>(MapData mapData, Player player, int attackValue, EnemyManager enemyManager, Buffer buffer, int count, string name, 
+        static List<Type> Spawner<Type>(MapData mapData, Player player, int attackValue, EnemyManager enemyManager, CBuffer buffer, int count, string name,
         int health, string[] creatureTypes, int creatureTypeIndex, int enemyAttackValue)
             where Type : Enemy
         {
@@ -83,7 +89,7 @@ namespace First_Playable
             for (int i = 0; i < count; i++)
             {
                 Type newEnemy = (Type)Activator.CreateInstance(typeof(Type), mapData, player, attackValue, enemyManager, buffer);
-                newEnemy.SpawnEnemy(name, health, creatureTypes, creatureTypeIndex, enemyAttackValue); 
+                newEnemy.SpawnEnemy(name, health, creatureTypes, creatureTypeIndex, enemyAttackValue);
                 enemies.Add(newEnemy);
             }
             return enemies;

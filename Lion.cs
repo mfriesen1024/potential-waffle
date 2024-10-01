@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using untitled.Managers;
+using untitled.Map;
 
-namespace First_Playable
+namespace untitled
 {
     internal class Lion : Enemy
     {
         public Lion(MapData mapData, Player player, int attackValue,
-            EnemyManager enemyManager, Buffer buffer)
+            EnemyManager enemyManager, CBuffer buffer)
             : base(mapData, attackValue, enemyManager, buffer)
         {
             AttackValue = attackValue;
             this.player = player;
             AttackValue = Settings.NPCLevel * 2;
             Modifer = Settings.NPCLevel * 2;
-            EnemyCharacter = Settings.LionChar;
+            EnemyTile = Settings.LionTile;
             MaxHealth = 15;
             TurnCount = 0;
         }
@@ -71,7 +73,7 @@ namespace First_Playable
                         }
                         else
                         {
-                            if (mapData.IsValidMove(newY, newX))
+                            if (mapData.MoveCheck(newY, newX))
                             {
                                 EnemyRow = newY;
                                 EnemyCol = newX;

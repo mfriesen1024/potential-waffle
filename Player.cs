@@ -4,15 +4,17 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using untitled.Managers;
+using untitled.Map;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace First_Playable
+namespace untitled
 {
     internal class Player : Entity
     {
         private MapData mapData;
         private EnemyManager enemyManager;
-        public Buffer buffer;
+        public CBuffer buffer;
         private HudDisplay hudDisplay;
         private ItemManager itemManager; 
         private Item item;
@@ -25,7 +27,7 @@ namespace First_Playable
         public int CurrentHealth => healthSystem.CurrentHealth;
 
         public Player(MapData mapData, EnemyManager enemyManager,
-            string name, int initialHealth, int attackValue, Buffer buffer, Item item, ItemManager itemManager, HudDisplay hudDisplay)
+            string name, int initialHealth, int attackValue, CBuffer buffer, Item item, ItemManager itemManager, HudDisplay hudDisplay)
             : base(name, initialHealth, new string[]{"Player"})
         {
             dead = false;
@@ -155,7 +157,7 @@ namespace First_Playable
             }
             int newRow = playerRow + rowChange;
             int newCol = playerCol + columnChange;
-            if (mapData.IsValidMove(newRow, newCol))
+            if (mapData.MoveCheck(newRow, newCol))
             { 
                 playerRow = newRow;
                 playerCol = newCol;
@@ -195,7 +197,7 @@ namespace First_Playable
         }
         public void DrawPlayer()
         {
-            buffer.secondBuffer[playerCol, playerRow] = playerCharacter;
+            buffer.secondBuffer[playerCol, playerRow] = (Tile)playerCharacter;
         }
     }
 }

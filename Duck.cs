@@ -4,20 +4,22 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using untitled.Managers;
+using untitled.Map;
 
-namespace First_Playable
+namespace untitled
 {
     internal class Duck : Enemy
     {
         public Duck(MapData mapData, Player player, int attackValue,
-            EnemyManager enemyManager, Buffer buffer)
+            EnemyManager enemyManager, CBuffer buffer)
             : base(mapData, attackValue, enemyManager, buffer)
         {
             AttackValue = attackValue;
             this.player = player;
             AttackValue = Settings.NPCLevel * 2;
             Modifer = Settings.NPCLevel;
-            EnemyCharacter = Settings.DuckChar;  
+            EnemyTile = Settings.DuckTile;  
             MaxHealth = 5;
         }
         public int Index { get; private set; }
@@ -63,7 +65,7 @@ namespace First_Playable
                 }
                 else
                 {
-                    if (mapData.IsValidMove(newY, newX))
+                    if (mapData.MoveCheck(newY, newX))
                     {
                         EnemyRow = newY;
                         EnemyCol = newX;
@@ -72,7 +74,7 @@ namespace First_Playable
             }
             else if (dead)
             {
-                buffer.secondBuffer[EnemyCol, EnemyRow] = ' ';
+                buffer.secondBuffer[EnemyCol, EnemyRow] = new Tile();
             }
         }
         public override void Die()
