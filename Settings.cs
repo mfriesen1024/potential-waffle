@@ -10,8 +10,8 @@ namespace untitled
     internal class Settings
     {
         #region Collectibles
-        public static int[][] keysXY = new int[][]
-        {
+        public static int[][] keysXY =
+        [
         new int[] { 8, 11 },//  key0XY
         new int[] { 24, 2 },//  key1XY
         new int[] { 24, 60 },// key2XY
@@ -19,9 +19,9 @@ namespace untitled
         new int[] { 10, 31 },// key4XY
         new int[] { 2, 30 },//  key5XY
         new int[] { 19, 31 }//  key6XY
-        };
-        public static int[][] WinLocation = new int[][]
-        {
+        ];
+        public static int[][] WinLocation =
+        [
             new int[] {19, 76 },
             new int[] {20, 76 },
             new int[] {21, 76 },
