@@ -44,7 +44,7 @@ namespace untitled.Managers
             {
                 randomX = Settings.random.Next(8, 77);
                 randomY = Settings.random.Next(8, 27);
-                while (!MapData.map[randomY, randomX].Equals(new()))
+                while (!MapData.map[randomY, randomX].Equals(new Tile()))
                 {
                     randomX = Settings.random.Next(8, 77);
                     randomY = Settings.random.Next(8, 27);
