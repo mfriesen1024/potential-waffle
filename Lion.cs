@@ -73,7 +73,7 @@ namespace untitled
                         }
                         else
                         {
-                            if (mapData.IsValidMove(newY, newX))
+                            if (mapData.MoveCheck(newY, newX))
                             {
                                 EnemyRow = newY;
                                 EnemyCol = newX;

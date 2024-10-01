@@ -65,7 +65,7 @@ namespace untitled
                 }
                 else
                 {
-                    if (mapData.IsValidMove(newY, newX))
+                    if (mapData.MoveCheck(newY, newX))
                     {
                         EnemyRow = newY;
                         EnemyCol = newX;
@@ -74,7 +74,7 @@ namespace untitled
             }
             else if (dead)
             {
-                buffer.secondBuffer[EnemyCol, EnemyRow] = ' ';
+                buffer.secondBuffer[EnemyCol, EnemyRow] = new Tile();
             }
         }
         public override void Die()

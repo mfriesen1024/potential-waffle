@@ -157,7 +157,7 @@ namespace untitled
             }
             int newRow = playerRow + rowChange;
             int newCol = playerCol + columnChange;
-            if (mapData.IsValidMove(newRow, newCol))
+            if (mapData.MoveCheck(newRow, newCol))
             { 
                 playerRow = newRow;
                 playerCol = newCol;
@@ -197,7 +197,7 @@ namespace untitled
         }
         public void DrawPlayer()
         {
-            buffer.secondBuffer[playerCol, playerRow] = playerCharacter;
+            buffer.secondBuffer[playerCol, playerRow] = (Tile)playerCharacter;
         }
     }
 }

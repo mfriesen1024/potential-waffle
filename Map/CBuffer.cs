@@ -23,9 +23,9 @@ namespace untitled.Map
 
                 for (int X = 0; X < firstBuffer.GetLength(1); X++)
                 {
-                    Tile MapElement = secondBuffer[Y, X];
+                    Tile MapElement = secondBuffer[Y, X] ?? new Tile();
 
-                    if (MapElement.Equals(firstBuffer[Y, X]))
+                    if (MapElement is not null && MapElement.Equals(firstBuffer[Y, X]))
                     {
                         continue;
                     }

@@ -43,7 +43,7 @@ namespace untitled.Managers
             {
                 randomX = Settings.random.Next(8, 77);
                 randomY = Settings.random.Next(8, 27);
-                while (MapData.map[randomY, randomX] != ' ')
+                while (!MapData.map[randomY, randomX].Equals(new()))
                 {
                     randomX = Settings.random.Next(8, 77);
                     randomY = Settings.random.Next(8, 27);

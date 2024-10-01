@@ -9,7 +9,7 @@ namespace untitled.Map
     internal class MapData
     {
         internal CBuffer buffer;
-        public static char[,] map;
+        public static Tile[,] map;
 
         public int numKeyCollected = 0;
 
@@ -129,23 +129,14 @@ namespace untitled.Map
             Console.Write(border[2]);
             Console.ResetColor();
         }
-        public bool IsValidMove(int newRow, int newCol) // Handles what the player is permitted to walk on.
+        public bool MoveCheck(int newRow, int newCol) // Handles what the player is permitted to walk on.
         {
             if (newRow >= 0 && newRow < map.GetLength(1) && newCol >= 0 && newCol < map.GetLength(0))
             {
-                switch (map[newCol, newRow])
+                switch (map[newCol, newRow].hazard)
                 {
-                    case ' ':
-                    case Settings.BuffChar:
-                    case Settings.HealthChar:
-                    case Settings.key0:
-                    case Settings.key1:
-                    case Settings.key2:
-                    case Settings.key3:
-                    case Settings.key4:
-                    case Settings.key5:
-                    case Settings.key6:
-                        return true;
+                    case 0: return true;
+                    case 1: return false;
                 }
             }
             return false;
@@ -153,14 +144,14 @@ namespace untitled.Map
         public void TxtFileToMapArray()
         {
             string[] lines = File.ReadAllLines("Map.txt");
-            buffer.firstBuffer = new char[lines.GetLength(0), lines[0].Length];
-            buffer.secondBuffer = new char[lines.GetLength(0), lines[0].Length];
-            map = new char[lines.GetLength(0), lines[0].Length];
+            buffer.firstBuffer = new Tile[lines.GetLength(0), lines[0].Length];
+            buffer.secondBuffer = new Tile[lines.GetLength(0), lines[0].Length];
+            map = new Tile[lines.GetLength(0), lines[0].Length];
             for (int i = 0; i < lines.GetLength(0); i++)
             {
                 for (int j = 0; j < lines[i].Length; j++)
                 {
-                    map[i, j] = lines[i][j];
+                    map[i, j] = (Tile)lines[i][j];
                 }
             }
         }
@@ -170,7 +161,7 @@ namespace untitled.Map
             {
                 return;
             }
-            if (IsValidMove(row, col) && Settings.Collectibles.Contains(map[col, row])) // breaks when outside bounds attempt is made.
+            if (MoveCheck(row, col) && Settings.Collectibles.Contains(map[col, row])) // breaks when outside bounds attempt is made.
             {
                 foreach (var keyXY in Settings.keysXY)
                 {
@@ -190,8 +181,8 @@ namespace untitled.Map
         {
             int mapWidth = map.GetLength(1);
             int mapHeight = map.GetLength(0);
-            char wallToReplace;
-            char keyToReplace;
+            Tile wallToReplace;
+            Tile keyToReplace;
             switch (numKeyCollected)
             {
                 case 1:
@@ -223,8 +214,8 @@ namespace untitled.Map
                     wallToReplace = Settings.Wall6;
                     break;
                 default:
-                    keyToReplace = ' ';
-                    wallToReplace = ' ';
+                    keyToReplace = new Tile();
+                    wallToReplace = new Tile();
                     break;
             }
             for (int row = 0; row < mapWidth; row++)
@@ -233,11 +224,11 @@ namespace untitled.Map
                 {
                     if (Settings.Collectibles.Contains(map[col, row]) && map[col, row] == keyToReplace)
                     {
-                        map[col, row] = ' ';
+                        map[col, row] = new Tile();
                     }
                     if (Settings.Walls.Contains(map[col, row]) && map[col, row] == wallToReplace)
                     {
-                        map[col, row] = ' ';
+                        map[col, row] = new Tile();
                     }
                 }
             }

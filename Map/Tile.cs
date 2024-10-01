@@ -59,7 +59,7 @@ namespace untitled.Map
                     t.hazard = 1; // 1 means its a wall.
                     break;
                 case '☻':
-                    t.foreground = ConsoleColor.Yellow;
+                    t.foreground = ConsoleColor.Blue;
                     break;
                 case '╳':
                     t.foreground = ConsoleColor.DarkGray;

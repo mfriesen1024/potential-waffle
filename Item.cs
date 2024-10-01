@@ -67,17 +67,19 @@ namespace untitled
         {
             if (!Collected)
             {
-                char charToDraw = ' ';
+                Tile tileToDraw = null;
                 switch(itemType)
                 {
                     case ItemType.health:
-                        charToDraw = Settings.HealthChar;
+                        tileToDraw = Settings.HealthTile;
                         break;
                     case ItemType.buff:
-                        charToDraw = Settings.BuffChar;
+                        tileToDraw = Settings.BuffTile;
                         break;
+                    default:
+                        throw new NotImplementedException($"Item type {itemType} is not valid");
                 }
-                buffer.secondBuffer[yPos, xPos] = charToDraw;
+                buffer.secondBuffer[yPos, xPos] = tileToDraw;
             }
         }
         public void RemoveItem(Item item)
@@ -97,7 +99,7 @@ namespace untitled
                     break;
             }
             Collected = true;
-            buffer.secondBuffer[yPos, xPos] = ' ';
+            buffer.secondBuffer[yPos, xPos] = new();
             RemoveItem(this);
         }
     }
