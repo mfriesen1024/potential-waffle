@@ -18,7 +18,7 @@ namespace untitled
             this.player = player;
             AttackValue = Settings.NPCLevel * 2;
             Modifer = Settings.NPCLevel * 2;
-            EnemyTile = Settings.LionChar;
+            EnemyTile = Settings.LionTile;
             MaxHealth = 15;
             TurnCount = 0;
         }
