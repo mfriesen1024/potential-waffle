@@ -9,13 +9,13 @@ namespace untitled
         public static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
-            Utils.Print("Preparing to init.", true);
+            Utils.Print("Preparing to init.");
             GameManager.Initialize();
-            Utils.Print("Init foes", true);
+            Utils.Print("Init foes");
             GameManager.InitializeEnemies();
-            Utils.Print("Display menu", true);
+            Utils.Print("Display menu");
             MenuManager.DisplayMenu();
-            Utils.Print("Run game.", true);
+            Utils.Print("Run game.");
             GameManager.RunGameLoop();
         }
     }

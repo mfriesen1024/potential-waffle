@@ -20,17 +20,17 @@ namespace untitled.Managers
 
         public static void Initialize()
         {
-            Utils.Print("Creating vars.", true);
+            Utils.Print("Creating vars.");
             buffer = new CBuffer();
             mapData = new MapData(buffer);
-            Utils.Print("Loading map.", true);
+            Utils.Print("Loading map.");
             mapData.TxtFileToMapArray();
-            Utils.Print("Creating more vars.", true);
+            Utils.Print("Creating more vars.");
             enemyManager = new EnemyManager(mapData);
             itemManager = new ItemManager(buffer, mapData, player, hudDisplay);
             hudDisplay = new HudDisplay(itemManager);
             CreatePlayerInstance();
-            Utils.Print("Drawing buffer.", true);
+            Utils.Print("Drawing buffer.");
             buffer.DisplayBuffer();
             itemManager.SpreadItems(buffer);
             Utils.Print("Init complete!");
