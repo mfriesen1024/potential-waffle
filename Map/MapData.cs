@@ -222,11 +222,11 @@ namespace untitled.Map
             {
                 for (int col = 0; col < mapHeight; col++)
                 {
-                    if (Settings.Collectibles.Contains(map[col, row]) && map[col, row] == keyToReplace)
+                    if (Settings.Collectibles.Contains(map[col, row]) && map[col, row].Equals(keyToReplace)  )
                     {
                         map[col, row] = new Tile();
                     }
-                    if (Settings.Walls.Contains(map[col, row]) && map[col, row] == wallToReplace)
+                    if (Settings.Walls.Contains(map[col, row]) && map[col, row].Equals(wallToReplace))
                     {
                         map[col, row] = new Tile();
                     }

@@ -61,13 +61,13 @@ namespace untitled
         public const char Wall4t = '╬';
         public const char Wall5t = '═';
         public const char Wall6t = '╣';
-        public static Tile Wall0 { get { return new Tile() { character = '░' }; } }
-        public static Tile Wall1 { get { return new Tile() { character = '╠' }; } }
-        public static Tile Wall2 { get { return new Tile() { character = '╩' }; } }
-        public static Tile Wall3 { get { return new Tile() { character = '╦' }; } }
-        public static Tile Wall4 { get { return new Tile() { character = '╬' }; } }
-        public static Tile Wall5 { get { return new Tile() { character = '═' }; } }
-        public static Tile Wall6 { get { return new Tile() { character = '╣' }; } }
+        public static Tile Wall0 { get { return new Tile() { character = '░', hazard = 1 }; } }
+        public static Tile Wall1 { get { return new Tile() { character = '╠', hazard = 1 }; } }
+        public static Tile Wall2 { get { return new Tile() { character = '╩', hazard = 1 }; } }
+        public static Tile Wall3 { get { return new Tile() { character = '╦', hazard = 1 }; } }
+        public static Tile Wall4 { get { return new Tile() { character = '╬', hazard = 1 }; } }
+        public static Tile Wall5 { get { return new Tile() { character = '═', hazard = 1 }; } }
+        public static Tile Wall6 { get { return new Tile() { character = '╣', hazard = 1 }; } }
         public static Tile[] Walls = { Wall0, Wall1, Wall2, Wall3, Wall4, Wall5, Wall6 };
         #endregion
 
