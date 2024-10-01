@@ -38,7 +38,7 @@ namespace untitled.Map
         // We'll use this to convert from settings things
         public static explicit operator Tile(char c)
         {
-            Tile t = new();
+            Tile t = new() {character = c };
             switch (c)
             {
                 case '╭':
