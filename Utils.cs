@@ -1,4 +1,6 @@
-﻿namespace untitled
+﻿using System.Diagnostics;
+
+namespace untitled
 {
     public static class Utils
     {
@@ -9,8 +11,16 @@
         /// <param name="waitWhenDone">Waits for a readkey before continuing.</param>
         static void Print(object content, bool waitWhenDone = false)
         {
-            if(content is string)  Console.WriteLine(content as string); 
-            else Console.WriteLine(content.ToString());
+            if(content is string)
+            {
+                Console.WriteLine(content as string);
+                Debug.WriteLine(content as string);
+            }
+            else
+            {
+                Console.WriteLine(content.ToString());
+                Debug.WriteLine(content.ToString());
+            }
 
             if(waitWhenDone) Console.ReadKey(true);
         }
