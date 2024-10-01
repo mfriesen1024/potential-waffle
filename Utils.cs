@@ -9,7 +9,7 @@ namespace untitled
         /// </summary>
         /// <param name="content">What to print.</param>
         /// <param name="waitWhenDone">Waits for a readkey before continuing.</param>
-        static void Print(object content, bool waitWhenDone = false)
+        public static void Print(object content, bool waitWhenDone = false)
         {
             if(content is string)
             {
