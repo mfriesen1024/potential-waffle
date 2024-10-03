@@ -11,5 +11,14 @@ namespace untitled
     /// </summary>
     internal class Shop
     {
+        public int x, y; // position.
+        public Item[] inventory;
+
+        public Shop(int x, int y, Item[] inventory)
+        {
+            this.x = x;
+            this.y = y;
+            this.inventory = inventory;
+        }
     }
 }

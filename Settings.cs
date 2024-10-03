@@ -70,6 +70,32 @@ namespace untitled
         public static Tile Wall6 { get { return new Tile() { character = '╣', hazard = 1 }; } }
         public static Tile[] Walls = { Wall0, Wall1, Wall2, Wall3, Wall4, Wall5, Wall6 };
         #endregion
+        #region Shops
+        /// <summary>
+        /// Represents weaponry, such that 0 is the strength, 1 is the price.
+        /// </summary>
+        public static int[][] weaponData = [
+            [5,5],
+            [10,15],
+            [15,45]
+            ];
+        /// <summary>
+        /// Represents which weapons (by index) each shop sells.
+        /// </summary>
+        public static int[][] shopInventories = [
+            [0,1],
+            [0,1,2],
+            [1,2]
+            ];
+        /// <summary>
+        /// Where each shop should
+        /// </summary>
+        public static int[][] shopLocations = [
+            [5,10],
+            [2,63],
+            [10,25]
+            ];
+        #endregion
 
         public static int playerCol = 4;
         public static int playerRow = 4;

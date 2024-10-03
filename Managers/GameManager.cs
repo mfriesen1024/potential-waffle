@@ -16,6 +16,7 @@ namespace untitled.Managers
         public static Player player;
         private static EnemyManager enemyManager;
         public static PickupManager itemManager;
+        public static ShopManager shopManager;
         private static HudDisplay hudDisplay;
         private static Pickup item;
 
