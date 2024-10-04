@@ -28,6 +28,7 @@ namespace untitled.Managers
             Utils.Print("Loading map.");
             mapData.TxtFileToMapArray();
             Utils.Print("Creating more vars.");
+            shopManager = new(); shopManager.Init();
             enemyManager = new EnemyManager(mapData);
             itemManager = new PickupManager(buffer, mapData, player, hudDisplay);
             hudDisplay = new HudDisplay(itemManager);
@@ -50,6 +51,7 @@ namespace untitled.Managers
                 player.HandleKeyPress(keyInfo.Key);
                 enemyManager.MoveEnemies();
                 mapData.PrintMap();
+                shopManager.Draw(buffer);
                 player.DrawPlayer();
                 enemyManager.DrawEnemies();
                 mapData.DrawBorder();

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using untitled.Map;
+﻿using untitled.Map;
 
 namespace untitled
 {
@@ -93,8 +88,13 @@ namespace untitled
         public static int[][] shopLocations = [
             [5,10],
             [2,63],
-            [10,25]
+            [9,23]
             ];
+        public static Tile ShopTile
+        {
+            get => new Tile() { character = ShopChar, foreground = ConsoleColor.Black, background = ConsoleColor.DarkCyan };
+        }
+        private static char ShopChar = 'S';
         #endregion
 
         public static int playerCol = 4;
@@ -125,6 +125,5 @@ namespace untitled
         public const int LionCount = 10;
         #endregion
         public static Random random = new Random();
-
     }
 }

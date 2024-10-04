@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using untitled.Map;
 
 namespace untitled.Managers
 {
@@ -58,6 +59,15 @@ namespace untitled.Managers
                 }
 
                 shops.Add(new(location[0], location[1], inventory.ToArray()));
+            }
+            this.shops = shops.ToArray();
+        }
+
+        public void Draw(CBuffer buffer)
+        {
+            foreach(Shop shop in shops)
+            {
+                buffer.secondBuffer[shop.x, shop.y] = Settings.ShopTile;
             }
         }
     }

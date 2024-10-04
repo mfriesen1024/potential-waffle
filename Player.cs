@@ -11,7 +11,7 @@ namespace untitled
         public CBuffer buffer;
         private HudDisplay hudDisplay;
         private PickupManager itemManager;
-        public Item weapon = new();
+        public Item weapon = new(0,0);
         private Pickup pickup;
         private bool isUIUpdated = false;
 
