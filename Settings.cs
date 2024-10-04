@@ -115,14 +115,17 @@ namespace untitled
         internal static Tile DuckTile { get => duckTile.Clone(); }
         private static Tile duckTile = new Tile() { character = DuckChar, foreground = foeColour };
         public const int DuckCount = 25;
+        public const int DuckGold = 1;
         public const char GooseChar = '+';
         internal static Tile GooseTile { get => gooseTile.Clone(); }
         private static Tile gooseTile = new Tile() { character = GooseChar, foreground = foeColour };
         public const int GooseCount = 25;
+        public const int GooseGold = 2;
         public const char LionChar = '&';
         internal static Tile LionTile { get => lionTile.Clone(); }
         private static Tile lionTile = new Tile() { character = LionChar, foreground = foeColour };
         public const int LionCount = 10;
+        public const int LionGold = 3;
         #endregion
         public static Random random = new Random();
     }

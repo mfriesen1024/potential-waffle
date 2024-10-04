@@ -11,13 +11,12 @@ namespace untitled
         public CBuffer buffer;
         private HudDisplay hudDisplay;
         private PickupManager itemManager;
-        public Item weapon = new(0,0);
+        public Item weapon = new(0, 0);
         private Pickup pickup;
+        Shop currentShop = null;
         private bool isUIUpdated = false;
 
-        // Technically this is bad practice, but am lazy. Logic: what if multiplayer? Well it isn't. Too bad!
-        public static int gold = 0;
-        Shop currentShop = null;
+        public int gold = 0;
 
         public static int playerCol = Settings.playerCol;
         public static int playerRow = Settings.playerRow;
@@ -59,6 +58,7 @@ namespace untitled
             HudDisplay.Status.Add("Player Location: " + playerRow + ", " + playerCol);
             HudDisplay.Status.Add("Player HP: " + CurrentHealth + " / " + Settings.MaxPlayerHealth);
             HudDisplay.Status.Add($"Player ATK Damage: {Damage + weapon.str}");
+            HudDisplay.Status.Add($"Player Gold: {gold}");
             HudDisplay.Status.Add("Score: " + HudDisplay.TotalScore);
             HudDisplay.OneUpCheck();
             hudDisplay.DrawUIMessages();
@@ -99,6 +99,12 @@ namespace untitled
                     CheckCollision(enemyManager.listOfEnemies, 1, 0);
                     MovePlayer(1, 0);
                     break;
+                case ConsoleKey.D1:
+                case ConsoleKey.NumPad1: BuyItem(0); break;
+                case ConsoleKey.D2:
+                case ConsoleKey.NumPad2: BuyItem(1); break;
+                case ConsoleKey.D3:
+                case ConsoleKey.NumPad3: BuyItem(2); break;
             }
             UpdatePlayerUI();
         }
@@ -129,13 +135,13 @@ namespace untitled
                 }
                 mapData.CheckForKeyPickup(newRow, newCol);
             }
-            if(GameManager.shopManager.ShopCheck(newCol,newRow, out Shop shop))
+            if (GameManager.shopManager.ShopCheck(newCol, newRow, out Shop shop))
             {
                 DisplayMessage($"Entered a shop!");
                 for (int i = 0; i < shop.inventory.Length; i++)
                 {
                     Item item = shop.inventory[i];
-                    DisplayMessage($"Item {i+1}: Strength = {item.str}, Price = {item.price}");
+                    DisplayMessage($"Item {i + 1}: Strength = {item.str}, Price = {item.price}");
                 }
                 DisplayMessage("Press number keys to buy!");
                 currentShop = shop;
@@ -161,6 +167,23 @@ namespace untitled
                     WinGame();
                 }
             }
+        }
+        void BuyItem(int itemIndex)
+        {
+            // only buy items if we're on a shop tile.
+            if (currentShop != null)
+            {
+                Item item = currentShop.inventory[itemIndex];
+
+                if (gold >= item.price)
+                {
+                    weapon = item;
+                    DisplayMessage($"Player bought item {itemIndex + 1}.");
+                    gold -= item.price;
+                }
+                else { DisplayMessage($"Player cannot afford item {itemIndex + 1}"); }
+            }
+            else { DisplayMessage("Player is not in a shop, and cannot buy items."); }
         }
         public override void Attack(Entity target)
         {
