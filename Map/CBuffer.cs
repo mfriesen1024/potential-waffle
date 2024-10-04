@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace untitled.Map
 {
     internal class CBuffer
@@ -31,58 +25,6 @@ namespace untitled.Map
                     }
                     int Top = Y + 1;
                     int Left = X + 1;
-                    //switch (MapElement)
-                    //{
-                    //    case '╭':
-                    //    case '─':
-                    //    case '╮':
-                    //    case '╯':
-                    //    case '╰':
-                    //    case '│':
-                    //    case '┘':
-                    //    case '┌':
-                    //    case '┐':
-                    //    case '└':
-                    //    case '├':
-                    //    case '┤':
-                    //    case '┬':
-                    //    case '┴':
-                    //        Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                    //        break;
-                    //    case '☻':
-                    //        Console.ForegroundColor = ConsoleColor.Yellow;
-                    //        break;
-                    //    case '╳':
-                    //        Console.ForegroundColor = ConsoleColor.DarkGray;
-                    //        break;
-                    //    case Settings.DuckChar:
-                    //    case Settings.GooseChar:
-                    //    case Settings.LionChar:
-                    //        Console.ForegroundColor = ConsoleColor.Green;
-                    //        break;
-                    //    case '░':
-                    //    case '╦':
-                    //    case '╠':
-                    //    case '╣':
-                    //    case '╩':
-                    //    case '╬':
-                    //    case '═':
-                    //        Console.ForegroundColor = ConsoleColor.White; // white means they will be replaced with blanks when certain keys are obtained
-                    //        break;
-                    //    case Settings.HealthChar:
-                    //    case Settings.BuffChar:
-                    //        Console.ForegroundColor = ConsoleColor.Red;
-                    //        break;
-                    //    case Settings.key0:
-                    //    case Settings.key1:
-                    //    case Settings.key2:
-                    //    case Settings.key3:
-                    //    case Settings.key4:
-                    //    case Settings.key5:
-                    //    case Settings.key6:
-                    //        Console.ForegroundColor = ConsoleColor.Cyan;
-                    //        break;
-                    //}
                     Console.ForegroundColor = MapElement.foreground;
                     Console.BackgroundColor = MapElement.background;
                     Console.SetCursorPosition(Left, Top);
