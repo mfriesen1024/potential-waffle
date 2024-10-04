@@ -17,6 +17,7 @@ namespace untitled
 
         // Technically this is bad practice, but am lazy. Logic: what if multiplayer? Well it isn't. Too bad!
         public static int gold = 0;
+        Shop currentShop = null;
 
         public static int playerCol = Settings.playerCol;
         public static int playerRow = Settings.playerRow;
@@ -128,6 +129,18 @@ namespace untitled
                 }
                 mapData.CheckForKeyPickup(newRow, newCol);
             }
+            if(GameManager.shopManager.ShopCheck(newCol,newRow, out Shop shop))
+            {
+                DisplayMessage($"Entered a shop!");
+                for (int i = 0; i < shop.inventory.Length; i++)
+                {
+                    Item item = shop.inventory[i];
+                    DisplayMessage($"Item {i+1}: Strength = {item.str}, Price = {item.price}");
+                }
+                DisplayMessage("Press number keys to buy!");
+                currentShop = shop;
+            }
+            else { currentShop = null; }
         }
         private void MovePlayer(int rowChange, int columnChange)
         {
