@@ -30,6 +30,16 @@ namespace untitled
             itemManager.SetHud(this);
             CalculateHudPosition();
         }
+        public static void Init()
+        {
+            DisplayFirstObjective();
+
+            void DisplayFirstObjective()
+            {
+                messages.Add($"The next key is key number {1}, and should look-");
+                messages.Add($"-like a {Settings.key0c}");
+            }
+        }
         public void SetPlayer(Player player)
         {
             this.player = player;
