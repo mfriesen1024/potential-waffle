@@ -11,6 +11,7 @@ namespace untitled.Managers
         public static void DisplayMenu()
         {
             Console.SetWindowSize(150, 40);
+            Console.SetCursorPosition(0, 0);
             Console.WriteLine("Starting Game");
             Console.ReadKey(true);
             Console.WriteLine("Navigate through the level with WASD or ARROW KEYS");
