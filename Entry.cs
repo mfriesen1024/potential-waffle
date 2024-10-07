@@ -15,6 +15,7 @@ namespace untitled
             GameManager.InitializeEnemies();
             Utils.Print("Display menu");
             MenuManager.DisplayMenu();
+            HudDisplay.Init();
             Utils.Print("Run game.");
             GameManager.RunGameLoop();
         }

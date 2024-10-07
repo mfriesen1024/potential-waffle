@@ -170,14 +170,24 @@ namespace untitled.Map
                     if (keyXY[0] == col + 1 && keyXY[1] == row + 1)
                     {
                         numKeyCollected++;
-                        ReplaceMapTiles(numKeyCollected);
+                        ReplaceMapTiles(numKeyCollected, out char nextKeyChar);
+
+                        HudDisplay.messages.Add($"Player collected key number {numKeyCollected}.");
+                        if (numKeyCollected < 7) { 
+
+                            HudDisplay.messages.Add($"The next key is key number {numKeyCollected + 1}, and should look-");
+                            HudDisplay.messages.Add($"-like a {nextKeyChar}");
+                        }
+                        else { HudDisplay.messages.Add($"You found all the keys, now make your way-");
+                            HudDisplay.messages.Add($"-towards the exit to the east.");
+                        }
                         return;
                     }
                 }
                 //HudDisplay.messages.Add("There is neither a key nor empty space found here.");
             }
         }
-        public void ReplaceMapTiles(int numKeyCollected)
+        public void ReplaceMapTiles(int numKeyCollected, out char keyChar)
         {
             int mapWidth = map.GetLength(1);
             int mapHeight = map.GetLength(0);
@@ -187,35 +197,43 @@ namespace untitled.Map
             {
                 case 1:
                     keyToReplace = Settings.key0;
+                    keyChar = Settings.key1c;
                     wallToReplace = Settings.Wall0;
                     break;
                 case 2:
                     keyToReplace = Settings.key1;
+                    keyChar = Settings.key2c;
                     wallToReplace = Settings.Wall1;
                     break;
                 case 3:
                     keyToReplace = Settings.key2;
+                    keyChar = Settings.key3c;
                     wallToReplace = Settings.Wall2;
                     break;
                 case 4:
                     keyToReplace = Settings.key3;
+                    keyChar = Settings.key4c;
                     wallToReplace = Settings.Wall3;
                     break;
                 case 5:
                     keyToReplace = Settings.key4;
+                    keyChar = Settings.key5c;
                     wallToReplace = Settings.Wall4;
                     break;
                 case 6:
                     keyToReplace = Settings.key5;
+                    keyChar = Settings.key6c;
                     wallToReplace = Settings.Wall5;
                     break;
                 case 7:
                     keyToReplace = Settings.key6;
+                    keyChar = new();
                     wallToReplace = Settings.Wall6;
                     break;
                 default:
                     keyToReplace = new Tile();
                     wallToReplace = new Tile();
+                    keyChar = new();
                     break;
             }
             for (int row = 0; row < mapWidth; row++)
