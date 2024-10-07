@@ -87,6 +87,7 @@ namespace untitled.Foes
         public override void Die()
         {
             dead = true;
+            player.gold += Settings.LionGold;
         }
         public override void Attack(Entity target)
         {

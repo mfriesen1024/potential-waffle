@@ -12,7 +12,7 @@ namespace untitled
     {
         public static int TotalScore;
         private Player player;
-        private ItemManager itemManager;
+        private PickupManager itemManager;
 
         private int HudX;
         private int HudY;
@@ -25,7 +25,7 @@ namespace untitled
         public static List<string> Status = new();
         public static List<string> messages = new();
 
-        public HudDisplay(ItemManager itemManager)
+        public HudDisplay(PickupManager itemManager)
         {
             itemManager.SetHud(this);
             CalculateHudPosition();

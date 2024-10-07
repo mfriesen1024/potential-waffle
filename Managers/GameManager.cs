@@ -13,11 +13,12 @@ namespace untitled.Managers
     {
         private static CBuffer buffer;
         private static MapData mapData;
-        private static Player player;
+        public static Player player;
         private static EnemyManager enemyManager;
-        public static ItemManager itemManager;
+        public static PickupManager itemManager;
+        public static ShopManager shopManager;
         private static HudDisplay hudDisplay;
-        private static Item item;
+        private static Pickup item;
 
         public static void Initialize()
         {
@@ -27,8 +28,9 @@ namespace untitled.Managers
             Utils.Print("Loading map.");
             mapData.TxtFileToMapArray();
             Utils.Print("Creating more vars.");
+            shopManager = new(); shopManager.Init();
             enemyManager = new EnemyManager(mapData);
-            itemManager = new ItemManager(buffer, mapData, player, hudDisplay);
+            itemManager = new PickupManager(buffer, mapData, player, hudDisplay);
             hudDisplay = new HudDisplay(itemManager);
             CreatePlayerInstance();
             Utils.Print("Drawing buffer.");
@@ -49,6 +51,7 @@ namespace untitled.Managers
                 player.HandleKeyPress(keyInfo.Key);
                 enemyManager.MoveEnemies();
                 mapData.PrintMap();
+                shopManager.Draw(buffer);
                 player.DrawPlayer();
                 enemyManager.DrawEnemies();
                 mapData.DrawBorder();

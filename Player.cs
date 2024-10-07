@@ -10,9 +10,13 @@ namespace untitled
         private EnemyManager enemyManager;
         public CBuffer buffer;
         private HudDisplay hudDisplay;
-        private ItemManager itemManager;
-        private Item item;
+        private PickupManager itemManager;
+        public Item weapon = new(0, 0);
+        private Pickup pickup;
+        Shop currentShop = null;
         private bool isUIUpdated = false;
+
+        public int gold = 0;
 
         public static int playerCol = Settings.playerCol;
         public static int playerRow = Settings.playerRow;
@@ -21,14 +25,14 @@ namespace untitled
         public int CurrentHealth => healthSystem.CurrentHealth;
 
         public Player(MapData mapData, EnemyManager enemyManager,
-            string name, int initialHealth, int attackValue, CBuffer buffer, Item item, ItemManager itemManager, HudDisplay hudDisplay)
+            string name, int initialHealth, int attackValue, CBuffer buffer, Pickup item, PickupManager itemManager, HudDisplay hudDisplay)
             : base(name, initialHealth, new string[] { "Player" })
         {
             dead = false;
             this.mapData = mapData;
             this.enemyManager = enemyManager;
             AttackValue = attackValue;
-            this.item = item;
+            this.pickup = item;
             this.hudDisplay = hudDisplay;
             Modifer = Settings.playerLevel * 2;
             playerCol = Settings.playerCol;
@@ -53,7 +57,8 @@ namespace untitled
             HudDisplay.Status.Add("Player Level: " + Settings.playerLevel);
             HudDisplay.Status.Add("Player Location: " + playerRow + ", " + playerCol);
             HudDisplay.Status.Add("Player HP: " + CurrentHealth + " / " + Settings.MaxPlayerHealth);
-            HudDisplay.Status.Add("Player ATK Damage: " + Damage);
+            HudDisplay.Status.Add($"Player ATK Damage: {Damage + weapon.str}");
+            HudDisplay.Status.Add($"Player Gold: {gold}");
             HudDisplay.Status.Add("Score: " + HudDisplay.TotalScore);
             HudDisplay.OneUpCheck();
             hudDisplay.DrawUIMessages();
@@ -94,6 +99,12 @@ namespace untitled
                     CheckCollision(enemyManager.listOfEnemies, 1, 0);
                     MovePlayer(1, 0);
                     break;
+                case ConsoleKey.D1:
+                case ConsoleKey.NumPad1: BuyItem(0); break;
+                case ConsoleKey.D2:
+                case ConsoleKey.NumPad2: BuyItem(1); break;
+                case ConsoleKey.D3:
+                case ConsoleKey.NumPad3: BuyItem(2); break;
             }
             UpdatePlayerUI();
         }
@@ -110,20 +121,32 @@ namespace untitled
                     Attack(enemy);
                 }
             }
-            for (int i = 0; i < ItemManager.AllItemsList.Count; i++)
+            for (int i = 0; i < PickupManager.AllPickups.Count; i++)
             {
-                int[] itemCoordinates = ItemManager.AllItemsList[i].GetItemXY();
+                int[] itemCoordinates = PickupManager.AllPickups[i].GetItemXY();
                 int itemX = itemCoordinates[0];
                 int itemY = itemCoordinates[1];
-                if (newCol == itemY && newRow == itemX && !ItemManager.AllItemsList[i].Collected)
+                if (newCol == itemY && newRow == itemX && !PickupManager.AllPickups[i].Collected)
                 {
-                    ItemManager.AllItemsList[i].Collected = true;
+                    PickupManager.AllPickups[i].Collected = true;
                     DisplayMessage("Player picked up an item");
-                    ItemManager.AllItemsList[i].UseItem();
+                    PickupManager.AllPickups[i].UseItem();
                     UpdatePlayerUI();
                 }
                 mapData.CheckForKeyPickup(newRow, newCol);
             }
+            if (GameManager.shopManager.ShopCheck(newCol, newRow, out Shop shop))
+            {
+                DisplayMessage($"Entered a shop!");
+                for (int i = 0; i < shop.inventory.Length; i++)
+                {
+                    Item item = shop.inventory[i];
+                    DisplayMessage($"Item {i + 1}: Strength = {item.str}, Price = {item.price}");
+                }
+                DisplayMessage("Press number keys to buy!");
+                currentShop = shop;
+            }
+            else { currentShop = null; }
         }
         private void MovePlayer(int rowChange, int columnChange)
         {
@@ -145,12 +168,29 @@ namespace untitled
                 }
             }
         }
+        void BuyItem(int itemIndex)
+        {
+            // only buy items if we're on a shop tile.
+            if (currentShop != null)
+            {
+                Item item = currentShop.inventory[itemIndex];
+
+                if (gold >= item.price)
+                {
+                    weapon = item;
+                    DisplayMessage($"Player bought item {itemIndex + 1}.");
+                    gold -= item.price;
+                }
+                else { DisplayMessage($"Player cannot afford item {itemIndex + 1}"); }
+            }
+            else { DisplayMessage("Player is not in a shop, and cannot buy items."); }
+        }
         public override void Attack(Entity target)
         {
             if (target is Enemy enemy)
             {
-                int DamageDealt = Damage;
-                target.TakeDamage(Damage);
+                int DamageDealt = Damage + weapon.str;
+                target.TakeDamage(DamageDealt);
                 DisplayMessage("Player dealt " + DamageDealt + " damage and gained " + DamageDealt + " points.");
                 HudDisplay.AddScore(DamageDealt);
                 if (enemy.CurrentHealth <= 0)

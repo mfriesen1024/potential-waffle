@@ -80,6 +80,7 @@ namespace untitled.Foes
         public override void Die()
         {
             dead = true;
+            player.gold += Settings.DuckGold;
         }
         public override void Attack(Entity target)
         {
