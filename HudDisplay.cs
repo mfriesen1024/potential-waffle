@@ -96,7 +96,8 @@ namespace untitled
         {
             Console.ResetColor();
 
-            if (messages.Count >= HudHeight)
+            // If we have too many messages, remove some.
+            while (messages.Count >= HudHeight)
             {
                 messages.RemoveAt(0);
             }
